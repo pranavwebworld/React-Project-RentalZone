@@ -7,7 +7,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
  
         const { ref, inView, entry } = useInView({
           
-            threshold: 0.4,
+            threshold: 0.2,
         });
 
 

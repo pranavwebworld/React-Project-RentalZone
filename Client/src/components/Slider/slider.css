@@ -37,7 +37,7 @@ transform:scale(75%)  ;
 @media screen and (max-width: 800px) {
   .slider {
     flex-direction: column;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(43, 43, 43);
   }
 
   .slider__image {

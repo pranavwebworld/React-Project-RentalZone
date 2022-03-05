@@ -23,11 +23,11 @@
 .gradDiv{
 
 position: absolute;
-width: 1440px;
-height: 1182px;
+width: 100vw;
+height: 100vh;
 bottom: 0px;
 
 
-background: linear-gradient(170.01deg, rgba(0, 0, 0, 0) -24.95%, rgba(0, 0, 0, 0.329356) 49.95%, #000000 84.76%);
+background: linear-gradient(175.01deg, rgba(0, 0, 0, 0) -18.95%, rgba(0, 0, 0, 0.309356) 56.95%, #000000 84.76%);
 
 }

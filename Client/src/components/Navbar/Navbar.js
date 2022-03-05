@@ -1,37 +1,41 @@
-import React from 'react'
-import navbar from './navbar.css'
-import { FiMenu, Fix } from "react-icons/fi"
-
-
-const navbarLink =[{url:"/home" , title:"Home"}]
-
+import {React,useState} from "react";
+import "./navbar.css";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = ({ navbarLinks }) => {
-    return (
+  const [menuClicked, setMenuClicked] = useState(false);
 
+  const toggleMenuClick = () => {
+    setMenuClicked(!menuClicked);
+  };
+  return (
+    <nav className="navbar">
+      <span className="navbar__logo">Rental Zone</span>
 
+      {menuClicked ? (
+        <FiX size={25} className={"navbar__menu"} onClick={toggleMenuClick} />
+      ) : (
+        <FiMenu
+          size={25}
+          className={"navbar__menu"}
+          onClick={toggleMenuClick}
+        />
+      )}
+          <ul className={
+              menuClicked ? "navbar__list navbar__list--active" : "navbar__list"
+          }>
+        {navbarLinks.map((item, index) => {
+          return (
+            <li className="navbar__item" key={index}>
+              <a className="navbar__link" href={item.url}>
+                {item.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+};
 
-        <nav className="navbar">
-
-            <ul className="navbar_list" >
-                {navbarLinks.map((item)=>{
-
-                    <li className="navbar__item" key={item.title} > 
-
-                    <a className="navbar__link" href={item.url} >     </a>
-
-
-                    </li>
-
-
-                }) }
-
-            </ul>
-
-
-
-        </nav>
-    )
-}
-
-export default Navbar
+export default Navbar;
