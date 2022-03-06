@@ -12,12 +12,12 @@
 }
 
 .hero__title {
-  position: absolute;
-  bottom: 15%;
-  right: 10%;
-  color: white;
-  font-size: 4rem;
-  padding: 15px;
+    position: absolute;
+    bottom: 15%;
+    right: 0%;
+    color: white;
+    font-size: 4rem;
+    padding: 15px;
 }
 
 .gradDiv{
@@ -28,6 +28,47 @@ height: 100vh;
 bottom: 0px;
 
 
-background: linear-gradient(175.01deg, rgba(0, 0, 0, 0) -18.95%, rgba(0, 0, 0, 0.309356) 56.95%, #000000 84.76%);
+background: linear-gradient(175.01deg, rgba(0, 0, 0, 0) -28.95%, rgba(0, 0, 0, 0.489356) 46.95%, #000000 84.76%);
+
+}
+
+.animate{
+
+
+animation:up-down 2s ease-in-out infinite alternate-reverse both;
+
+
+}
+
+@-webkit-keyframes up-down {
+
+0%{
+
+  transform : translateY(15px)
+}
+
+100%{
+
+  transform : translateY(-15px)
+}
+
+
+
+}
+
+
+@keyframes up-down {
+
+0%{
+
+  transform : translateY(15px)
+}
+
+100%{
+
+  transform : translateY(-15px)
+}
+
+
 
 }

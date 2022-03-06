@@ -1,0 +1,98 @@
+.landingButton1{
+
+position: absolute;
+left: 17.08%;
+right: 68.06%;
+top: 40.9%;
+bottom: 56.14%;
+height: 6rem;
+color: white;
+background: #101011;
+box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5), 5px 5px 10px rgba(170, 170, 204, 0.25), 10px 10px 34px rgba(249, 95, 187, 0.51);
+border-radius: 32px;
+
+}
+
+
+
+.landingButton2{
+
+position: absolute;
+left: 62.71%;
+right: 22.43%;
+top: 40.9%;
+bottom: 56.14%;
+height: 6rem;
+color: white;
+background: #101011;
+box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5), 5px 5px 10px rgba(170, 170, 204, 0.25), 10px 10px 34px rgba(249, 95, 187, 0.51);
+border-radius: 32px;
+
+
+}
+
+.wrapDiv{
+
+height: 50vh;
+ display: flex; 
+justify-content: space-between;
+
+
+}
+
+
+
+.landingButton1:hover{
+
+
+box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5), 5px 5px 10px rgba(170, 170, 204, 0.25), 10px 10px 34px rgba(252, 204, 233, 0.81);
+cursor: pointer;
+
+}
+
+.landingButton2:hover{
+
+
+box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5), 5px 5px 10px rgba(170, 170, 204, 0.25), 10px 10px 34px rgba(252, 204, 233, 0.81);
+cursor: pointer;
+
+}
+
+.bfont{
+
+font-weight: 900    ;
+font-family: 'Montserrat';
+font-size: medium;
+
+}
+
+
+@media screen and (max-width: 800px) {
+
+ .bfont{
+
+font-size: small;
+
+
+ }   
+
+
+.landingButton1{
+
+
+      width: 115px;
+
+
+}
+
+.landingButton2{
+
+    
+        width: 115px;
+
+
+}
+ 
+ 
+
+}

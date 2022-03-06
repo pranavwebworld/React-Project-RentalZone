@@ -46,7 +46,7 @@ white-space: nowrap;
 }
 
 .navbar__link:hover {
-  border-color: white;
+  border-color: #ab1941;
   transition: 250ms;
 }
 .navbar__menu {

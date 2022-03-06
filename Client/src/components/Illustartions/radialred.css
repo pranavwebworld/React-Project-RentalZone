@@ -1,0 +1,42 @@
+.Radialred{
+position: absolute;
+width: 70%;
+height: 80%;
+left: 337px;
+top: 1643.87px;
+background: rgba(197, 2, 72, 0.3);
+filter: blur(650px);
+
+}
+
+.Camera{
+
+position: absolute;
+width: 30vw;
+height: 30vh;
+left: 1080px;
+top: 1318px;
+
+color:rgba(197, 2, 72, 0.5);
+box-sizing: border-box;
+border-width: 5px;
+
+
+}
+
+
+@media screen and (max-width: 800px) {
+
+.Radialred{
+
+top: 1645.87px;
+    position: absolute;
+    width: 70%;
+    height: 80%;
+    left: 100px;
+    top: 1406.87px;
+    background: rgba(197, 2, 72, 0.5);
+    filter: blur(650px);
+   
+}
+ }   

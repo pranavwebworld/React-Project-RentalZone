@@ -1,6 +1,7 @@
 import {React,useState} from "react";
 import "./navbar.css";
 import { FiMenu, FiX } from "react-icons/fi";
+import {HiOutlineCamera} from 'react-icons/hi'
 
 const Navbar = ({ navbarLinks }) => {
   const [menuClicked, setMenuClicked] = useState(false);
@@ -10,7 +11,7 @@ const Navbar = ({ navbarLinks }) => {
   };
   return (
     <nav className="navbar">
-      <span className="navbar__logo">Rental Zone</span>
+      <span className="navbar__logo" style={{ color: '#5D5D5D'  }}  > Rental <span style={{ color: '#ab1941'  }}  > Zone </span> </span>
 
       {menuClicked ? (
         <FiX size={25} className={"navbar__menu"} onClick={toggleMenuClick} />
