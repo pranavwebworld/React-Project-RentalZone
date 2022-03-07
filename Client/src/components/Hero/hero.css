@@ -40,6 +40,27 @@ animation:up-down 2s ease-in-out infinite alternate-reverse both;
 
 }
 
+#videographersvg{
+
+ bottom: 0%;
+left: 30%;
+ position: absolute;
+z-index: 50;
+}
+
+
+#camerasvg{
+  
+left: 75%;
+bottom: 20%;
+top: 40%;
+ position: absolute;
+z-index: 50;
+
+}
+
+
+
 @-webkit-keyframes up-down {
 
 0%{

@@ -4,66 +4,62 @@ import '../Footer/footer.css'
 
 function Footer() {
   return (
-    <footer>
+    <footer className="Fcontainer"  >
       <Box
-        px={{ xs: 3, sm: 10 }}
+        px={{ xs: 3, sm: 10   }}
         py={{ xs: 5, sm: 10 }}
         id='#f1'
 
       >
-             <Container  style={{position:'relative'}}  className="Fcontainer"  maxWidth="lg">
+        
 
-
-                
-
-
-            <Grid  bottom className="tag" container spacing={5}>
-            <Grid item xs={12} sm={4} spacing={5}>
-              <Box borderBottom={1} color="white">
+          <Grid  bottom className="tag" container spacing={4}>
+            <Grid  item  xs={12} sm={4} spacing={4}>
+              <Box pt={5} borderBottom={1} color="white">
                 Help{" "}
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> Contact </Link>
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> Support </Link>
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> Privacy </Link>
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={4} spacing={5}>
-              <Box borderBottom={1} color="white">
+            <Grid  item xs={12} sm={4} spacing={4}>
+              <Box pt={5} borderBottom={1} color="white">
                 Message{" "}
               </Box>
 
-              <Box>
+            <Box pt={2}  >
                 <Link> Backup </Link>
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> History </Link>
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> Roll </Link>
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={4} spacing={5}>
-              <Box borderBottom={1} color="white">
+            <Grid item xs={12} sm={4} spacing={4}>
+              <Box pt={5} borderBottom={1} color="white">
                 Account{" "}
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> Login </Link>
               </Box>
 
-              <Box>
+            <Box pt={2} >
                 <Link> Register </Link>
               </Box>
             </Grid>
@@ -74,7 +70,7 @@ function Footer() {
             Rental Zone &reg; {new Date().getFullYear()}
 
             </Box>
-        </Container>
+  
       </Box>
     </footer>
   );

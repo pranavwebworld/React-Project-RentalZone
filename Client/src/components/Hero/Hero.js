@@ -3,6 +3,7 @@ import React from 'react'
 import './hero.css'
 
 
+
 const Hero = ({imgSrc}) => {
     return (
         <div className="hero" >
