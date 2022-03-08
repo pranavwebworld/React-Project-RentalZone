@@ -1,0 +1,60 @@
+.videoContainer{
+
+ display: flex;
+width: 100vw;
+height: 100vh;
+background-color: black;
+
+align-items: center;
+justify-content: center;
+
+}
+
+
+body{
+margin: 0;
+padding: 0;
+
+}
+
+.bigWindow{
+
+border-radius: 40px;
+position: relative;
+height: 80%;
+width: 80%;
+background-color: rgb(220, 220, 220);
+
+}
+
+.smallWindow{
+
+border-radius: 40px;
+position: absolute;
+height: 25%;
+width: 25%;
+background-color: rgb(58, 58, 58);
+bottom: 150px;
+right: 180px;
+
+}
+
+.videoIconSet{
+
+display: flex;
+position: absolute;
+bottom: 20px;
+left: 40%;
+cursor: pointer;
+align-content:space-between;
+justify-content: space-around;
+justify-items: stretch;
+margin-bottom: 15px;
+}
+
+
+.videoIcon{
+
+padding-left: 30px;
+padding-right: 30px;
+}

@@ -118,3 +118,27 @@ color: rgb(143, 141, 141);
 
 
 }
+
+
+
+@media screen and (max-width: 800px)
+
+{
+
+
+    .ChatMenu {
+display: none;
+}
+
+.ChatBox {
+   
+  flex: 6.5;
+  background-color: #202124;
+}
+
+.ChatOnline {
+display: none;
+}
+
+ 
+}

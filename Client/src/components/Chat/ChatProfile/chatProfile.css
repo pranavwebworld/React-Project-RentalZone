@@ -69,12 +69,22 @@ font-weight:900 ;
 .videoIcon{
 
 padding-right: 15px;
+cursor: pointer;
+
+}
+
+
+.callIcon{
+
+
+cursor: pointer;
 
 }
 
 .videoIcon:hover {
 
 color: #ab1941;
+cursor: pointer;
 
 
 }

@@ -7,6 +7,7 @@ import Videographer from "../src/components/VideographerSvg/Videographer";
 import Wave from "../src/components/Wave/Wave";
 import footerpic from "./components/Footerpic/Footerpic";
 import Footer from "./components/Footer/Footer";
+import VideoCall from "./components/VideoCall/VideoCall";
 
 
 const navbarlinks = [
@@ -22,7 +23,7 @@ function App() {
     <div className="App">
 
 
-    
+
         <BrowserRouter>
         
           <Routes>
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/" element={<LandingPage/>} />
 
          <Route exact path="chat"  element={<Chat/>}/>
+          <Route exact path="video" element={<VideoCall />} />
 
           </Routes>
         

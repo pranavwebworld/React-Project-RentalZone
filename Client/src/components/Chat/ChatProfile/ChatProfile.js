@@ -17,7 +17,7 @@ const ChatProfile = () => {
 
 
                 <div className="buttongroup">
-                    <span className="chatOnlineName"> John doe </span>
+                    <span className="chatOnlineName"> Pranav </span>
                     <BsCameraReelsFill className="videoIcon" color="green" fontSize="30px" />
                     <IoIosCall  className="callIcon"  color="green" fontSize="30px" />
 
