@@ -13,20 +13,20 @@ const Button = () => {
       <div className="wrapDiv">
         {/* <button className="landingButton1" > <span className="bfont" > Rent a product  </span>   </button> */}
 
-            <button style={{ left: "15%" }}  className="landingButton1" >
+            <button id="B1"  className="landingButton1" >
           <span></span>
           <span></span>
           <span></span>
-          <span></span> Rentout your product
+          <span></span> Register a Device
         </button>
 
 
           
-            <button style={{left:"75%"}} className="landingButton1" >
+        <button id="B1" style={{ left: "75%" }} className="landingButton2" >
                 <span></span>
                 <span></span>
                 <span></span>
-                <span></span> Rent a product
+                <span></span> Rent a   Device
         </button>
       </div>
     );
@@ -38,5 +38,6 @@ const Button = () => {
     </div>
   );
 };
+
 
 export default Button;
