@@ -5,6 +5,8 @@ import Conversation from "./Conversations/Conversation";
 import "./chat.css";
 import Message from "./Message/Message";
 import ChatProfile from "./ChatProfile/ChatProfile";
+import {ImAttachment } from "react-icons/im"
+import { BsSearch} from "react-icons/bs"
 const Chat = () => {
     const navbarlinks = [
         { url: "", title: "Home" },
@@ -13,14 +15,18 @@ const Chat = () => {
         ,
     ];
     return (
-        
+
         <>
             <Navbar navbarLinks={navbarlinks}></Navbar>
 
             <div className="messenger">
                 <div className="ChatMenu">
                     <div className="chatMenuWrapper">
-                        <input placeholder="search" className="chatMenuInput" />
+                        <input placeholder="search" className="chatMenuInput" >
+
+                            
+                        </input>
+                        <BsSearch className="searchIcon " ></BsSearch>
                         <Conversation></Conversation>
                         <Conversation></Conversation>
                         <Conversation></Conversation>
@@ -50,10 +56,14 @@ const Chat = () => {
                             <Message />
                         </div>
                         <div className="chatBoxBottom">
+
+                            
                             <textarea
+                            
                                 className="chatMessageInput"
                                 placeholder="Message"
                             ></textarea>
+                            <ImAttachment color="white" cursor="pointer" /> 
                             <button className="chatSubmitButton"> Send </button>
                         </div>
                     </div>

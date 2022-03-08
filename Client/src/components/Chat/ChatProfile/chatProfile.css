@@ -26,10 +26,12 @@ justify-content:space-around;
 border:  8px solid rgb(186, 16, 70);
 border-radius: 50%;
 width: 200px;
+object-fit: cover;
 height: 200px;
 
 
 }
+
 
 .profileButton{
 
@@ -40,7 +42,6 @@ height: 50px;
 cursor: pointer;
 
 }
-
 
 .profileButton:hover{
 
@@ -54,4 +55,26 @@ padding: 30px;
 font-size: large;
 font-weight:900 ;
  color: white;
+}
+
+.buttongroup{
+
+  display: flex;
+
+  align-items: center
+  
+  
+}
+
+.videoIcon{
+
+padding-right: 15px;
+
+}
+
+.videoIcon:hover {
+
+color: #ab1941;
+
+
 }

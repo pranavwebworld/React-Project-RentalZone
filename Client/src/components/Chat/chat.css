@@ -16,9 +16,11 @@ body {
   overflow-y: scroll;
   height: 110vh;
   background-color: #202124;
+  position: relative;
 }
 
 .ChatBox {
+   
   flex: 3.5;
   background-color: #202124;
 }
@@ -39,14 +41,18 @@ body {
 
 .chatMenuInput {
 
+
   width: 90%;
+  height: 20px;
   padding: 10px;
   border: none;
-  border-bottom: 1px solid rgb(255, 255, 255);
-  background-color: #202124;
+  border-radius: 20px;
+  background-color: #3d3e41;
   color: white;
 
 }
+
+
 
 
 
@@ -59,15 +65,15 @@ body {
 }
 
 .chatMessageInput {
-  width: 80%;
-  height: 90px;
+  width: 70%;
+  height: 20px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
 
   margin-bottom: 30px;
-  box-shadow: inset 0px -3px 19px -7px rgba(169, 169, 169, 0.75);
+  box-shadow: inset 0px -3px 19px -7px rgba(193, 192, 192, 0.75);
   color: rgb(255, 254, 254);
-    background-color: #cccdce;
+    background-color: #cdcdcd;
   
 }
 
@@ -80,15 +86,35 @@ body {
   margin-left: 20px;
   border-radius: 5px;
   color: rgb(0, 0, 0);
+  margin-bottom: 20px;
+}
+.chatSubmitButton:hover {
+
+background-color: #ab1941  ;
+
 }
 
 .chatBoxWrapper {
   display: flex;
   flex-direction: column;
+    border-left: 1px solid rgb(74, 74, 74);
+     border-right: 1px solid rgb(74, 74, 74);
 }
 
 .chatBoxTop {
   padding-right: 25px;
+  padding-left: 25px;
   overflow-y: scroll;
   height: 100%;
+
+}
+
+.searchIcon{
+
+position:absolute;
+top: 20px;
+left: 320px;
+color: rgb(143, 141, 141);
+
+
 }
