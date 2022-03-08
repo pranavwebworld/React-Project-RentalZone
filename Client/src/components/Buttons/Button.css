@@ -86,7 +86,7 @@
 }
 
 
-button:active {
+#B1:active {
  background: hsl(300, 100%, 34%);
  background: linear-gradient(to top right, #ae00af,#ab1941);
  color: #bfbfbf;
@@ -94,7 +94,7 @@ button:active {
  transition: 0.1s;
 }
 
-button:active span:nth-child(1) 
+#B1:active span:nth-child(1) 
 span:nth-child(2) 
 span:nth-child(2) 
 span:nth-child(2) {

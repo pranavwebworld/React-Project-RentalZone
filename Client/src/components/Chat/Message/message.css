@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   margin-top: 30px;
+    background-color:#202124;
 }
 
 .messageTop {
   display: flex;
+    background-color:#202124;
 }
 
 .messageImg {
@@ -21,11 +23,15 @@
   background-color: #1877f2;
   color: white;
   max-width: 300px;
+  
 }
 
 .messageBottom {
   font-size: 12px;
   margin-top: 1px;
+   color: aliceblue;
+   padding: 5px;
+
 }
 
 .mesaage.own {
@@ -33,7 +39,7 @@
 }
 
 .mesaage.own .messageText {
-  background-color: lightgray;
+  background-color: rgb(99, 99, 99);
   flood-color: black;
 }
 

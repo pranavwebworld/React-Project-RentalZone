@@ -4,13 +4,16 @@ import ChatNav from "./ChatNav/ChatNav";
 import Conversation from "./Conversations/Conversation";
 import "./chat.css";
 import Message from "./Message/Message";
+import ChatProfile from "./ChatProfile/ChatProfile";
 const Chat = () => {
     const navbarlinks = [
         { url: "", title: "Home" },
         { url: "", title: "Contact" },
         { url: "", title: "About  " },
+        ,
     ];
     return (
+        
         <>
             <Navbar navbarLinks={navbarlinks}></Navbar>
 
@@ -23,30 +26,44 @@ const Chat = () => {
                         <Conversation></Conversation>
                         <Conversation></Conversation>
                         <Conversation></Conversation>
+                        <Conversation></Conversation>
+                        <Conversation></Conversation>
+                        <Conversation></Conversation>
+                        <Conversation></Conversation>
+                        <Conversation></Conversation>
                     </div>
                 </div>
 
                 <div className="ChatBox">
                     <div className="chatBoxWrapper">
                         <div className="chatBoxTop">
-
                             <Message own={true} />
+                            <Message />
+                            <Message own={true} />
+                            <Message />
+                            <Message />
+                            <Message own={true} />
+                            <Message />
+                            <Message />
                             <Message />
                             <Message own={true} />
                             <Message />
                         </div>
                         <div className="chatBoxBottom">
-
-                            <textarea className="chatMessageInput" placeholder="Message" ></textarea>
+                            <textarea
+                                className="chatMessageInput"
+                                placeholder="Message"
+                            ></textarea>
                             <button className="chatSubmitButton"> Send </button>
                         </div>
                     </div>
-
-
-
                 </div>
                 <div className="ChatOnline">
-                    <div className="chatOnlineWrapper">ONLINE </div>{" "}
+                    <div className="chatOnlineWrapper">
+                        <ChatProfile></ChatProfile>
+
+
+                    </div>
                 </div>
             </div>
         </>

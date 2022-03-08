@@ -1,0 +1,57 @@
+
+.chatOnline{
+
+display: flex;
+flex-direction: column;
+height: 89vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+  background-color:#202124;
+
+}
+
+
+.ChatOnlineFriend{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content:space-around;
+  background-color:#202124;
+   
+}
+
+.chatOnlineImg{
+
+border:  8px solid rgb(186, 16, 70);
+border-radius: 50%;
+width: 200px;
+height: 200px;
+
+
+}
+
+.profileButton{
+
+border: none;
+border-radius: 5px;
+width: 100px;
+height: 50px;
+cursor: pointer;
+
+}
+
+
+.profileButton:hover{
+
+color: white;
+background-color:#ab1941 ;
+
+}
+
+.chatOnlineName{
+padding: 30px;
+font-size: large;
+font-weight:900 ;
+ color: white;
+}

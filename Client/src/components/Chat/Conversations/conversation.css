@@ -1,35 +1,24 @@
-.conversation{
-
-display: flex;
-align-items: center;
-padding: 20px;
-cursor: pointer;
-
+.conversation {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  background-color:#202124;
+  border-color: white;
 }
 
-.converationName{
-
-
-    font-weight: 400;
-    padding-left: 10px;
-
+.converationName {
+  font-weight: 400;
+  padding-left: 10px;
+  color: white;
 }
 
-
-
-
-
-.conversation:hover{
-background-color: rgb(206, 206, 206);
-
-
+.conversation:hover {
+  background-color: rgb(126, 126, 126);
 }
 
-.conversationImg{
-
-width: 40px;
-height: 40px;
-border-radius: 50%;
-
-
+.conversationImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
