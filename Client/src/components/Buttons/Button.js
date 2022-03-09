@@ -2,6 +2,7 @@ import React from "react";
 import "./Button.css";
 import "../Slider/slider.css";
 import { useInView } from "react-intersection-observer";
+import VideoSVG from "../VideographerSvg/Videographer.jsx"
 
 const Button = () => {
   const { ref, inView, entry } = useInView({
@@ -21,6 +22,8 @@ const Button = () => {
         </button>
 
 
+      
+      {/* <VideoSVG   className="VideoSVG"  ></VideoSVG> */}
           
         <button id="B1" style={{ left: "75%" }} className="landingButton2" >
                 <span></span>

@@ -1,0 +1,82 @@
+.calender {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(182, 181, 181);
+  align-items: center;
+  justify-content: center;
+}
+
+.calenderContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  width: 80%;
+  width: 40%;
+  height: 50%;
+  display: flex;
+  background-color: black;
+}
+
+.startSpan {
+  color: white;
+  padding: 10px;
+}
+
+.endSpan {
+  padding: 10px;
+  color: white;
+}
+
+.Start {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.End {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.total {
+ 
+  display: flex;
+  flex-direction: row;
+  color: white;
+  position: absolute;
+bottom: 120px;
+left: 190px;
+
+}
+
+.price {
+  position: absolute;
+  color: white;
+  bottom: 5px;
+  margin-left: 40px;
+}
+
+
+
+.Days{
+
+
+  position: absolute;
+  bottom: -80px;
+  left: 10px;
+  font-size: 15rem;
+
+}
+
+.daysNo{
+
+
+  position: absolute;
+  bottom: -80px;
+  left: 110px;
+  font-size: 1.5rem;
+
+}

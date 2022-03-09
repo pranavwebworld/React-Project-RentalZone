@@ -8,6 +8,8 @@ import Wave from "../src/components/Wave/Wave";
 import footerpic from "./components/Footerpic/Footerpic";
 import Footer from "./components/Footer/Footer";
 import VideoCall from "./components/VideoCall/VideoCall";
+import Calender from "./components/Calender/Calender";
+import Signup_Signin from "./components/Signup&SignIn/Signup&Signin"
 
 
 const navbarlinks = [
@@ -24,18 +26,24 @@ function App() {
 
 
 
-        <BrowserRouter>
-        
-          <Routes>
+      <BrowserRouter>
 
-        <Route exact path="/" element={<LandingPage/>} />
+        <Routes>
 
-         <Route exact path="chat"  element={<Chat/>}/>
+          <Route exact path="/" element={<LandingPage />} />
+
+          <Route exact path="chat" element={<Chat />} />
+
           <Route exact path="video" element={<VideoCall />} />
 
-          </Routes>
-        
-        </BrowserRouter>
+          <Route exact path="cal" element={<Calender />} />
+
+          <Route exact path="Signup" element={<Signup_Signin />} />
+
+
+        </Routes>
+
+      </BrowserRouter>
 
 
     </div>

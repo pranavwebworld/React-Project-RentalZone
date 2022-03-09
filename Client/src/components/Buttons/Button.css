@@ -4,8 +4,7 @@
  position: absolute;
  padding: 1em 1.8em;
  outline: none;
- border: 1px solid #303030;
- background: #666666;;
+
  color: #fefefe;
  text-transform: uppercase;
  letter-spacing: 2px;
@@ -19,6 +18,37 @@
 
  
 }
+
+
+
+        #B1 {background-image: linear-gradient(to right, #AA076B 0%, #61045F  51%, #AA076B  100%)}
+        #B1{
+         
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+      
+            border-radius: 10px;
+            display: block;
+          }
+
+        #B1:hover {
+            background-position: right center; 
+            color: #fff;
+            text-decoration: none;
+          }
+         
+
+
+
+
+
+
+
+
 
 #B1:hover {
  box-shadow: 0 0 15px #ab1941, 0 0 55px#ab1941, 0 0 15px#ab1941;
@@ -106,7 +136,7 @@ span:nth-child(2) {
 
 .wrapDiv{
 
-height: 80vh;
+height: 60vh;
 display: flex;
 align-content: center;
 flex-direction: row;
@@ -119,6 +149,15 @@ justify-content: space-around;
 #B1{
 
 left: 15%;
+}
+
+
+
+.VideoSVG{
+
+z-index: 0;
+
+
 }
 
 
