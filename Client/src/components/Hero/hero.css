@@ -54,6 +54,8 @@
   opacity: 0.6;
 }
 
+
+
 @-webkit-keyframes up-down {
   0% {
     transform: translateY(15px);

@@ -120,11 +120,9 @@ color: rgb(143, 141, 141);
 }
 
 
-
 @media screen and (max-width: 800px)
 
 {
-
 
     .ChatMenu {
 display: none;

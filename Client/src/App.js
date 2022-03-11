@@ -38,7 +38,7 @@ function App() {
 
           <Route exact path="cal" element={<Calender />} />
 
-          <Route exact path="Signup" element={<Signup_Signin />} />
+          <Route exact path="Signup" element={<Signup_Signin/>} />
 
 
         </Routes>

@@ -22,9 +22,7 @@ const Chat = () => {
             <div className="messenger">
                 <div className="ChatMenu">
                     <div className="chatMenuWrapper">
-                        <input placeholder="search" className="chatMenuInput" >
-
-                            
+                        <input placeholder="search" className="chatMenuInput" > 
                         </input>
                         <BsSearch className="searchIcon " ></BsSearch>
                         <Conversation></Conversation>

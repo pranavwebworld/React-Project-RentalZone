@@ -21,7 +21,7 @@ const Calender = () => {
                     </div>
                     <div  >
                         <span style={{ marginTop: "30px", }} className="price">Rs:10000   </span>
-                        
+                            
                     </div>
 
                     <div>

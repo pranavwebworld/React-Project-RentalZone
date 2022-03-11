@@ -12,8 +12,8 @@ const Hero = ({imgSrc}) => {
             <div className="gradDiv" ></div>
 
             <div className="videoSVG" >
-
-                {/* <VideoSVG  ></VideoSVG> */}
+{/* 
+                <VideoSVG  ></VideoSVG> */}
             </div>
            
             <h1  className="hero__title animate" > <span style={{ color: "#5D5D5D" }}  > Rental </span> <span style={{ color: "#ab1941"  }}  > Zone   </span>    </h1>

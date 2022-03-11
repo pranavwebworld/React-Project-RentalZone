@@ -16,7 +16,7 @@ function Login() {
     <Stack
       direction="column"
       justifyContent="center"
-      alignItems="center"
+
       spacing={5}
       padding={1}
     >
@@ -25,9 +25,7 @@ function Login() {
 
         <Input
           style={{
-            backgroundColor: "",
-            borderRadius: "5px",
-            textUnderlineOffset: "none",
+        
           }}
           type="email"
           placeholder="Enter your Email"
@@ -62,14 +60,8 @@ function Login() {
         OTP Login{" "}
       </Button>
 
-
-
-
       
     </Stack>
-
-
-
 
   );
 }

@@ -21,15 +21,8 @@ const ChatProfile = () => {
                     <BsCameraReelsFill className="videoIcon" color="green" fontSize="30px" />
                     <IoIosCall  className="callIcon"  color="green" fontSize="30px" />
 
-
-
                 </div>
-
-
                 <button className="profileButton" >View Profile </button>
-
-
-
 
 
             </div>

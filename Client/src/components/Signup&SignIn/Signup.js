@@ -15,7 +15,7 @@ const Signup = () => {
     <Stack
       direction="column"
       justifyContent="center"
-      alignItems="center"
+
       spacing={2}
       padding={1}
     >
@@ -24,6 +24,7 @@ const Signup = () => {
 
         <Input
           placeholder="Enter your name"
+          type="text"
           onChange={(e) => {
             setName(e.target.value);
           }}
