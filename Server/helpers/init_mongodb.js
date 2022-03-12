@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 mongoose
     .connect(process.env.MONGO_URI, {
-        dbName: "RentalZone",
+        dbName: process.env.DB_NAME,
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
