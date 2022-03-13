@@ -1,10 +1,15 @@
 import React from "react";
+
 import "./Button.css";
 import "../Slider/slider.css";
 import { useInView } from "react-intersection-observer";
 import VideoSVG from "../VideographerSvg/Videographer.jsx"
+import { useNavigate } from 'react-router';
+
+
 
 const Button = () => {
+  const navigate = useNavigate()
   const { ref, inView, entry } = useInView({
     threshold: 0.2,
   });
@@ -25,7 +30,7 @@ const Button = () => {
       
       {/* <VideoSVG   className="VideoSVG"  ></VideoSVG> */}
           
-        <button id="B1" style={{ left: "75%" }} className="landingButton2" >
+        <button onClick={ ()=>{navigate('/Signup') } }   id="B1" style={{ left: "75%" }} className="landingButton2" >
                 <span></span>
                 <span></span>
                 <span></span>

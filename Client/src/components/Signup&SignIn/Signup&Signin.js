@@ -213,7 +213,7 @@ function HomePage() {
             <TabPanel style={{ height: "487px" }} value={0}>
               <Login />
             </TabPanel>
-            <TabPanel value={1}>
+            <TabPanel style={{ height: "487px" }} value={1}>
               <Signup />
             </TabPanel>
           </TabsUnstyled>

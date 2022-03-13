@@ -10,15 +10,14 @@ import Footer from "./components/Footer/Footer";
 import VideoCall from "./components/VideoCall/VideoCall";
 import Calender from "./components/Calender/Calender";
 import Signup_Signin from "./components/Signup&SignIn/Signup&Signin"
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
-const navbarlinks = [
-  { url: "", title: "Home" },
-  { url: "", title: "Contact" },
-  { url: "", title: "About  " },
-];
-
-
+const removeCookie = () => {
+  const cookies = new Cookies();
+  cookies.set('userAccessToken', " ", { path: '/', expires: (new Date(Date.now())) });
+}
 
 function App() {
   return (
@@ -30,6 +29,7 @@ function App() {
 
         <Routes>
 
+          <Route exact path="/logout" element={() => {  }} />
           <Route exact path="/" element={<LandingPage />} />
 
           <Route exact path="chat" element={<Chat />} />

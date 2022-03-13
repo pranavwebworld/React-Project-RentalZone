@@ -4,15 +4,18 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const createErrors = require("http-errors");
-require("dotenv").config();
-require('./helpers/init_mongodb')
-
+const cors = require('cors')
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var vendorsRouter = require("./routes/vendors");
 var adminRouter = require("./routes/users");
 const authRoute = require("./routes/auth");
 const morgan = require("morgan");
+require("dotenv").config();
+require('./helpers/init_mongodb')
+
+
+app.use(cors({ origin: ["http://localhost:3000"], credentials: true }))
 
 
 
@@ -36,12 +39,15 @@ app.use(async (req, res, next) => {
 });
 
 
+
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.send({
+  res.json({
     error: {
+
       status: err.status || 500,
       message: err.message,
+      
     },
   });
 });

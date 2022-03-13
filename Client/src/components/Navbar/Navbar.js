@@ -3,7 +3,16 @@ import "./navbar.css";
 import { FiMenu, FiX } from "react-icons/fi";
 import {HiOutlineCamera} from 'react-icons/hi'
 
-const Navbar = ({ navbarLinks }) => {
+const Navbar = () => {
+
+  const navbarlinks = [
+    { url: "", title: "Home" },
+    { url: "", title: "Contact" },
+    { url: "", title: "About  " },
+    { url: "/logout", title: "Logout" },
+  ];
+
+
   const [menuClicked, setMenuClicked] = useState(false);
 
   const toggleMenuClick = () => {
@@ -25,7 +34,7 @@ const Navbar = ({ navbarLinks }) => {
           <ul className={
               menuClicked ? "navbar__list navbar__list--active" : "navbar__list"
           }>
-        {navbarLinks.map((item, index) => {
+        {navbarlinks.map((item, index) => {
           return (
             <li className="navbar__item" key={index}>
               <a className="navbar__link" href={item.url}>

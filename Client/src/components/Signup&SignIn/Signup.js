@@ -1,7 +1,9 @@
 import { Button, FormControl, FormLabel, Input } from "@mui/material";
 import { React, useState } from "react";
 import Stack from "@mui/material/Stack";
-
+import axios from '../../axios/axios';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -9,7 +11,38 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [cpassword, csetPassword] = useState("");
 
-  const submitHandler = () => {};
+
+
+  const LoginData = {
+    email,
+    password,
+
+  }
+
+  const submitHandler = () => {
+
+    axios.post("/users/register",{
+      email,
+      password
+    }).then((res) => {
+        
+        console.log(res.data);
+
+        if (res.data.userAccessToken) {
+
+          cookies.set('userAccessToken', res.data.userAccessToken, { path: '/' });
+          
+          console.log(cookies.get('userAccessToken'));
+
+        }
+
+      }).catch((err)=>{
+
+        console.log(err.message);
+        
+      })
+
+  };
   return (
       
     <Stack
@@ -75,8 +108,7 @@ const Signup = () => {
       </FormControl>
 
       <Button fullWidth onClick={submitHandler} variant={"contained"}>
-        {" "}
-        Submit{" "}
+          Submit
       </Button>
     </Stack>
   );
