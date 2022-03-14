@@ -13,17 +13,14 @@ const Signup = () => {
 
 
 
-  const LoginData = {
-    email,
-    password,
-
-  }
 
   const submitHandler = () => {
 
     axios.post("/users/register",{
       email,
-      password
+      password,
+      name,
+      mobile
     }).then((res) => {
         
         console.log(res.data);
@@ -74,11 +71,14 @@ const Signup = () => {
           }}
         />
       </FormControl>
+
+
       <FormControl id="mobile" required>
         <FormLabel>Mobile</FormLabel>
 
         <Input
-          placeholder="Enter your name"
+        type="number"
+          placeholder="Enter your mobile number"
           onChange={(e) => {
             setMobile(e.target.value);
           }}

@@ -1,38 +1,38 @@
-import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react'
+// import axios from 'axios';
+// import React, { createContext, useEffect, useState } from 'react'
 
 
-const AdAuthContext = createContext();
+// const AdAuthContext = createContext();
 
 
-function AdAuthContextProvider(props) {
+// function AdAuthContextProvider(props) {
 
-    const [AdloggedIn,setAdLoggedIn]=useState(undefined)
+//     const [AdloggedIn,setAdLoggedIn]=useState(undefined)
 
-    useEffect(()=>{
+//     useEffect(()=>{
 
-        getAdloggedIn()
+//         getAdloggedIn()
 
-    },[]);
+//     },[]);
 
-    async function getAdloggedIn(){
+//     async function getAdloggedIn(){
 
-        console.log("getAdlogged in called from auth ");
+//         console.log("getAdlogged in called from auth ");
 
-    const AdloggedInRes= await axios.get("http://localhost:5000/admin/AdloggedIn")
+//     const AdloggedInRes= await axios.get("http://localhost:5000/admin/AdloggedIn")
 
     
-    setAdLoggedIn(AdloggedInRes.data)
+//     setAdLoggedIn(AdloggedInRes.data)
 
-    console.log("AdloggedInRes.data",AdloggedInRes.data);
+//     console.log("AdloggedInRes.data",AdloggedInRes.data);
 
-    }
+//     }
 
 
-    return (<AdAuthContext.Provider value={{AdloggedIn,getAdloggedIn}} >
+//     return (<AdAuthContext.Provider value={{AdloggedIn,getAdloggedIn}} >
 
-        {props.children}
-    </AdAuthContext.Provider> )
-}
-export default AdAuthContext
-export {AdAuthContextProvider} 
+//         {props.children}
+//     </AdAuthContext.Provider> )
+// }
+// export default AdAuthContext
+// export {AdAuthContextProvider} 

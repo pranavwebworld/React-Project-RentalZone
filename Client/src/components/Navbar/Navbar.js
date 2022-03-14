@@ -2,14 +2,18 @@ import {React,useState} from "react";
 import "./navbar.css";
 import { FiMenu, FiX } from "react-icons/fi";
 import {HiOutlineCamera} from 'react-icons/hi'
-
+import { useCookies } from "react-cookie";
 const Navbar = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["userAccessToken"]);
+
+  function handleRemoveCookie() {
+    removeCookie("userAccessToken");
+  }
 
   const navbarlinks = [
     { url: "", title: "Home" },
     { url: "", title: "Contact" },
     { url: "", title: "About  " },
-    { url: "/logout", title: "Logout" },
   ];
 
 
@@ -40,9 +44,11 @@ const Navbar = () => {
               <a className="navbar__link" href={item.url}>
                 {item.title}
               </a>
+            
             </li>
           );
         })}
+        <button onClick={handleRemoveCookie} className="logoutB" >Logout </button>
       </ul>
     </nav>
   );

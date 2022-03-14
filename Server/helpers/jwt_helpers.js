@@ -29,10 +29,10 @@ module.exports = {
 
   verifyAccessToken: (req, res, next) => {
 
-      const token = req.cookies.userToken
+      const token = req.cookies.userAccessToken
 
       console.log({token});
-      if (!req.cookies.userToken) return next(createErrors.Unauthorized());
+      if (!req.cookies.userAccessToken) return next(createErrors.Unauthorized());
 
     // const authHeader = req.headers["authorization"];
     // const bearerToken = authHeader.split(" ");
@@ -47,6 +47,7 @@ module.exports = {
         return next(createErrors.Unauthorized(message));
       }
       req.payload = payload;
+      res.json({ payload})
       next();
     });
   },

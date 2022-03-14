@@ -18,17 +18,13 @@ router.post("/register", async (req, res, next) => {
     }
     const user = new User(result);
     const savedUser = await user.save();
-
+    console.log({savedUser});
     const accessToken = await signAccessToken(savedUser.id);
 
-    console.log({ accessToken });
-
-    return res
-      .status(200)
-      .json({
-        userAccessToken: accessToken,
-        message: "Logged in successfully 😊 👌",
-      });
+       return res.status(200).json({
+      userAccessToken: accessToken,
+      message: "Logged in successfully 😊 👌",
+    });
   } catch (error) {
     console.log(error.message);
     if (error.isJoi === true) error.status = 422;
@@ -57,12 +53,10 @@ router.post("/login", async (req, res, next) => {
 
     // res.send({ accessToken, refreshToken });
 
-    return res
-      .status(200)
-      .json({
-        userAccessToken: accessToken,
-        message: "Logged in successfully 😊 👌",
-      });
+    return res.status(200).json({
+      userAccessToken: accessToken,
+      message: "Logged in successfully 😊 👌",
+    });
   } catch (error) {
     console.log(error);
     if (error.isJoi === true)
@@ -74,22 +68,24 @@ router.post("/login", async (req, res, next) => {
 
 
 
+
 router.post("/refresh-token", async (req, res, next) => {
   res.send("refresh token route ");
 });
 
 
 
-router.post("/protected", verifyAccessToken, async (req, res, next) => {
+router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
+
   console.log(req.payload);
   res.send(req.payload);
+
 });
 
 
-
 router.delete("/logout", async (req, res, next) => {
-
-  res.cookie("token", "", {
+  res
+    .cookie("token", "", {
       httpOnly: true,
       expires: new Date(0),
     })

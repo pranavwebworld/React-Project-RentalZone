@@ -1,52 +1,62 @@
-import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react'
-
+import axios from "../axios/axios";
+import React, { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
+
 function AuthContextProvider(props) {
+  
+    const [loggedIn, setLoggedIn] = useState(true);
 
-    const [AdloggedIn,setAdLoggedIn]=useState(undefined)
-    const [loggedIn,setLoggedIn]=useState(undefined)
+    useEffect(() => {
 
-    useEffect(()=>{
+        getLoggedIn();
+    
+    }, []);
 
-        getLoggedIn()
-        getAdLoggedIn()
-
-    },[]);
-
-    async function getLoggedIn(){
-
+    async function getLoggedIn() {
         console.log("getloggged in called from auth ");
 
-    const loggedInRes= await axios.get("http://localhost:5000/auth/loggedIn")
 
-    
-    setLoggedIn(loggedInRes.data)
-    console.log("loggedInRes.data",loggedInRes.data);
 
+        // axios.get("/users/isLoggedIn").then((res) => {
+
+        //     console.log(res)
+        //     var resp = res.data
+         
+        //     console.log(resp);
+
+
+        // }).catch((err) => {
+
+        //     console.log(err.message);
+
+        // })
+
+
+        const resp = await axios.get("http://localhost:5000/users/isLoggedIn",{withCredentials:true})
+
+         console.log(resp.data.payload);
+
+        if (resp.data.payload)   setLoggedIn(true);
+
+
+      
+
+        // setLoggedIn(loggedInRes.data);
+
+     
     }
-    async function getAdLoggedIn(){
-
-        console.log("getAdlogged in called from auth ");
-
-    const AdloggedInRes= await axios.get("http://localhost:5000/admin/AdloggedIn")
-
-    
-    setAdLoggedIn(AdloggedInRes.data)
-
-    console.log("AdloggedInRes.data",AdloggedInRes.data);
-
-    }
 
 
-
-
-    return (<AuthContext.Provider value={{loggedIn,getLoggedIn,getAdLoggedIn,AdloggedIn}} >
-
-        {props.children}
-    </AuthContext.Provider> )
+  
+    return (
+        <AuthContext.Provider
+            value={{ loggedIn, getLoggedIn}}
+        >
+            {props.children}
+        </AuthContext.Provider>
+    );
 }
-export default AuthContext
-export {AuthContextProvider} 
+export default AuthContext;
+export { AuthContextProvider };
