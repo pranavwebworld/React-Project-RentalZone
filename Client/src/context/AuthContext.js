@@ -6,7 +6,9 @@ const AuthContext = createContext();
 
 function AuthContextProvider(props) {
   
-    const [loggedIn, setLoggedIn] = useState(true);
+    const [loggedIn, setLoggedIn] = useState(undefined);
+    const [currentUser, setCurrentUser] = useState('');
+
 
     useEffect(() => {
 
@@ -34,12 +36,30 @@ function AuthContextProvider(props) {
         // })
 
 
-        const resp = await axios.get("http://localhost:5000/users/isLoggedIn",{withCredentials:true})
+      axios.get("/users/isLoggedIn",{withCredentials:true}).then((resp)=>{
 
-         console.log(resp.data.payload);
+          console.log(resp.data.payload);
 
-        if (resp.data.payload)   setLoggedIn(true);
+          if (resp.data.payload===undefined)
+          {
+              setLoggedIn(false);
 
+          }else{
+
+              setLoggedIn(true);
+              setCurrentUser(resp.data.payload)
+
+          }
+          
+
+
+           
+
+
+
+      })
+
+      
 
       
 
@@ -52,7 +72,7 @@ function AuthContextProvider(props) {
   
     return (
         <AuthContext.Provider
-            value={{ loggedIn, getLoggedIn}}
+            value={{ loggedIn, getLoggedIn, currentUser, setCurrentUser}}
         >
             {props.children}
         </AuthContext.Provider>

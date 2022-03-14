@@ -1,6 +1,6 @@
 import "./App.css";
 import "../src/components/Illustartions/radialred.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Chat from "./components/Chat/Chat"
 import LandingPage from "./components/LandingPage/LandingPage"
 import UserPage from './components/userPage/UserPage'
@@ -32,19 +32,17 @@ function App() {
   const { loggedIn } = useContext(AuthContext);
 
   return (
+
     <div className="App">
 
-
-    
-
-
+  
       <BrowserRouter>
 
         <Routes>
     
           <Route exact path="/logout" element={() => {  }} />
           
-          <Route exact path="/user" element={loggedIn ? <UserPage to="/user" /> : <Signup_Signin />}/>
+          <Route exact path="/user" element={loggedIn ? <UserPage /> : <Navigate to="/Signup" />}/>
 
           <Route exact path="/" element={<LandingPage />} />
 
@@ -54,8 +52,7 @@ function App() {
 
           <Route exact path="cal" element={<Calender />} />
 
-          <Route exact path="Signup" element={loggedIn ? <UserPage to="/user" /> : <Signup_Signin />} />
-
+          <Route exact path="/Signup" element={loggedIn ? <Navigate to="/user" /> : <Signup_Signin />} />
 
         </Routes>
 

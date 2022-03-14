@@ -1,4 +1,4 @@
-import React from "react";
+import { React,useContext}from "react";
 import "../LandingPage/landingpage.css";
 import "../Illustartions/RadialRed";
 import coverpic from "../../assets/userPage3.jpg";
@@ -12,6 +12,8 @@ import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
+import AuthContext from '../../context/AuthContext';
+
 
 const navbarlinks = [
     { url: "", title: "Home" },
@@ -19,15 +21,17 @@ const navbarlinks = [
     { url: "", title: "About  " },
 ];
 
-
 const LandingPage = () => {
+
+    const { currentUser } = useContext(AuthContext)
+
     return (
 
 
         <div className="landing__page">
 
             <Navbar navbarLinks={navbarlinks} />
-            <UserHero imgSrc={coverpic} />
+            <UserHero user={currentUser}   imgSrc={coverpic} />
 
 
             <Parallax speed={-5}>
@@ -38,7 +42,7 @@ const LandingPage = () => {
 
             <UserSlider
                 title={"Camera"}
-                
+
                 />
     
             <Footerpic></Footerpic>

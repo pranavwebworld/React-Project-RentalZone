@@ -1,7 +1,7 @@
 const joi = require("joi")
 
 
-const authSchema = joi.object({
+const signupSchema = joi.object({
 
     email: joi.string().email().lowercase().required(),
     password: joi.string().min(2).required(),
@@ -10,9 +10,17 @@ const authSchema = joi.object({
 
 })
 
+const loginSchema = joi.object({
+
+    email: joi.string().email().lowercase().required(),
+    password: joi.string().min(2).required(),
+  
+
+})
+
 
 module.exports = {
-    authSchema
+    signupSchema, loginSchema
 
 
 }

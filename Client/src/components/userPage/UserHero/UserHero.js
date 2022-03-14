@@ -5,7 +5,7 @@ import './userhero.css'
 
 
 
-const Hero = ({imgSrc}) => {
+const Hero = ({user,imgSrc}) => {
     return (
         <div className="hero" >
             <img src={imgSrc} alt='Title' className='hero__image' />
@@ -16,7 +16,7 @@ const Hero = ({imgSrc}) => {
                 <VideoSVG  ></VideoSVG> */}
             </div>
            
-            <h1  className="hero__title animate" > <span style={{ color: "#5D5D5D" }}  > Welcome   </span> <span style={{ color: "#ab1941"  }}  > Pranav   </span>    </h1>
+            <h1  className="hero__title animate" > <span style={{ color: "#5D5D5D" }}  > Welcome   </span> <span style={{ color: "#ab1941"  }}  > {user.name}  </span>    </h1>
             
         </div>
     )

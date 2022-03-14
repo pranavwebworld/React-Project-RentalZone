@@ -4,10 +4,11 @@ const { options } = require("../app");
 
 
 module.exports = {
-  signAccessToken: (userId) => {
+  signAccessToken: (userId,user) => {
+
     return new Promise((resolve, reject) => {
       const payload = {
-        name: "pranav",
+        name :user,
       };
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
@@ -32,7 +33,7 @@ module.exports = {
       const token = req.cookies.userAccessToken
 
       console.log({token});
-      if (!req.cookies.userAccessToken) return next(createErrors.Unauthorized());
+      // if (!req.cookies.userAccessToken) return next(createErrors.Unauthorized());
 
     // const authHeader = req.headers["authorization"];
     // const bearerToken = authHeader.split(" ");
@@ -41,10 +42,14 @@ module.exports = {
 
     JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
       if (err) {
-        const message =
-          err.name === "JasonWebTokenError" ? "Unauthorized" : err.message;
 
-        return next(createErrors.Unauthorized(message));
+
+        // const message =
+        //   err.name === "JasonWebTokenError" ? "Unauthorized" : err.message;
+
+        // return next(createErrors.Unauthorized(message));
+
+        return res.json({ payload })
       }
       req.payload = payload;
       res.json({ payload})

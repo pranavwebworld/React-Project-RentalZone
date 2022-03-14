@@ -19,7 +19,7 @@ const Button = () => {
       <div className="wrapDiv">
         {/* <button className="landingButton1" > <span className="bfont" > Rent a product  </span>   </button> */}
 
-            <button id="B1"  className="landingButton1" >
+        <button onClick={() => { navigate('/vendorSignup') }}  id="B1"  className="landingButton1" >
           <span></span>
           <span></span>
           <span></span>
