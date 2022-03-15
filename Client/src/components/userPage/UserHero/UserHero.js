@@ -7,6 +7,10 @@ import "./userhero.css";
 import "../userProfile/userProfile";
 
 const Hero = ({ user, imgSrc }) => {
+
+  console.log({user});
+  console.log(user.pic );
+
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedfile] = useState("");
@@ -24,13 +28,13 @@ const Hero = ({ user, imgSrc }) => {
     reader.readAsDataURL(file);
     reader.onloadend = async() => {
 
-     await setPreviewSource(reader.result);
-      setTimeout(uploadImage(previewSource),3000)
-      console.log(" uploadImage(previewSource)");
-      console.log(previewSource);
-      
+      setPreviewSource(reader.result);
+
+      setTimeout(uploadImage(previewSource),6000)
+     
     };
   };
+
 
 
   const handleSubmitFile = (e) => {
@@ -40,12 +44,10 @@ const Hero = ({ user, imgSrc }) => {
   };
 
 
-
   const uploadImage = async (base64Img) => {
-
     console.log(base64Img);
     try {
-      axios.post("/users/proPicUpload", { base64Img });
+      axios.post("/users/proPicUpload", { base64Img },{withCredentials:true});
     } catch (error) {
       console.log(error);
     }
@@ -72,8 +74,7 @@ const Hero = ({ user, imgSrc }) => {
                 <VideoSVG  ></VideoSVG> */}
       </div>
 
-     
-
+    
         <div className="chatOnlin" >
 
           <div class="profile-pic">
@@ -82,14 +83,10 @@ const Hero = ({ user, imgSrc }) => {
               <span>Change Image</span>
             </label>
             <input id="file" value={fileInputState} name="proImage" type="file" onChange={loadFile}/>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309" id="output" width="200" />
+          <img src={user.pic} id="output" width="200" />
           </div>
-
         </div>
 
-
-    
-    
 
       <h1 className="hero__title animate">
         {" "}

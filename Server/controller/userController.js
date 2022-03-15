@@ -1,4 +1,4 @@
-
+const JWT = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const { signupSchema, loginSchema } = require("../helpers/validation_schema");
@@ -84,19 +84,55 @@ module.exports={
 
         try {
 
+
+            const token = req.cookies.userAccessToken
+
+            JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+                if (err) {
+
+                    console.log(err);
+                    
+                }
+
+
+                
+               
+            });
+
+
+          
+
+            console.log({token});
+           
+            const userId=token.aud
+             console.log({userId});
+
+          
+
             const imgStr = req.body.base64Img;
+
             const uploadResponse = await cloudinary.uploader.upload(imgStr,{
 
-             upload_preset:'User_propics'
+             upload_preset:'User_propics',
+
+             allowedFormats: ["jpg", "png","jpeg"]
 
             })           
-
             console.log(uploadResponse);
+
+            const imgUrl= uploadResponse.url
+
+            console.log({imgUrl});  
+
+            // const updateResp = await User.findByIdAndUpdate({ userId }, { "propic": imgUrl })
+         
+            // console.log({ updateResp });
             res.json({msg:"uploaded"})
 
-            const croppedimg = await cloudinary.url("User_propics/uxh0edsoetdmcr9u3mzz", { width: 400, height: 400,  crop: "limit" })
+            // const croppedimg = await cloudinary.url({PublicId},{ width: 400, height: 400,  crop: "limit" })
+            // console.log(croppedimg);
 
-            console.log(croppedimg);
+
 
 
         } catch (error) {

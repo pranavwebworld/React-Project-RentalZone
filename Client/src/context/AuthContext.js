@@ -51,20 +51,11 @@ function AuthContextProvider(props) {
 
           }
           
-
       })
-
       
-
-      
-
         // setLoggedIn(loggedInRes.data);
-
-     
     }
 
-
-  
     return (
         <AuthContext.Provider
             value={{ loggedIn, getLoggedIn, currentUser, setCurrentUser}}

@@ -24,12 +24,14 @@ const UserSchema = new Schema({
     },
     propic:{
 
-        type:string,
+        type:String,
         required:true,
         default:"https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
 
     },
 });
+
+
 
 
 UserSchema.pre("save", async function (next) {

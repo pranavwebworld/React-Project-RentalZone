@@ -4,11 +4,12 @@ const { options } = require("../app");
 
 
 module.exports = {
-  signAccessToken: (userId,user) => {
+  signAccessToken: (userId,user,pic) => {
 
     return new Promise((resolve, reject) => {
       const payload = {
         name :user,
+        pic:pic
       };
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
