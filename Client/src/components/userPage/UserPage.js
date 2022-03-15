@@ -33,7 +33,6 @@ const LandingPage = () => {
             <Navbar navbarLinks={navbarlinks} />
             <UserHero user={currentUser}   imgSrc={coverpic} />
 
-
             <Parallax speed={-5}>
                 <CameraSvg></CameraSvg>
             </Parallax>
@@ -41,9 +40,7 @@ const LandingPage = () => {
             <RadialRed></RadialRed>
 
             <UserSlider
-                title={"Camera"}
-
-                />
+                title={"Camera"}/>
     
             <Footerpic></Footerpic>
         </div>

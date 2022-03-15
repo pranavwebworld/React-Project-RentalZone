@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
+const { string } = require("joi");
 
 const UserSchema = new Schema({
     email: {
@@ -20,6 +21,13 @@ const UserSchema = new Schema({
     name: {
         type: String,
         required: true,
+    },
+    propic:{
+
+        type:string,
+        required:true,
+        default:"https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
+
     },
 });
 

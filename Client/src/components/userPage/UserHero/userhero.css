@@ -14,9 +14,9 @@
 .hero__title {
   position: absolute;
   bottom: 15%;
-  right: 0%;
+  right: 2%;
   color: white;
-  font-size: 4rem;
+  font-size: 3rem;
   padding: 15px;
 }
 
@@ -80,4 +80,13 @@
   #camerasvg {
     left: 20px;
   }
+
+  .hero__title {
+  position: absolute;
+  bottom: 15%;
+  right: 6%;
+  color: white;
+  font-size: 3rem;
+  padding: 15px;
+}
 }

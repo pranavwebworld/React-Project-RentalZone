@@ -104,14 +104,14 @@ const Signup = () => {
       </FormControl>
 
           <FormControl id="cpassword" required>
-        <FormLabel>Confirm Password</FormLabel>
+        {/* <FormLabel>Confirm Password</FormLabel> */}
 
-        <Input
+        {/* <Input
           placeholder="Confirm your Password"
           onChange={(e) => {
             csetPassword(e.target.value);
           }}
-        />
+        /> */}
       </FormControl>
 
       <Button fullWidth onClick={submitHandler} variant={"contained"}>

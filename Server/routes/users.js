@@ -8,27 +8,30 @@ const { verifyAccessToken } = require("../helpers/jwt_helpers");
 const { signRefreshToken } = require("../helpers/jwt_helpers");
 const cookieParser = require("cookie-parser");
 router.use(cookieParser());
-const AuthController = require('../controller/userController')
-
-
-
-
-/**
- * 
- * 
- */
-router.post("/register",AuthController.register );
+const userController = require('../controller/userController')
 
 
 
 
 
+// @post user register
+// @body user details
+// @return JWT 
 
-router.post("/login",AuthController.login);
+
+router.post("/register",userController.register );
 
 
+// @post user register
+// @body user details
+// @return JWT 
+
+router.post("/login",userController.login);
 
 
+// @get user authorization
+// @cookies JWT 
+// @return boolean True or false 
 
 
 router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
@@ -36,6 +39,12 @@ router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
 });
 
 
+
+// @post user propic
+// 
+// @return boolean True or false 
+
+router.post("/proPicUpload", userController.proPicUpload)
 
 
 

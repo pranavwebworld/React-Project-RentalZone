@@ -8,6 +8,7 @@ const { signAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
 const { signRefreshToken } = require("../helpers/jwt_helpers");
 const cookieParser = require("cookie-parser");
+const {cloudinary}=require('../cloudinary/cloudinary')
 router.use(cookieParser());
 
 
@@ -76,15 +77,35 @@ module.exports={
 
             next(error);
         }
+    },
+
+
+    proPicUpload: async (req, res, next) => {
+
+        try {
+
+            const imgStr = req.body.base64Img;
+            const uploadResponse = await cloudinary.uploader.upload(imgStr,{
+
+             upload_preset:'User_propics'
+
+            })           
+
+            console.log(uploadResponse);
+            res.json({msg:"uploaded"})
+
+            const croppedimg = await cloudinary.url("User_propics/uxh0edsoetdmcr9u3mzz", { width: 400, height: 400,  crop: "limit" })
+
+            console.log(croppedimg);
+
+
+        } catch (error) {
+
+            console.log(error);
+            next(error)
+
+        }
+
     }
-
-
-
-
-
-
-
-
-
 
 }
