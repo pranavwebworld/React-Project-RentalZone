@@ -2,7 +2,7 @@ const JWT = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const { signupSchema, loginSchema } = require("../helpers/validation_schema");
-const User = require("../models/user.model");
+const Vendor = require("../models/vendor.model");
 const createError = require("http-errors");
 const { signAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
@@ -19,18 +19,18 @@ module.exports={
     register: async (req, res, next) => {
         try {
             const result = await signupSchema.validateAsync(req.body);
-            const doesExist = await User.findOne({ email: result.email });
+            const doesExist = await Vendor.findOne({ email: result.email });
             if (doesExist) {
                 throw createError.Conflict(`${result.email} is already registered`);
             }
 
-            const user = new User(result);
-            const savedUser = await user.save();
-            console.log({ savedUser });
-            const accessToken = await signAccessToken(savedUser.id, savedUser.name, savedUser.propic);
+            const vendor = new Vendor(result);
+            const savedVendor = await vendor.save();
+            console.log({ savedVendor });
+            const accessToken = await signAccessToken(savedVendor.id, savedVendor.name, savedVendor.propic);
 
             return res.status(200).json({
-                userAccessToken: accessToken,
+                vendorAccessToken: accessToken,
                 message: "Logged in successfully 😊 👌",
             });
         } catch (error) {
@@ -41,28 +41,31 @@ module.exports={
     },
 
 
+
+
     login: async (req, res, next) => {
         try {
             const result = await loginSchema.validateAsync(req.body);
             console.log(result);
 
-            const user = await User.findOne({ email: result.email });
-            console.log({ user });
-            if (!user) throw createError.NotFound("User not found");
+            const vendor = await Vendor.findOne({ email: result.email });
+            console.log({ vendor });
+            if (!vendor) throw createError.NotFound("vendor not found");
 
-            const isMatch = await user.isValidPassword(result.password);
+            const isMatch = await vendor.isValidPassword(result.password);
 
             if (!isMatch)
                 throw createError.Unauthorized("User name / password not valid");
 
-            const accessToken = await signAccessToken(user.id, user.name, user.propic);
+            const accessToken = await signAccessToken(vendor.id, vendor.name,vendor.propic);
+
             // const refreshToken = await signRefreshToken(user.id);
 
             console.log({ accessToken });
 
             // res.send({ accessToken, refreshToken });
             return res.status(200).json({
-                userAccessToken: accessToken,
+                vendorAccessToken: accessToken,
                 message: "Logged in successfully 😊 👌",
             });
         } catch (error) {
@@ -74,10 +77,12 @@ module.exports={
         }
     },
 
+
+    
     proPicUpload: async (req, res, next) => {
         try {
 
-            const token = req.cookies.userAccessToken
+            const token = req.cookies.vendorAccessToken
 
             JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
 
@@ -89,15 +94,15 @@ module.exports={
             });
 
             console.log({token});
-            const userId=token.aud
-             console.log({userId});
+            const vendorId=token.aud
+             console.log({vendor});
 
           
             const imgStr = req.body.base64Img;
 
             const uploadResponse = await cloudinary.uploader.upload(imgStr,{
 
-             upload_preset:'User_propics',
+             upload_preset:'Vendor_propics',
 
              allowedFormats: ["jpg", "png","jpeg"]
 

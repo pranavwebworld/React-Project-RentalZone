@@ -21,7 +21,7 @@ const Signup = () => {
 
   const submitHandler = () => {
 
-    axios.post("/users/register",{
+    axios.post("/vendors/register",{
       email,
       password,
       name,
@@ -30,13 +30,13 @@ const Signup = () => {
         
         console.log(res.data);
 
-        if (res.data.userAccessToken) {
+        if (res.data.vendorAccessToken) {
 
-          cookies.set('userAccessToken', res.data.userAccessToken, { path: '/' });
+          cookies.set('userAccessToken', res.data.vendorAccessToken, { path: '/' });
           
-          console.log(cookies.get('userAccessToken'));
+          console.log(cookies.get('vendorAccessToken'));
           await getLoggedIn()
-          navigate('/user')
+          navigate('/vendor')
 
         }
 

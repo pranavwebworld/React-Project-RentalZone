@@ -4,18 +4,18 @@ const { options } = require("../app");
 
 
 module.exports = {
-  signAccessToken: (userId,user,pic) => {
+  signAccessToken: (vendorId,vendor,pic) => {
 
     return new Promise((resolve, reject) => {
       const payload = {
-        name :user,
+        name :vendor,
         pic:pic
       };
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
         expiresIn: "1y",
         issuer: "RentalZone.com",
-        audience: userId,
+        audience: vendorId,
       };
 
       JWT.sign(payload, secret, options, (err, token) => {
@@ -31,7 +31,7 @@ module.exports = {
 
   verifyAccessToken: (req, res, next) => {
 
-      const token = req.cookies.userAccessToken
+    const token =req.cookies.userAccessToken
 
       console.log({token});
       // if (!req.cookies.userAccessToken) return next(createErrors.Unauthorized());
@@ -50,7 +50,7 @@ module.exports = {
 
         // return next(createErrors.Unauthorized(message));
 
-        return res.json({ payload })
+        return res.json({})
       }
       req.payload = payload;
       res.json({ payload})
@@ -58,7 +58,37 @@ module.exports = {
     });
   },
 
-  signRefreshToken: (userId) => {
+
+  verifyVendorAccessToken: (req, res, next) => {
+
+    const token = req.cookies.vendorAccessToken
+
+    console.log({ token });
+    // if (!req.cookies.userAccessToken) return next(createErrors.Unauthorized());
+
+    // const authHeader = req.headers["authorization"];
+    // const bearerToken = authHeader.split(" ");
+    // console.log(bearerToken);
+    // const token = bearerToken[1];
+
+    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+      if (err) {
+
+
+        // const message =
+        //   err.name === "JasonWebTokenError" ? "Unauthorized" : err.message;
+
+        // return next(createErrors.Unauthorized(message));
+
+        return res.json({payload:undefined})
+      }
+      req.payload = payload;
+      res.json({ payload })
+      next();
+    });
+  },
+
+  signRefreshToken: (vendorId) => {
     return new Promise((resolve, reject) => {
       const payload = {
         name: "pranav",
@@ -67,7 +97,7 @@ module.exports = {
       const options = {
         expiresIn: "1y",
         issuer: "RentalZone.com",
-        audience: userId,
+        audience: vendorId,
       };
 
       JWT.sign(payload, secret, options, (err, token) => {

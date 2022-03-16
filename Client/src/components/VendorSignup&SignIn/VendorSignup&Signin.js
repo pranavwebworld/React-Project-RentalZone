@@ -7,8 +7,8 @@ import TabsListUnstyled from "@mui/base/TabsListUnstyled";
 import TabPanelUnstyled from "@mui/base/TabPanelUnstyled";
 import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
 import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
-import Login from "../Signup&SignIn/Login";
-import Signup from "../Signup&SignIn/Signup";
+import VendorLogin from "../VendorSignup&SignIn/VendorLogin";
+import VendorSignup from "../VendorSignup&SignIn/VendorSignup";
 
 <a href="https://icons8.com/icon/zA8CKq2IOOWF/camera">Camera icon by Icons8</a>;
 
@@ -39,7 +39,6 @@ const Tab = styled(TabUnstyled)`
   border-radius: 5px;
   display: flex;
   justify-content: center;
-
   &:hover {
     background-color: ${blue[400]};
   }
@@ -159,6 +158,7 @@ const itemData = [
   },
 ];
 
+
 function HomePage() {
   return (
     <Grid
@@ -194,6 +194,7 @@ function HomePage() {
         </Box>
       </Grid>
 
+
       <Grid item lg={3} xs={12}>
         <Box
           d="flex"
@@ -212,10 +213,10 @@ function HomePage() {
               <Tab>Signup</Tab>
             </TabsList>
             <TabPanel style={{ height: "487px" }} value={0}>
-              <Login />
+              <VendorLogin></VendorLogin>
             </TabPanel>
             <TabPanel style={{ height: "487px" }} value={1}>
-              <Signup />
+              <VendorSignup></VendorSignup>
             </TabPanel>
           </TabsUnstyled>
         </Box>

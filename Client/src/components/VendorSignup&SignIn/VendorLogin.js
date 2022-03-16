@@ -10,35 +10,32 @@ const cookies = new Cookies();
 
 
 
-
 function Login() {
 
   const navigate = useNavigate()
   const { getLoggedIn } = useContext(AuthContext)
 
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   const submitHandler = () => {
-    axios.post("/users/login",{
+
+    axios.post("/vendors/login",{
+
       email,
       password
-    
     },)
       .then( async (res) => {
 
         const responseData=res.data
 
         console.log({responseData});
-        if (res.data.userAccessToken){
 
+        if (res.data.userAccessToken){
           cookies.set('userAccessToken', res.data.userAccessToken, { path: '/' });
           console.log(cookies.get('userAccessToken')); 
           await getLoggedIn()
           navigate('/user')
-
         }
 
       }).catch((err) => {

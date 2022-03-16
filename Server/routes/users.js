@@ -12,8 +12,6 @@ const userController = require('../controller/userController')
 
 
 
-
-
 // @post user register
 // @body user details
 // @return JWT 

@@ -1,0 +1,104 @@
+
+.chatOnlin{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 40vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 2rem;
+left: 50rem;
+
+}
+
+
+.ChatOnlineFriend{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content:space-around;
+  background-color: transparent;
+   
+}
+
+.chatOnlineImg{
+background-color: transparent;
+border:  8px solid rgb(186, 16, 70);
+border-radius: 50%;
+width: 200px;
+object-fit: cover;
+height: 200px;
+  background-color: transparent;
+
+}
+
+
+
+@media screen and (max-width: 800px) {
+
+.chatOnlin{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 40vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 15rem;
+left: 8rem;
+
+}
+}
+
+
+
+
+
+
+.profile-pic {
+  color: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.profile-pic input {
+  display: none;
+}
+.profile-pic img {
+  position: absolute;
+  object-fit: cover;
+  width: 165px;
+  height: 165px;
+  box-shadow: 0 0 40px 0 rgba(255, 254, 254, 0.35);
+  border-radius: 100px;
+  z-index: 0;
+  border: solid 2px #ab1941
+}
+.profile-pic .-label {
+  cursor: pointer;
+  height: 165px;
+  width: 165px;
+}
+.profile-pic:hover .-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 100px;
+  margin-bottom: 0;
+}
+.profile-pic span {
+  display: inline-flex;
+  padding: 0.2em;
+  height: 2em;
+}
+
