@@ -32,10 +32,10 @@ function Login() {
         console.log({responseData});
 
         if (res.data.userAccessToken){
-          cookies.set('userAccessToken', res.data.userAccessToken, { path: '/' });
+          cookies.set('vendorAccessToken', res.data.userAccessToken, { path: '/' });
           console.log(cookies.get('userAccessToken')); 
           await getLoggedIn()
-          navigate('/user')
+          navigate('/vendor')
         }
 
       }).catch((err) => {

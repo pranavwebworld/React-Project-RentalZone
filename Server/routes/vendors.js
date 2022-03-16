@@ -34,7 +34,7 @@ router.post("/login", vendorController.login);
 // @return boolean True or false 
 
 
-router.get("isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
+router.get("/isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 
     console.log(req.payload);
 
@@ -43,7 +43,6 @@ router.get("isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 
 
 // @post vendor propic
-// 
 // @return boolean True or false 
 
 router.post("/vendor/proPicUpload", vendorController.proPicUpload)

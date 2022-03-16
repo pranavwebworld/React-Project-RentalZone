@@ -20,22 +20,6 @@ function AuthContextProvider(props) {
         console.log("getloggged in called from auth ");
 
 
-
-        // axios.get("/users/isLoggedIn").then((res) => {
-
-        //     console.log(res)
-        //     var resp = res.data
-         
-        //     console.log(resp);
-
-
-        // }).catch((err) => {
-
-        //     console.log(err.message);
-
-        // })
-
-
       axios.get("/users/isLoggedIn",{withCredentials:true}).then((resp)=>{
 
           console.log(resp.data.payload);

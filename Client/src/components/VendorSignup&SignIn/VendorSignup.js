@@ -3,7 +3,7 @@ import { React, useState, useContext  } from "react";
 import Stack from "@mui/material/Stack";
 import axios from '../../axios/axios';
 import Cookies from 'universal-cookie';
-import AuthContext from '../../context/AuthContext';
+import VendorContext from '../../context/VendorContext';
 import { useNavigate } from 'react-router';
 const cookies = new Cookies();
 const Signup = () => {
@@ -14,7 +14,7 @@ const Signup = () => {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, csetPassword] = useState("");
-  const { getLoggedIn } = useContext(AuthContext)
+  const { getVLoggedIn } = useContext(VendorContext)
 
 
 
@@ -27,15 +27,17 @@ const Signup = () => {
       name,
       mobile
     }).then( async (res) => {
-        
+          
         console.log(res.data);
 
         if (res.data.vendorAccessToken) {
 
-          cookies.set('userAccessToken', res.data.vendorAccessToken, { path: '/' });
+          cookies.set('vendorAccessToken', res.data.vendorAccessToken, { path: '/' });
           
           console.log(cookies.get('vendorAccessToken'));
-          await getLoggedIn()
+
+          await getVLoggedIn()
+
           navigate('/vendor')
 
         }

@@ -5,14 +5,19 @@ import { HiOutlineCamera } from "react-icons/hi";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import VendorContext from "../../context/VendorContext";
 
 const Navbar = () => {
   const { getLoggedIn } = useContext(AuthContext);
+  const { getVLoggedIn } = useContext(VendorContext);
   const [cookies, setCookie, removeCookie] = useCookies(["userAccessToken"]);
   const navigate = useNavigate();
   function handleRemoveCookie() {
     removeCookie("userAccessToken");
+    removeCookie("vendorAccessToken");
+
     getLoggedIn();
+    getVLoggedIn();
     navigate("/");
   }
 

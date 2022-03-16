@@ -163,7 +163,7 @@ function HomePage() {
   return (
     <Grid
       backgroundColor="black"
-      height="1000px"
+      height="100vh"
       container
       justifyContent={"center"}
     >

@@ -22,7 +22,7 @@ function VendorContextProvider(props) {
 
     console.log("getloggged in called from vendor ");
 
-      axios.get("/vendors/isVLoggedIn",{withCredentials:true}).then((resp)=>{
+        axios.get("/vendors/isVLoggedIn",{withCredentials:true}).then((resp)=>{
 
           console.log(resp.data.payload);
 
@@ -37,12 +37,10 @@ function VendorContextProvider(props) {
 
               setCurrentVendor(resp.data.payload)
           }
-          
       })
 
         // setLoggedIn(loggedInRes.data);
     }
-
 
     return (
        

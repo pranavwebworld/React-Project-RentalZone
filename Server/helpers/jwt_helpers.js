@@ -4,7 +4,9 @@ const { options } = require("../app");
 
 
 module.exports = {
-  signAccessToken: (vendorId,vendor,pic) => {
+
+
+  signVendorAccessToken: (vendorId,vendor,pic) => {
 
     return new Promise((resolve, reject) => {
       const payload = {
@@ -16,6 +18,33 @@ module.exports = {
         expiresIn: "1y",
         issuer: "RentalZone.com",
         audience: vendorId,
+      };
+
+      JWT.sign(payload, secret, options, (err, token) => {
+        if (err) {
+          console.log(err.message);
+          reject(createErrors.InternalServerError());
+        }
+        resolve(token);
+      });
+    });
+  },
+
+
+
+
+  signAccessToken: (userId, user, pic) => {
+
+    return new Promise((resolve, reject) => {
+      const payload = {
+        name: user,
+        pic: pic
+      };
+      const secret = process.env.ACCESS_TOKEN_SECRET;
+      const options = {
+        expiresIn: "1y",
+        issuer: "RentalZone.com",
+        audience: userId,
       };
 
       JWT.sign(payload, secret, options, (err, token) => {
@@ -52,8 +81,10 @@ module.exports = {
 
         return res.json({})
       }
+      console.log("verify vendor");
       req.payload = payload;
-      res.json({ payload})
+
+      res.json({payload})
       next();
     });
   },
@@ -61,9 +92,9 @@ module.exports = {
 
   verifyVendorAccessToken: (req, res, next) => {
 
-    const token = req.cookies.vendorAccessToken
+    const vendorToken = req.cookies.vendorAccessToken
 
-    console.log({ token });
+    console.log({ vendorToken });
     // if (!req.cookies.userAccessToken) return next(createErrors.Unauthorized());
 
     // const authHeader = req.headers["authorization"];
@@ -71,7 +102,7 @@ module.exports = {
     // console.log(bearerToken);
     // const token = bearerToken[1];
 
-    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+    JWT.verify(vendorToken, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
       if (err) {
 
 
@@ -82,13 +113,15 @@ module.exports = {
 
         return res.json({payload:undefined})
       }
+
+      console.log("Vendor PAyload",payload);
       req.payload = payload;
       res.json({ payload })
       next();
     });
   },
 
-  signRefreshToken: (vendorId) => {
+  signVendorRefreshToken: (vendorId) => {
     return new Promise((resolve, reject) => {
       const payload = {
         name: "pranav",
@@ -98,6 +131,30 @@ module.exports = {
         expiresIn: "1y",
         issuer: "RentalZone.com",
         audience: vendorId,
+      };
+
+      JWT.sign(payload, secret, options, (err, token) => {
+        if (err) {
+          console.log(err.message);
+          reject(createErrors.InternalServerError());
+        }
+        resolve(token);
+      });
+    });
+  },
+
+
+
+  signRefreshToken: (userId) => {
+    return new Promise((resolve, reject) => {
+      const payload = {
+        name: "pranav",
+      };
+      const secret = process.env.REFRESH_TOKEN_SECRET;
+      const options = {
+        expiresIn: "1y",
+        issuer: "RentalZone.com",
+        audience: userId,
       };
 
       JWT.sign(payload, secret, options, (err, token) => {

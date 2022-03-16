@@ -4,7 +4,7 @@ const router = express.Router();
 const { signupSchema, loginSchema } = require("../helpers/validation_schema");
 const Vendor = require("../models/vendor.model");
 const createError = require("http-errors");
-const { signAccessToken } = require("../helpers/jwt_helpers");
+const { signVendorAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
 const { signRefreshToken } = require("../helpers/jwt_helpers");
 const cookieParser = require("cookie-parser");
@@ -27,7 +27,7 @@ module.exports={
             const vendor = new Vendor(result);
             const savedVendor = await vendor.save();
             console.log({ savedVendor });
-            const accessToken = await signAccessToken(savedVendor.id, savedVendor.name, savedVendor.propic);
+            const accessToken = await signVendorAccessToken(savedVendor.id, savedVendor.name, savedVendor.propic);
 
             return res.status(200).json({
                 vendorAccessToken: accessToken,
@@ -57,7 +57,7 @@ module.exports={
             if (!isMatch)
                 throw createError.Unauthorized("User name / password not valid");
 
-            const accessToken = await signAccessToken(vendor.id, vendor.name,vendor.propic);
+            const accessToken = await signVendorAccessToken(vendor.id, vendor.name,vendor.propic);
 
             // const refreshToken = await signRefreshToken(user.id);
 

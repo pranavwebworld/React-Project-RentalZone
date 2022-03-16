@@ -19,7 +19,7 @@ import Wave from "../src/components/Wave/Wave";
 import footerpic from "./components/Footerpic/Footerpic";
 import Footer from "./components/Footer/Footer";
 
-import VendorPage from "./components/VendorPage/vendorPage"
+import VendorPage from "./components/VendorPage /vendorPage"
 
 const cookies = new Cookies();
 
@@ -35,6 +35,8 @@ function App() {
 
   const { loggedIn } = useContext(AuthContext);
   const { VloggedIn } = useContext(VendorContext);
+  console.log({VloggedIn});
+  console.log({loggedIn});
 
   return (
 
@@ -58,7 +60,6 @@ function App() {
           <Route exact path="/Signup" element={loggedIn ? <Navigate to="/user" /> : <SignupSignin />} />
 
 
-
           <Route exact path="/" element={<LandingPage />} />
 
 
@@ -70,7 +71,6 @@ function App() {
         </Routes>
 
       </BrowserRouter>
-
 
     </div>
   );
