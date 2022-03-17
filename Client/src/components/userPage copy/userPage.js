@@ -27,7 +27,6 @@ const LandingPage = () => {
 
     return (
 
-
         <div className="landing__page">
 
             <Navbar navbarLinks={navbarlinks} />

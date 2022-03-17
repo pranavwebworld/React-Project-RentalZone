@@ -1,6 +1,6 @@
 import { withStyles } from "@mui/material";
 import usePagination from "@mui/material/usePagination/usePagination";
-import { React, useState } from "react";
+import { React, useState,useEffect } from "react";
 import axios from "../../../axios/axios";
 import UserPropic from "../userProfile/userProfile";
 import "./userhero.css";
@@ -19,6 +19,9 @@ const Hero = ({ user, imgSrc }) => {
     const file = e.target.files[0];
     previewFile(file);
   };
+
+
+  
 
   const previewFile = async  (file) => {
 
@@ -75,8 +78,8 @@ const Hero = ({ user, imgSrc }) => {
       </div>
 
     
-        <div className="chatOnlin" >
 
+        <div className="chatOnlin" >
           <div class="profile-pic">
             <label class="-label" for="file">
               <span class="glyphicon glyphicon-camera"></span>

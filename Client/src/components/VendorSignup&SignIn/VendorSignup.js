@@ -98,6 +98,7 @@ const Signup = () => {
         <FormLabel>Pasword</FormLabel>
 
         <Input
+        type='password'
           placeholder="Enter your password"
           onChange={(e) => {
             setPassword(e.target.value);
@@ -105,16 +106,7 @@ const Signup = () => {
         />
       </FormControl>
 
-          <FormControl id="cpassword" required>
-        <FormLabel>Confirm Password</FormLabel>
-
-        <Input
-          placeholder="Confirm your Password"
-          onChange={(e) => {
-            csetPassword(e.target.value);
-          }}
-        />
-      </FormControl>
+         
 
       <Button fullWidth onClick={submitHandler} variant={"contained"}>
           Submit

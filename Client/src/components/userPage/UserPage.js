@@ -15,6 +15,7 @@ import Parallax from "react-rellax";
 import AuthContext from '../../context/AuthContext';
 
 
+
 const navbarlinks = [
     { url: "", title: "Home" },
     { url: "", title: "Contact" },

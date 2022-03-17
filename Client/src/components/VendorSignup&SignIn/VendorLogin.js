@@ -77,6 +77,7 @@ function Login() {
         <FormLabel>Pasword</FormLabel>
 
         <Input
+        type='password'
           placeholder="Enter your password"
           onChange={(e) => {
             setPassword(e.target.value);
@@ -94,8 +95,8 @@ function Login() {
         color="secondary"
         variant={"outlined"}
       >
-        {" "}
-        OTP Login{" "}
+       
+        OTP Login
       </Button>
 
       

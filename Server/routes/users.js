@@ -19,7 +19,6 @@ const userController = require('../controller/userController')
 
 router.post("/register",userController.register );
 
-
 // @post user register
 // @body user details
 // @return JWT 
@@ -44,6 +43,9 @@ router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
 
 router.post("/proPicUpload", userController.proPicUpload)
 
+
+
+router.post("/getUsers", userController.getAllusers);
 
 
 module.exports = router;

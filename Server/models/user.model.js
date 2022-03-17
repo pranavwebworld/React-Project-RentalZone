@@ -29,7 +29,13 @@ const UserSchema = new Schema({
         default:"https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
 
     },
-});
+},
+
+{
+    timestamps:true
+}
+
+);
 
 
 

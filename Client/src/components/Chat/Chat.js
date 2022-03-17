@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import ChatNav from "./ChatNav/ChatNav";
 import Conversation from "./Conversations/Conversation";
@@ -7,7 +7,36 @@ import Message from "./Message/Message";
 import ChatProfile from "./ChatProfile/ChatProfile";
 import {ImAttachment } from "react-icons/im"
 import { BsSearch} from "react-icons/bs"
+import axios from '../../axios/axios'
 const Chat = () => {
+
+    const [chats,setChats]=useState([])
+
+
+const fetchChat = async ()=>{
+
+    const data =  await axios.get ('/api/chats')
+    setChats(data)
+
+}
+
+
+useEffect(() => {
+
+setChats()
+
+ 
+}, [])
+
+
+
+
+
+
+
+
+
+
     const navbarlinks = [
         { url: "", title: "Home" },
         { url: "", title: "Contact" },

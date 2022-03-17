@@ -96,6 +96,7 @@ const Signup = () => {
         <FormLabel>Pasword</FormLabel>
 
         <Input
+          type='password'
           placeholder="Enter your password"
           onChange={(e) => {
             setPassword(e.target.value);
