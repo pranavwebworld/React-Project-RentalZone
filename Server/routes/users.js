@@ -32,7 +32,11 @@ router.post("/login",userController.login);
 
 
 router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
+  
+  var payload = req.payload
   console.log(req.payload);
+  res.json({ payload })
+ 
 });
 
 

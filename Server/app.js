@@ -17,6 +17,9 @@ require('./helpers/init_mongodb')
 
 
 
+
+
+
 app.use(cors({ origin: ["http://localhost:3000"], credentials: true }))
 
 app.use(morgan('dev'))
@@ -26,13 +29,16 @@ app.use(express.urlencoded({ limit:'50mb',  extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/vendors", vendorsRouter);
-app.use("/auth",authRoute)
+app.use("/auth", authRoute)
 app.use("/vendors", vendorsRouter);
-app.use("/chats", chatRouter)
+app.use("/chat", chatRouter)
+
+
 app.use(async (req, res, next) => {
 //   const error = new Error("not found");
 //   error.status = 404;
