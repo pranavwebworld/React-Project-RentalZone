@@ -23,7 +23,7 @@ router.post('/conversation', verifyAccessToken, accessConvo)
 // @get a chat
 // @body user Id
 // @return all conversation
-router.post('/getconvo/:userId', verifyAccessToken, getConvo)
+router.get('/getconvo/:userId', getConvo)
 
 
 // @Add a msg

@@ -73,12 +73,12 @@ module.exports = {
     JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
       if (err) {
 
-        
         // const message =
         //   err.name === "JasonWebTokenError" ? "Unauthorized" : err.message;
 
         // return next(createErrors.Unauthorized(message));
 
+        console.log(err);
         return res.json({})
       }
       console.log("verify acees token");

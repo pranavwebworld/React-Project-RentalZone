@@ -103,6 +103,11 @@ module.exports = {
 
 
   getConvo: asyncHandler(async (req, res) => {
+
+    console.log("Reached get convo");
+    
+    console.log(req.payload);
+
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
     });
@@ -113,7 +118,7 @@ module.exports = {
 
 
   addMsg: asyncHandler(async (req, res) => {
-    console.log("Reached here");
+ 
     console.log(req.body);
     const newMessage = new Message(req.body);
     const savedMessage = await newMessage.save();
@@ -134,8 +139,6 @@ module.exports = {
     conversationId:req.params.conversationId,
 
     })
-
-
 
 
       res.status(200).json(message)
