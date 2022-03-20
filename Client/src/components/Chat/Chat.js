@@ -17,18 +17,72 @@ const [conversations, setConversations] = useState([]);
 const [currentChat, setCurrentChat] = useState(null);
 const [messages, setMessages] = useState([]);
 const [newMessage,setNewMessage]=useState('')
-const [socket,setSocket]=useState(null)
+const [arrivalMessage,setArrivalMessage]=useState(null);
+const socket = useRef()
 const { currentUser } = useContext(AuthContext);const scrollRef = useRef()
   
 
 
-useEffect(()=>{
 
-setSocket(io("ws://localhost:8900"))
+useEffect(()=>{
+ 
+  socket.current = io("ws://localhost:8900")
+     
+
+
+
+socket.current.on('welcome',(msg)=>{
+
+  console.log({msg});
+
+
+})
+
+
+
+  socket.current.on("getMsg", (data) => {
+
+    console.log({data});
+
+    setArrivalMessage({
+
+      sender: data.senderId,
+      text: data.text,
+      createdAt: Date.now()
+    })
+
+
+    console.log({ arrivalMessage});
+
+  })
 
 },[])
 
 
+
+
+useEffect(()=> { 
+
+arrivalMessage && currentChat?.members.includes(arrivalMessage.sender)&&
+
+setMessages((prev)=>[...prev,arrivalMessage]);
+  console.log({ arrivalMessage });
+
+},[arrivalMessage,currentChat])
+
+
+useEffect(()=>{
+
+socket.current.emit('addUser',currentUser?.aud)
+
+  socket.current.on("getUsers",users=>{
+
+console.log({users} );
+
+
+})
+
+},[currentUser])
 
 
 
@@ -90,15 +144,27 @@ setSocket(io("ws://localhost:8900"))
 
 
   const handleSubmit = async (e)=>{
-
     e.preventDefault();
     const message={
-
         sender:currentUser?.aud,
         text:newMessage,
         conversationId:currentChat._id
 
     }
+
+
+const receiverId = currentChat.members.find((member)=>member !== currentUser.aud)
+console.log({receiverId});
+
+socket.current.emit(('sendMsg',{
+
+  senderId:currentUser.aud, 
+ receiverId,
+  text:newMessage,
+
+
+}));
+
 
     try {
         
@@ -134,6 +200,8 @@ setSocket(io("ws://localhost:8900"))
             ))}
           </div>
         </div>
+
+
 
         <div className="ChatBox">
           <div className="chatBoxWrapper">
