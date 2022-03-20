@@ -42,14 +42,21 @@ router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
 
 
 // @post user propic
-// 
 // @return boolean True or false 
-
 router.post("/proPicUpload", userController.proPicUpload)
 
 
 
-router.post("/getUsers", userController.getAllusers);
+
+// @get send search query
+// @return matched users
+router.get("/searchUsers", userController.searchUsers);
+
+
+// @get params userId
+// @return matched users
+
+router.get("/getbyId", userController.getById);
 
 
 module.exports = router;

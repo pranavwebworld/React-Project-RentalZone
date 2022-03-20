@@ -1,22 +1,50 @@
-import React from 'react'
-import "./conversation.css"
+import axios from '../../../axios/axios'
+import React, { useEffect, useState } from "react";
+import "./conversation.css";
 
-const Conversation = () => {
-    return (
-        <div>
-            
-            <div className="conversation" >
-
-                <img className="conversationImg" src="https://media.istockphoto.com/photos/productivity-powered-by-digital-technology-picture-id1330965067?b=1&k=20&m=1330965067&s=170667a&w=0&h=ys_MV3zYkn2HJCtHC4s_03Sz1MUC2BZv6PcDdk__XSc=" alt=""/>
-            <span className="converationName">Pranav </span>
-            
+const Conversation = ({ conversation, CurrentUser }) => {
+    
+  const [vendor, setvendor] = useState(null);
 
 
-            </div>
+
+  useEffect(() => {
 
 
-        </div>
-    )
-}
+    const friendId = conversation.members.find((m) => m !== CurrentUser.aud);
+    console.log(friendId);
 
-export default Conversation
+
+    const getUser = async () => {
+
+      try {
+
+          console.log('get user called in use effect');
+          const resp = await axios.get('/users/getbyId?userId='+friendId);
+          console.log(resp.data," chat buddy details ");
+          setvendor(resp.data)
+        
+      } catch (error) {
+
+        console.log(error);
+      }
+    };
+
+    getUser()
+  }, [conversation , CurrentUser ]);
+
+  return (
+    <div>   
+      <div className="conversation">
+        <img
+          className="conversationImg"
+          src={vendor?.propic}
+          alt=""
+        />
+        <span className="converationName">{vendor?.name} </span>
+      </div>
+    </div>
+  );
+};
+
+export default Conversation;

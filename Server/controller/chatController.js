@@ -105,7 +105,7 @@ module.exports = {
   getConvo: asyncHandler(async (req, res) => {
 
     console.log("Reached get convo");
-    
+
     console.log(req.payload);
 
     const conversation = await Conversation.find({
@@ -131,7 +131,7 @@ module.exports = {
 
   getMsg: asyncHandler(async (req, res) => {
 
-
+    console.log("reached get MSG");
     console.log(req.params.conversationId);
 
     const message = await Message.find({
@@ -139,7 +139,6 @@ module.exports = {
     conversationId:req.params.conversationId,
 
     })
-
 
       res.status(200).json(message)
 

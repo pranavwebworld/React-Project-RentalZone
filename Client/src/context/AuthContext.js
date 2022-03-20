@@ -6,15 +6,20 @@ const AuthContext = createContext();
 
 function AuthContextProvider(props) {
   
-    const [loggedIn, setLoggedIn] = useState(undefined);
+    var [loggedIn, setLoggedIn] = useState(undefined);
     const [currentUser, setCurrentUser] = useState('');
 
 
     useEffect(() => {
 
+     
+
         getLoggedIn();
+
+        
     
-    }, []);
+    }, [loggedIn]);
+
 
     async function getLoggedIn() {
         console.log("getloggged in called from auth ");

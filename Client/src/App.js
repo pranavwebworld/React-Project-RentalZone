@@ -35,8 +35,10 @@ function App() {
 
   const { loggedIn } = useContext(AuthContext);
   const { VloggedIn } = useContext(VendorContext);
+
   console.log({VloggedIn});
   console.log({loggedIn});
+
 
   return (
 

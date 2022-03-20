@@ -27,14 +27,14 @@ router.get('/getconvo/:userId', getConvo)
 
 
 // @Add a msg
-// @body conversationId
+// @body conversationId, msg content
 // @return  status
-router.post('/msg', verifyAccessToken, addMsg)
+router.post('/msg',  addMsg)
 
 
 // @get messages
 // @param conversationId
 // @return  messages
-router.get('/getMsg/:conversationId', verifyAccessToken, getMsg)
+router.get('/getMsg/:conversationId', getMsg)
 
 module.exports = router;

@@ -4,17 +4,20 @@ body {
 }
 
 .messenger {
-  margin-top: 70px;
-  height: 91vh;
+
+  margin-top: 4rem;
+  height: 97vh;
   display: flex;
-  overflow-y: hidden;
+  overflow-y:hidden;
+  overflow-x: hidden;
   background-color: #202124;
 }
 
 .ChatMenu {
+  
   flex: 2;
   overflow-y: scroll;
-  height: 110vh;
+  height: 100vh;
   background-color: #202124;
   position: relative;
 }
@@ -38,6 +41,8 @@ body {
 
   background-color: #202124;
 }
+
+
 
 .chatMenuInput {
 
@@ -96,9 +101,11 @@ background-color: #ab1941  ;
 
 .chatBoxWrapper {
   display: flex;
+  position: relative;
   flex-direction: column;
     border-left: 1px solid rgb(74, 74, 74);
      border-right: 1px solid rgb(74, 74, 74);
+     ;
 }
 
 .chatBoxTop {
@@ -119,6 +126,17 @@ color: rgb(143, 141, 141);
 
 }
 
+
+.selectConvo{
+position: absolute;
+color: white;
+top:40vh;
+left:17.5vh;
+font-size:4vh;
+opacity: .6;
+font-weight: 400;
+cursor: default;
+}
 
 @media screen and (max-width: 800px)
 

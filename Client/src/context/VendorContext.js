@@ -13,9 +13,20 @@ function VendorContextProvider(props) {
 
     useEffect(() => {
 
+        setVLoggedIn(false);
+
         getVLoggedIn();
-    
-    }, []);
+
+
+        return ()=>{
+
+
+            setVLoggedIn(false);
+
+        }
+
+
+    }, [VloggedIn]);
 
 
     async function getVLoggedIn() {

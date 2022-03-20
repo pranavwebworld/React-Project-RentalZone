@@ -5,7 +5,6 @@ const { options } = require("../app");
 
 module.exports = {
 
-
   signVendorAccessToken: (vendorId,vendor,pic) => {
 
     return new Promise((resolve, reject) => {
@@ -29,9 +28,6 @@ module.exports = {
       });
     });
   },
-
-
-
 
   signAccessToken: (userId, user, pic) => {
 

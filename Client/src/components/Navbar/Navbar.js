@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const navbarlinks = [
     { url: "", title: "Home" },
-    { url: "", title: "Contact" },
+    { url: "/user", title: "Account" },
     { url: "", title: "About  " },
   ];
 

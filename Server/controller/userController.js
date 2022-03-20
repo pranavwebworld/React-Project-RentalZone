@@ -8,149 +8,137 @@ const { signAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
 const { signRefreshToken } = require("../helpers/jwt_helpers");
 const cookieParser = require("cookie-parser");
-const { cloudinary } = require('../cloudinary/cloudinary')
+const { cloudinary } = require("../cloudinary/cloudinary");
 router.use(cookieParser());
-const asyncHandler = require('express-async-handler')
-
-
-
+const asyncHandler = require("express-async-handler");
 
 module.exports = {
+  register: async (req, res, next) => {
+    try {
+      const result = await signupSchema.validateAsync(req.body);
+      const doesExist = await User.findOne({ email: result.email });
+      if (doesExist) {
+        throw createError.Conflict(`${result.email} is already registered`);
+      }
 
-    register: async (req, res, next) => {
-        try {
-            const result = await signupSchema.validateAsync(req.body);
-            const doesExist = await User.findOne({ email: result.email });
-            if (doesExist) {
-                throw createError.Conflict(`${result.email} is already registered`);
-            }
+      const user = new User(result);
+      const savedUser = await user.save();
+      console.log({ savedUser });
+      const accessToken = await signAccessToken(
+        savedUser.id,
+        savedUser.name,
+        savedUser.propic
+      );
 
-            const user = new User(result);
-            const savedUser = await user.save();
-            console.log({ savedUser });
-            const accessToken = await signAccessToken(savedUser.id, savedUser.name, savedUser.propic);
+      return res.status(200).json({
+        userAccessToken: accessToken,
+        message: "Logged in successfully 😊 👌",
+      });
+    } catch (error) {
+      console.log(error.message);
+      if (error.isJoi === true) error.status = 422;
+      next(error);
+    }
+  },
 
-            return res.status(200).json({
-                userAccessToken: accessToken,
-                message: "Logged in successfully 😊 👌",
-            });
-        } catch (error) {
-            console.log(error.message);
-            if (error.isJoi === true) error.status = 422;
-            next(error);
+  login: async (req, res, next) => {
+    try {
+      const result = await loginSchema.validateAsync(req.body);
+      console.log(result);
+
+      const user = await User.findOne({ email: result.email });
+      console.log({ user });
+      if (!user) throw createError.NotFound("User not found");
+
+      const isMatch = await user.isValidPassword(result.password);
+
+      if (!isMatch)
+        throw createError.Unauthorized("User name / password not valid");
+
+      const accessToken = await signAccessToken(
+        user.id,
+        user.name,
+        user.propic
+      );
+      // const refreshToken = await signRefreshToken(user.id);
+
+      console.log({ accessToken });
+
+      // res.send({ accessToken, refreshToken });
+      return res.status(200).json({
+        userAccessToken: accessToken,
+        message: "Logged in successfully 😊 👌",
+      });
+    } catch (error) {
+      console.log(error);
+      if (error.isJoi === true)
+        return next(createError.BadRequest("invalid username/password"));
+
+      next(error);
+    }
+  },
+
+  proPicUpload: async (req, res, next) => {
+    try {
+      const token = req.cookies.userAccessToken;
+
+      JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+        if (err) {
+          console.log(err);
+          next(err);
         }
-    },
+      });
 
+      console.log({ token });
+      const userId = token.aud;
+      console.log({ userId });
 
-    login: async (req, res, next) => {
-        try {
-            const result = await loginSchema.validateAsync(req.body);
-            console.log(result);
+      const imgStr = req.body.base64Img;
 
-            const user = await User.findOne({ email: result.email });
-            console.log({ user });
-            if (!user) throw createError.NotFound("User not found");
+      const uploadResponse = await cloudinary.uploader.upload(imgStr, {
+        upload_preset: "User_propics",
 
-            const isMatch = await user.isValidPassword(result.password);
+        allowedFormats: ["jpg", "png", "jpeg"],
+      });
+      console.log(uploadResponse);
 
-            if (!isMatch)
-                throw createError.Unauthorized("User name / password not valid");
+      const imgUrl = uploadResponse.url;
 
-            const accessToken = await signAccessToken(user.id, user.name, user.propic);
-            // const refreshToken = await signRefreshToken(user.id);
+      console.log({ imgUrl });
 
-            console.log({ accessToken });
+      // const updateResp = await User.findByIdAndUpdate({ userId }, { "propic": imgUrl })
 
-            // res.send({ accessToken, refreshToken });
-            return res.status(200).json({
-                userAccessToken: accessToken,
-                message: "Logged in successfully 😊 👌",
-            });
-        } catch (error) {
-            console.log(error);
-            if (error.isJoi === true)
-                return next(createError.BadRequest("invalid username/password"));
+      // console.log({ updateResp });
+      res.json({ msg: "uploaded" });
 
-            next(error);
+      // const croppedimg = await cloudinary.url({PublicId},{ width: 400, height: 400,  crop: "limit" })
+      // console.log(croppedimg);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  },
+
+  searchUsers: asyncHandler(async (req, res, next) => {
+    const keyword = req.query.search
+      ? {
+          $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
+          ],
         }
-    },
+      : {};
+    console.log({ keyword });
 
-    proPicUpload: async (req, res, next) => {
-        try {
+    const users = await User.find(keyword);
 
-            const token = req.cookies.userAccessToken
+    res.send(users);
+  }),
+  getById: asyncHandler(async (req, res, next) => {
+    const userId = req.query.userId;
 
-            JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+    const user = await User.findById(userId);
 
-                if (err) {
-
-                    console.log(err);
-                    next(err)
-                }
-            });
-
-            console.log({ token });
-            const userId = token.aud
-            console.log({ userId });
-
-
-            const imgStr = req.body.base64Img;
-
-            const uploadResponse = await cloudinary.uploader.upload(imgStr, {
-
-                upload_preset: 'User_propics',
-
-                allowedFormats: ["jpg", "png", "jpeg"]
-
-            })
-            console.log(uploadResponse);
-
-            const imgUrl = uploadResponse.url
-
-            console.log({ imgUrl });
-
-            // const updateResp = await User.findByIdAndUpdate({ userId }, { "propic": imgUrl })
-
-            // console.log({ updateResp });
-            res.json({ msg: "uploaded" })
-
-            // const croppedimg = await cloudinary.url({PublicId},{ width: 400, height: 400,  crop: "limit" })
-            // console.log(croppedimg);
-
-
-        } catch (error) {
-
-            console.log(error);
-            next(error)
-
-        }
-
-    },
-
-
-
-    getAllusers: asyncHandler(async(req, res, next) => {
-
-        const keyword = req.query.search
-        ? {
-
-            $or:[
-
-
-                { name: { $regex: req.query.search, $options: 'i' } },
-                { email: { $regex: req.query.search, $options: 'i' } }
-            ]
-
-        }:{};
-
-    
-        console.log({keyword});
-
-        const users = await User.find(keyword)
-
-        res.send(users)
-    })
-
-
-
-}
+    res.status(200).json(user);
+  }),
+};
