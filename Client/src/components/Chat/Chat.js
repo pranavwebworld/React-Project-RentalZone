@@ -15,9 +15,11 @@ import { io } from "socket.io-client";
 const Chat = () => {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
+  const [currentProfile, setCurrentProfile] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [buttonState, setButtonState] = useState(false);
   const socket = useRef();
   const { currentUser } = useContext(AuthContext);
   const scrollRef = useRef();
@@ -36,9 +38,9 @@ const Chat = () => {
         text: data.text,
         createdAt: Date.now(),
       });
-
-      console.log({ arrivalMessage });
     });
+
+    console.log({ arrivalMessage });
   }, []);
 
   useEffect(() => {
@@ -104,61 +106,40 @@ const Chat = () => {
 
   console.log({ currentChat });
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const message = {
+      sender: currentUser?.aud,
+      text: newMessage,
+      conversationId: currentChat._id,
+    };
 
+    const receiverId = currentChat.members.find(
+      (member) => member !== currentUser.aud
+    );
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const message = {
-  //     sender: currentUser?.aud,
-  //     text: newMessage,
-  //     conversationId: currentChat._id,
-  //   };
+    console.log({ receiverId });
 
-  //   const receiverId = currentChat.members.find(
-  //     (member) => member !== currentUser.aud
-  //   );
-  //   console.log({ receiverId });
+    console.log({ newMessage });
 
-  //   console.log({ newMessage });
+    socket.current.emit("sendMessage", {
+      senderId: currentUser.aud,
+      receiverId: receiverId,
+      text: newMessage,
+    });
 
-  //   socket.current.emit(
-  //     ("sendMessage",
-  //     {
-  //       senderId: currentUser.aud,
-  //       receiverId,
-  //       text: newMessage,
-  //     })
-  //   );
-
-
-  //   try {
-  //     const res = await axios.post("/chat/msg", message);
-  //     setMessages([...messages, res.data]);
-  //     setNewMessage("");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-
-
+    try {
+      const res = await axios.post("/chat/msg", message);
+      setMessages([...messages, res.data]);
+      setNewMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <>
       <Navbar navbarLinks={navbarlinks}></Navbar>
@@ -170,7 +151,8 @@ const Chat = () => {
             <BsSearch className="searchIcon "></BsSearch>
 
             {conversations.map((c, index) => (
-              <div onClick={() => setCurrentChat(c)}>
+              
+              <div onClick={() => {setCurrentChat(c)}}>
                 <Conversation
                   key={index}
                   conversation={c}
@@ -200,7 +182,12 @@ const Chat = () => {
                     value={newMessage}
                   ></textarea>
                   <ImAttachment color="white" cursor="pointer" />
-                  <button onClick={handleSubmit} className="chatSubmitButton">
+                  <button
+                    /*disabled={ (newMessage ===""?true:false) } */ onClick={
+                      handleSubmit
+                    }
+                    className="chatSubmitButton"
+                  >
                     {" "}
                     Send{" "}
                   </button>
@@ -213,7 +200,7 @@ const Chat = () => {
         </div>
         <div className="ChatOnline">
           <div className="chatOnlineWrapper">
-            <ChatProfile></ChatProfile>
+            <ChatProfile profile={currentChat} />
           </div>
         </div>
       </div>

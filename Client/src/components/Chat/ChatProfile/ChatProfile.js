@@ -1,9 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect, useContext, useRef } from "react";
+import AuthContext from "../../../context/AuthContext";
 import './chatProfile.css'
 import { BsCameraReelsFill } from "react-icons/bs"
 import { IoIosCall } from "react-icons/io"
+import axios from "../../../axios/axios";
 
-const ChatProfile = () => {
+
+
+
+const ChatProfile = ({profile}) => {
+
+    const [vendor, setvendor] = useState(null);
+    const { CurrentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+
+
+        const friendId = profile?.members.find((m) => m !== CurrentUser?.aud);
+
+        console.log('chat profile',friendId);
+
+        const getUser = async () => {
+
+            try {
+
+                console.log('get user called in use effect');
+                const resp = await axios.get('/users/getbyId?userId=' + friendId);
+                console.log(resp.data, " chat buddy details ");
+                setvendor(resp.data)
+
+            } catch (error) {
+
+                console.log(error);
+            }
+        };
+
+        getUser()
+    }, [profile]);
+
+
+
+
     return (
 
         <div className="chatOnline" >
@@ -12,12 +49,12 @@ const ChatProfile = () => {
 
 
 
-                <img className="chatOnlineImg" src="https://media.istockphoto.com/photos/productivity-powered-by-digital-technology-picture-id1330965067?b=1&k=20&m=1330965067&s=170667a&w=0&h=ys_MV3zYkn2HJCtHC4s_03Sz1MUC2BZv6PcDdk__XSc=" alt="" />
+                <img className="chatOnlineImg" src={vendor?.propic} alt="" />
 
 
 
                 <div className="buttongroup">
-                    <span className="chatOnlineName"> Pranav </span>
+                    <span className="chatOnlineName"> {vendor?.name} </span>
                     <BsCameraReelsFill className="videoIcon" color="green" fontSize="30px" />
                     <IoIosCall  className="callIcon"  color="green" fontSize="30px" />
 
