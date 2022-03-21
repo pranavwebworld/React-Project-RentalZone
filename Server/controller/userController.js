@@ -78,19 +78,13 @@ module.exports = {
     }
   },
 
+
   proPicUpload: async (req, res, next) => {
     try {
-      const token = req.cookies.userAccessToken;
 
-      JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
-        if (err) {
-          console.log(err);
-          next(err);
-        }
-      });
-
-      console.log({ token });
-      const userId = token.aud;
+        console.log(req.body);
+      const userId = req.body.userId
+ 
       console.log({ userId });
 
       const imgStr = req.body.base64Img;
@@ -106,9 +100,9 @@ module.exports = {
 
       console.log({ imgUrl });
 
-      // const updateResp = await User.findByIdAndUpdate({ userId }, { "propic": imgUrl })
+          const updateResp = await User.findByIdAndUpdate(userId, {propic:imgUrl })
 
-      // console.log({ updateResp });
+      console.log({ updateResp });
       res.json({ msg: "uploaded" });
 
       // const croppedimg = await cloudinary.url({PublicId},{ width: 400, height: 400,  crop: "limit" })
@@ -119,6 +113,9 @@ module.exports = {
     }
   },
 
+
+
+  
   searchUsers: asyncHandler(async (req, res, next) => {
     const keyword = req.query.search
       ? {

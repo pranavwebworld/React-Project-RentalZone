@@ -1,4 +1,4 @@
-import { React,useContext}from "react";
+import { React,useContext,useEffect, useState}from "react";
 import "../LandingPage/landingpage.css";
 import "../Illustartions/RadialRed";
 import coverpic from "../../assets/userPage3.jpg";
@@ -13,7 +13,7 @@ import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
 import AuthContext from '../../context/AuthContext';
-
+import axios from "../../axios/axios";
 
 
 const navbarlinks = [
@@ -25,6 +25,35 @@ const navbarlinks = [
 const LandingPage = () => {
 
     const { currentUser } = useContext(AuthContext)
+    const [cuser,setCuser]= useState(null)
+
+
+    useEffect(() => {
+
+        const getUser = async () => {
+
+            try {
+
+                console.log('get user called in Landing page');
+
+                const resp = await axios.get('/users/getbyId?userId=' + currentUser?.aud);
+
+                console.log(resp.data, " Current user Details");
+
+                let user = resp.data
+
+                setCuser(user)
+            } catch (error) {
+
+                console.log(error);
+            }
+        };
+
+        getUser()
+    }, [currentUser]);
+
+
+
 
     return (
 
@@ -32,7 +61,8 @@ const LandingPage = () => {
         <div className="landing__page">
 
             <Navbar navbarLinks={navbarlinks} />
-            <UserHero user={currentUser}   imgSrc={coverpic} />
+            x
+            <UserHero user={cuser}   imgSrc={coverpic} />
 
             <Parallax speed={-5}>
                 <CameraSvg></CameraSvg>

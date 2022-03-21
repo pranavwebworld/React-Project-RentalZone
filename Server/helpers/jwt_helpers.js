@@ -117,28 +117,6 @@ module.exports = {
     });
   },
 
-  signVendorRefreshToken: (vendorId) => {
-    return new Promise((resolve, reject) => {
-      const payload = {
-        name: "pranav",
-      };
-      const secret = process.env.REFRESH_TOKEN_SECRET;
-      const options = {
-        expiresIn: "1y",
-        issuer: "RentalZone.com",
-        audience: vendorId,
-      };
-
-      JWT.sign(payload, secret, options, (err, token) => {
-        if (err) {
-          console.log(err.message);
-          reject(createErrors.InternalServerError());
-        }
-        resolve(token);
-      });
-    });
-  },
-
 
 
   signRefreshToken: (userId) => {

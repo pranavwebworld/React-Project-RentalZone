@@ -137,9 +137,6 @@ const Chat = () => {
     }
   };
 
-
-
-  
   return (
     <>
       <Navbar navbarLinks={navbarlinks}></Navbar>
@@ -151,8 +148,11 @@ const Chat = () => {
             <BsSearch className="searchIcon "></BsSearch>
 
             {conversations.map((c, index) => (
-              
-              <div onClick={() => {setCurrentChat(c)}}>
+              <div
+                onClick={() => {
+                  setCurrentChat(c);
+                }}
+              >
                 <Conversation
                   key={index}
                   conversation={c}
@@ -200,7 +200,13 @@ const Chat = () => {
         </div>
         <div className="ChatOnline">
           <div className="chatOnlineWrapper">
-            <ChatProfile profile={currentChat} />
+
+            {currentChat ? <ChatProfile profile={currentChat} /> :<span>  
+              
+              
+              </span>}
+
+          
           </div>
         </div>
       </div>

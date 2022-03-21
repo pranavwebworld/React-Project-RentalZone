@@ -4,7 +4,7 @@ import "./conversation.css";
 
 const Conversation = ({ conversation, CurrentUser }) => {
     
-    const [vendor, setvendor] = useState(null);
+  const [vendor, setvendor] = useState(null);
 
 
 

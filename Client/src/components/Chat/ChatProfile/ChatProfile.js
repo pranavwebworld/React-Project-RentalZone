@@ -11,12 +11,12 @@ import axios from "../../../axios/axios";
 const ChatProfile = ({profile}) => {
 
     const [vendor, setvendor] = useState(null);
-    const { CurrentUser } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
 
 
-        const friendId = profile?.members.find((m) => m !== CurrentUser?.aud);
+        const friendId = profile?.members.find((m) => m !== currentUser?.aud);
 
         console.log('chat profile',friendId);
 
@@ -27,7 +27,8 @@ const ChatProfile = ({profile}) => {
                 console.log('get user called in use effect');
                 const resp = await axios.get('/users/getbyId?userId=' + friendId);
                 console.log(resp.data, " chat buddy details ");
-                setvendor(resp.data)
+                let USER = resp.data
+                setvendor(USER)
 
             } catch (error) {
 
@@ -47,11 +48,7 @@ const ChatProfile = ({profile}) => {
 
             <div className="ChatOnlineFriend" >
 
-
-
                 <img className="chatOnlineImg" src={vendor?.propic} alt="" />
-
-
 
                 <div className="buttongroup">
                     <span className="chatOnlineName"> {vendor?.name} </span>
@@ -61,11 +58,7 @@ const ChatProfile = ({profile}) => {
                 </div>
                 <button className="profileButton" >View Profile </button>
 
-
             </div>
-
-
-
 
         </div>
     )

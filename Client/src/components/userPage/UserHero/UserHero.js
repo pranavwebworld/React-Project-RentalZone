@@ -1,27 +1,31 @@
 import { withStyles } from "@mui/material";
 import usePagination from "@mui/material/usePagination/usePagination";
-import { React, useState,useEffect } from "react";
+import { React, useState,useEffect,useContext } from "react";
 import axios from "../../../axios/axios";
 import UserPropic from "../userProfile/userProfile";
 import "./userhero.css";
 import "../userProfile/userProfile";
+import AuthContext from "../../../context/AuthContext";
+
 
 const Hero = ({ user, imgSrc }) => {
 
-  console.log({user});
-  console.log(user.pic );
 
+  const { CurrentUser } = useContext(AuthContext);
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedfile] = useState("");
+
+
+
+
+
+
 
   const handeleProPicChange = (e) => {
     const file = e.target.files[0];
     previewFile(file);
   };
-
-
-  
 
   const previewFile = async  (file) => {
 
@@ -50,12 +54,13 @@ const Hero = ({ user, imgSrc }) => {
   const uploadImage = async (base64Img) => {
     console.log(base64Img);
     try {
-      axios.post("/users/proPicUpload", { base64Img },{withCredentials:true});
+
+    
+      axios.post("/users/proPicUpload", { base64Img, userId:user?._id },{withCredentials:true});
     } catch (error) {
       console.log(error);
     }
   };
-
 
   var loadFile = function (event) {
     const file = event.target.files[0];
@@ -86,7 +91,7 @@ const Hero = ({ user, imgSrc }) => {
               <span>Change Image</span>
             </label>
             <input id="file" value={fileInputState} name="proImage" type="file" onChange={loadFile}/>
-          <img src={user.pic} id="output" width="200" />
+          <img src={user?.propic} id="output" width="200" />
           </div>
         </div>
 
@@ -94,7 +99,7 @@ const Hero = ({ user, imgSrc }) => {
       <h1 className="hero__title animate">
         {" "}
         <span style={{ color: "#5D5D5D" }}> Welcome </span>{" "}
-        <span style={{ color: "#ab1941" }}> {user.name} </span>{" "}
+        <span style={{ color: "#ab1941" }}> {user?.name} </span>{" "}
       </h1>
     </div>
   );
