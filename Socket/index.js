@@ -57,19 +57,9 @@ io.on("connection", (socket) => {
 
 
 
-  socket.on("callUser", (data) => {
-    io.to(data.userToCall).emit("callUSer", {
-      signal: data.signalData,
-      from: data.from,
-      name: data.name,
-    });
-  });
-
   socket.on("answerCall", (data) => {
     io.to(data.to).emit("callAccepted", data.signal);
   });
-
-
 
 
     socket.on("disconnect", () => {
@@ -81,10 +71,14 @@ io.on("connection", (socket) => {
 
         console.log('call user called',{data});
 
+        console.log(data.from, " data from ")
+        console.log(data.signalData, " data signal ")
+        console.log(data.userToCall, " data.userToCall")
+
         io.to(data.userToCall).emit("callUser", { signal: data.signalData, from: data.from, name: data.name })
     })
 
-    
+
     socket.on("answerCall", (data) => {
         io.to(data.to).emit("callAccepted", data.signal)
     })

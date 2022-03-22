@@ -13,10 +13,12 @@ import { io } from "socket.io-client";
 import VideoChat from "../Chat/Videocall"
 
 
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
 
 
 
@@ -44,7 +46,8 @@ console.log('child called')
 
 }
 
-  useEffect(() => {
+  useEffect(() => { 
+
     socket.current = io("ws://localhost:8900");
 
     socket.current.on("welcome", (msg) => {
@@ -83,6 +86,7 @@ console.log('child called')
     });
   }, [currentUser]);
 
+
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -100,6 +104,8 @@ console.log('child called')
 
     getConversations();
   }, [currentUser]);
+
+
 
   useEffect(() => {
     try {
@@ -129,6 +135,7 @@ console.log('child called')
     ,
   ];
 
+
   console.log({ currentChat });
 
   const handleSubmit = async (e) => {
@@ -142,6 +149,7 @@ console.log('child called')
     const receiverId = currentChat.members.find(
       (member) => member !== currentUser.aud
     );
+
 
     console.log({ receiverId });
 
@@ -195,15 +203,12 @@ console.log('child called')
         <Box sx={style}>
           
 
-          <VideoChat Users={socketUsers}   ></VideoChat>
+          <VideoChat Users={socketUsers}  modal={ handleOpen}   ></VideoChat>
 
 
 
         </Box>
       </Modal>
-
-
-
 
 
 

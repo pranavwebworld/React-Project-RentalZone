@@ -12,7 +12,7 @@ import AuthContext from "../../context/AuthContext";
 
 const socket = io.connect("ws://localhost:8900")
 
-function Videocall( {Users}) {
+function Videocall( {modal,Users}) {
 
 
     const [me, setMe] = useState("")
@@ -43,43 +43,62 @@ function Videocall( {Users}) {
                 (user) => user.userId !== currentUser.aud
             );  
 
-
-        
-
             const callerId = Users.find(
 
                 (user) => user.userId == currentUser.aud
             );
-                setMe()
+               
 
-            const callerSocketId = callerId.socketId
-            const receiverSocketId = receiverId.socketIdz
+            var callerSocketId = callerId.socketId
+            const receiverSocketId = receiverId.socketId
 
+
+        
+            setMe(callerSocketId)
+
+            callUser(receiverSocketId)
 
             console.log({ receiverId });
-            console.log({callerId});
+            console.log({ callerId });
             console.log({ callerSocketId });
             console.log({ receiverSocketId });
+                console.log({me});
 
-            setMe(callerSocketId )
-            callUser(receiverSocketId)
+
+
+            socket.on("callUser", (data) => {
+
+            console.log("Incoming calllllllll.......................");
+
+                modal()
+                setReceivingCall(true)
+                setCaller(data.from)
+                setName(data.name)
+                setCallerSignal(data.signal)
+            })
+
         })
-
-
-      
-        socket.on("callUser", (data) => {
-            setReceivingCall(true)
-            setCaller(data.from)
-            setName(data.name)
-            setCallerSignal(data.signal)
-        })
-
-       
-
-    
 
     }, [])
 
+
+
+
+    socket.on("callUser", (data) => {
+
+
+        console.log("Incoming calllllllll.......................");
+
+        modal()
+        setReceivingCall(true)
+        setCaller(data.from)
+        setName(data.name)
+        setCallerSignal(data.signal)
+    })
+
+
+  
+    
 
     const callUser = (id) => {
         const peer = new Peer({
@@ -87,6 +106,8 @@ function Videocall( {Users}) {
             trickle: false,
             stream: stream
         })
+
+
         peer.on("signal", (data) => {
             socket.emit("callUser", {
                 userToCall: id,
@@ -95,11 +116,16 @@ function Videocall( {Users}) {
                 name: "caller"
             })
         })
+
+
+
+
         peer.on("stream", (stream) => {
 
             userVideo.current.srcObject = stream
 
         })
+
         socket.on("callAccepted", (signal) => {
             setCallAccepted(true)
             peer.signal(signal)
@@ -107,6 +133,8 @@ function Videocall( {Users}) {
 
         connectionRef.current = peer
     }
+
+
 
     const answerCall = () => {
         setCallAccepted(true)
