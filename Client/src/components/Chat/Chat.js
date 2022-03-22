@@ -9,10 +9,19 @@ import { ImAttachment } from "react-icons/im";
 import { BsSearch } from "react-icons/bs";
 import axios from "../../axios/axios";
 import AuthContext from "../../context/AuthContext";
-import { useFormControl } from "@mui/material";
 import { io } from "socket.io-client";
+import VideoChat from "../Chat/Videocall"
+
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+
 
 const Chat = () => {
+
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
@@ -20,9 +29,20 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [buttonState, setButtonState] = useState(false);
+  const [socketUsers,setsocketUsers]=useState('')
   const socket = useRef();
   const { currentUser } = useContext(AuthContext);
   const scrollRef = useRef();
+
+
+const childF  = (currentSocketUsers)=>{
+
+  handleOpen()
+
+  console.log({currentSocketUsers});
+console.log('child called')
+
+}
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
@@ -43,6 +63,7 @@ const Chat = () => {
     console.log({ arrivalMessage });
   }, []);
 
+
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -50,10 +71,14 @@ const Chat = () => {
     console.log({ arrivalMessage });
   }, [arrivalMessage, currentChat]);
 
+
   useEffect(() => {
     socket.current.emit("addUser", currentUser?.aud);
 
     socket.current.on("getUsers", (users) => {
+
+      setsocketUsers(users)
+
       console.log({ users });
     });
   }, [currentUser]);
@@ -137,9 +162,53 @@ const Chat = () => {
     }
   };
 
+  const style = {
+    position: 'absolute' ,
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <>
+
       <Navbar navbarLinks={navbarlinks}></Navbar>
+
+
+
+
+   
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          
+
+          <VideoChat Users={socketUsers}   ></VideoChat>
+
+
+
+        </Box>
+      </Modal>
+
+
+
+
+
+
+
+
 
       <div className="messenger">
         <div className="ChatMenu">
@@ -171,6 +240,7 @@ const Chat = () => {
                   {messages.map((m) => (
                     <div ref={scrollRef}>
                       <Message message={m} own={m.sender === currentUser.aud} />
+                   
                     </div>
                   ))}
                 </div>
@@ -186,10 +256,8 @@ const Chat = () => {
                     /*disabled={ (newMessage ===""?true:false) } */ onClick={
                       handleSubmit
                     }
-                    className="chatSubmitButton"
-                  >
-                    {" "}
-                    Send{" "}
+                    className="chatSubmitButton">
+                    Send
                   </button>
                 </div>
               </>
@@ -201,12 +269,13 @@ const Chat = () => {
         <div className="ChatOnline">
           <div className="chatOnlineWrapper">
 
-            {currentChat ? <ChatProfile profile={currentChat} /> :<span>  
-              
+            {currentChat ?
+            
+            
+            <ChatProfile CF={childF} Users={socketUsers}  profile={currentChat} /> :<span>
               
               </span>}
 
-          
           </div>
         </div>
       </div>

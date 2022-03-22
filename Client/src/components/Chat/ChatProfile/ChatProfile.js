@@ -8,14 +8,14 @@ import axios from "../../../axios/axios";
 
 
 
-const ChatProfile = ({profile}) => {
+const ChatProfile = ({Users,profile,CF}) => {
 
     const [vendor, setvendor] = useState(null);
     const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
 
-
+        console.log({Users});
         const friendId = profile?.members.find((m) => m !== currentUser?.aud);
 
         console.log('chat profile',friendId);
@@ -52,8 +52,8 @@ const ChatProfile = ({profile}) => {
 
                 <div className="buttongroup">
                     <span className="chatOnlineName"> {vendor?.name} </span>
-                    <BsCameraReelsFill className="videoIcon" color="green" fontSize="30px" />
-                    <IoIosCall  className="callIcon"  color="green" fontSize="30px" />
+                    <BsCameraReelsFill onClick={() => { CF(Users) }}   className="videoIcon" color="green" fontSize="30px" />
+                    <IoIosCall className="callIcon"  color="green" fontSize="30px" />
 
                 </div>
                 <button className="profileButton" >View Profile </button>
