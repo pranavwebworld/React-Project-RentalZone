@@ -10,7 +10,7 @@ import io from "socket.io-client"
 import "./videocall.css"
 import AuthContext from "../../context/AuthContext";
 
-const socket = io.connect("ws://localhost:8900")
+const socket = io.connect("")
 
 function Videocall( {modal,Users}) {
 

@@ -10,7 +10,7 @@ import { BsSearch } from "react-icons/bs";
 import axios from "../../axios/axios";
 import AuthContext from "../../context/AuthContext";
 import { io } from "socket.io-client";
-import VideoChat from "../Chat/Videocall"
+
 
 
 
@@ -192,27 +192,23 @@ console.log('child called')
 
 
 
-
    
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          
-
           <VideoChat Users={socketUsers}  modal={ handleOpen}   ></VideoChat>
-
-
 
         </Box>
       </Modal>
+ */}
 
 
 
-
+ 
 
 
       <div className="messenger">

@@ -19,6 +19,11 @@ const Signup = () => {
 
 
 
+
+
+
+
+
   const submitHandler = () => {
 
     axios.post("/vendors/register",{
@@ -106,13 +111,15 @@ const Signup = () => {
         />
       </FormControl>
 
-         
-
       <Button fullWidth onClick={submitHandler} variant={"contained"}>
           Submit
       </Button>
     </Stack>
   );
 };
+
+
+
+
 
 export default Signup;
