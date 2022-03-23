@@ -47,8 +47,6 @@ function Videocall( {modal,Users}) {
 
                 (user) => user.userId == currentUser.aud
             );
-               
-
             var callerSocketId = callerId.socketId
             const receiverSocketId = receiverId.socketId
 

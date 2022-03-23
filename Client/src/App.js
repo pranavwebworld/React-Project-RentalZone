@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Chat from "./components/Chat/Chat"
 import LandingPage from "./components/LandingPage/LandingPage"
 import UserPage from './components/userPage/UserPage'
+import ProductRegister from "./components/ProductRegister/ProductPage"  
 
 import VideoCall from "./components/VideoCall/VideoCall";
 import Calender from "./components/Calender/Calender";
@@ -68,6 +69,8 @@ function App() {
           <Route exact path="/vendorSignup" element={VloggedIn ? <Navigate to="/vendor" /> :<VendorSignupSignin/>} />
 
           <Route exact path="/vendor" element={VloggedIn ? <VendorPage /> : <Navigate to="/vendorSignup" />} />
+
+          <Route exact path="/ProductRegister" element={VloggedIn ? <ProductRegister/> : <Navigate to="/vendorSignup" />} />
 
 
         </Routes>

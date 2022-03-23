@@ -43,6 +43,7 @@ const LandingPage = () => {
                 let user = resp.data
 
                 setCuser(user)
+                console.log({user});
             } catch (error) {
 
                 console.log(error);

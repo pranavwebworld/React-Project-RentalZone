@@ -9,8 +9,9 @@ const { verifyAccessToken } = require("../helpers/jwt_helpers");
 const { signRefreshToken } = require("../helpers/jwt_helpers");
 const cookieParser = require("cookie-parser");
 const {cloudinary}=require('../cloudinary/cloudinary')
-router.use(cookieParser());
+const asyncHandler = require("express-async-handler");
 
+router.use(cookieParser());
 
 
 
@@ -18,7 +19,11 @@ module.exports={
 
     register: async (req, res, next) => {
         try {
+
+            const Signupdata=req.body
+            console.log({ Signupdata });
             const result = await signupSchema.validateAsync(req.body);
+           
             const doesExist = await Vendor.findOne({ email: result.email });
             if (doesExist) {
                 throw createError.Conflict(`${result.email} is already registered`);
@@ -35,11 +40,11 @@ module.exports={
             });
         } catch (error) {
             console.log(error.message);
+            res.json({error})
             if (error.isJoi === true) error.status = 422;
-            next(error);
+            // next(error);
         }
     },
-
 
 
 
@@ -57,19 +62,20 @@ module.exports={
             if (!isMatch)
                 throw createError.Unauthorized("User name / password not valid");
 
-            const accessToken = await signVendorAccessToken(vendor.id, vendor.name,vendor.propic);
+            const vendorAccessToken = await signVendorAccessToken(vendor.id, vendor.name,vendor.propic);
 
             // const refreshToken = await signRefreshToken(user.id);
 
-            console.log({ accessToken });
+            console.log({ vendorAccessToken });
 
             // res.send({ accessToken, refreshToken });
             return res.status(200).json({
-                vendorAccessToken: accessToken,
+                vendorAccessToken: vendorAccessToken,
                 message: "Logged in successfully 😊 👌",
             });
         } catch (error) {
             console.log(error);
+            res.json({error})
             if (error.isJoi === true)
                 return next(createError.BadRequest("invalid username/password"));
 
@@ -78,26 +84,17 @@ module.exports={
     },
 
 
-    
+
+
+
+
     proPicUpload: async (req, res, next) => {
         try {
 
-            const token = req.cookies.vendorAccessToken
+            const vendorId=req.body.vendorId
 
-            JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+            console.log({ vendorId});
 
-                if (err) {
-
-                    console.log(err);
-                }
-
-            });
-
-            console.log({token});
-            const vendorId=token.aud
-             console.log({vendor});
-
-          
             const imgStr = req.body.base64Img;
 
             const uploadResponse = await cloudinary.uploader.upload(imgStr,{
@@ -113,13 +110,15 @@ module.exports={
 
             console.log({imgUrl});  
 
-            // const updateResp = await User.findByIdAndUpdate({ userId }, { "propic": imgUrl })
-         
-            // console.log({ updateResp });
+            const updateResp = await Vendor.findByIdAndUpdate(vendorId, { propic: imgUrl })
+
+            console.log({ updateResp });
             res.json({msg:"uploaded"})
+
 
             // const croppedimg = await cloudinary.url({PublicId},{ width: 400, height: 400,  crop: "limit" })
             // console.log(croppedimg);
+
 
 
         } catch (error) {
@@ -129,6 +128,17 @@ module.exports={
 
         }
 
-    }
+    },
+
+
+
+    getById: asyncHandler(async (req, res, next) => {
+
+        const vendorId = req.query.vendorId;
+
+        const vendor = await Vendor.findById(vendorId);
+
+        res.status(200).json(vendor);
+    }),
 
 }

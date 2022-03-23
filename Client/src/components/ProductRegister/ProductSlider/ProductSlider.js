@@ -1,5 +1,5 @@
 import React from 'react'
-import './vendorslider.css'
+import './productSlider.css'
 import { useInView } from 'react-intersection-observer';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -32,7 +32,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                 
 
                         <div>
-                        <button onClick={() => { navigate("/ProductRegister")}} className="VendorButtons" > Register a product  </button>
+                        <button onClick={() => { navigate("/")}} className="VendorButtons" > Register a product  </button>
                         
                         
                         </div>

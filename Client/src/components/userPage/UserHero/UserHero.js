@@ -20,10 +20,9 @@ const Hero = ({ user, imgSrc }) => {
 
 
 
-
-
   const handeleProPicChange = (e) => {
     const file = e.target.files[0];
+    setSelectedfile(file)
     previewFile(file);
   };
 
@@ -55,7 +54,6 @@ const Hero = ({ user, imgSrc }) => {
     console.log(base64Img);
     try {
 
-    
       axios.post("/users/proPicUpload", { base64Img, userId:user?._id },{withCredentials:true});
     } catch (error) {
       console.log(error);

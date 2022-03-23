@@ -3,16 +3,15 @@ import usePagination from "@mui/material/usePagination/usePagination";
 import { React, useState } from "react";
 import axios from "../../../axios/axios";
 
-import "./vendorhero.css";
+import "./producthero.css";
 
 
 const Hero = ({ vendor, imgSrc }) => {
 
-
-
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedfile] = useState("");
+
 
   const handeleProPicChange = (e) => {
     const file = e.target.files[0];
@@ -27,9 +26,9 @@ const Hero = ({ vendor, imgSrc }) => {
     reader.readAsDataURL(file);
     reader.onloadend = async() => {
 
-      setPreviewSource(reader.result);
+      // setPreviewSource(reader.result);
 
-      setTimeout(uploadImage(previewSource),6000)
+      uploadImage(reader?.result)
      
     };
   };
@@ -39,7 +38,8 @@ const Hero = ({ vendor, imgSrc }) => {
   const handleSubmitFile = (e) => {
     e.preventDefault();
     if (!previewSource) return;
-    uploadImage(previewSource);
+
+    setTimeout(uploadImage(previewSource),4000)
   };
 
 
@@ -85,15 +85,15 @@ const Hero = ({ vendor, imgSrc }) => {
               <span>Change Image</span>
             </label>
             <input id="file" value={fileInputState} name="proImage" type="file" onChange={loadFile}/>
-          <img src={vendor?.propic} id="output" width="200" />
+          <img src={vendor?.propic} id="output" width="100" />
           </div>
         </div>
 
 
       <h1 className="hero__title animate">
-        {" "}
-        <span style={{ color: "#5D5D5D" }}> Welcome </span>{" "}
-        <span style={{ color: "#ab1941" }}> {vendor?.name}</span>{" "}
+      
+        <span style={{ color: "#5D5D5D" }}> Register A product </span>{" "}
+
       </h1>
     </div>
   );

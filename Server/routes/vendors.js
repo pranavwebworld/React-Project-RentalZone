@@ -45,8 +45,13 @@ router.get("/isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 // @post vendor propic
 // @return boolean True or false 
 
-router.post("/vendor/proPicUpload", vendorController.proPicUpload)
+router.post("/proPicUpload", vendorController.proPicUpload)
 
 
+
+// @get params userId
+// @return matched users
+
+router.get("/getbyId", vendorController.getById);
 
 module.exports = router;

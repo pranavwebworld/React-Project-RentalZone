@@ -9,6 +9,8 @@ const Footerpic = () => {
     return (
 
         <div  className="footerimage" >
+
+      
             {/* <Wave></Wave> */}
            
 

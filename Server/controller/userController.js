@@ -36,8 +36,9 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
+      res.json({error})
       if (error.isJoi === true) error.status = 422;
-      next(error);
+     
     }
   },
 
@@ -73,8 +74,8 @@ module.exports = {
       console.log(error);
       if (error.isJoi === true)
         return next(createError.BadRequest("invalid username/password"));
-
-      next(error);
+       res.json({error})
+   
     }
   },
 

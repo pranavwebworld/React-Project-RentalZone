@@ -35,7 +35,6 @@ app.use("/users", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/vendors", vendorsRouter);
 app.use("/auth", authRoute)
-app.use("/vendors", vendorsRouter);
 app.use("/chat", chatRouter)
 
 

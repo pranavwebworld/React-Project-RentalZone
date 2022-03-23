@@ -10,23 +10,20 @@ function VendorContextProvider(props) {
 
     const [currentVendor, setCurrentVendor] = useState('');
 
-
     useEffect(() => {
 
         setVLoggedIn(false);
 
         getVLoggedIn();
 
-
         return ()=>{
-
 
             setVLoggedIn(false);
 
         }
 
+    }, [ ]);
 
-    }, [VloggedIn]);
 
 
     async function getVLoggedIn() {

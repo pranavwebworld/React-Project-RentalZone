@@ -5,7 +5,8 @@ import axios from '../../axios/axios';
 import Cookies from 'universal-cookie';
 import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
 const cookies = new Cookies();
 
 
@@ -15,13 +16,14 @@ function Login() {
 
   const navigate = useNavigate()
   const { getLoggedIn } = useContext(AuthContext)
-
+  const [errormsg, setErrorMsg] = useState('')
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
 
-  const submitHandler = () => {
+  const handleSubmit = ({ email,
+    password}) => {
     axios.post("/users/login",{
       email,
       password
@@ -40,6 +42,7 @@ function Login() {
           navigate('/user')
 
         }
+        if (res.data?.error) setErrorMsg(res.data.error?.message)
 
       }).catch((err) => {
 
@@ -49,62 +52,73 @@ function Login() {
 
 
   };
-  return (
 
 
  
 
-    <Stack
-      direction="column"
-      justifyContent="center"
+    const defaultValues = {
+      email: "",
+      password: "",
+    };
 
-      spacing={5}
-      padding={1}
-    >
-      <FormControl id="email" required>
-        <FormLabel>Email</FormLabel>
+  const validationSchema = yup.object().shape({
 
-        <Input
-          style={{
-        
-          }}
-          type="email"
-          placeholder="Enter your Email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-      </FormControl>
+      email: yup.string().required().email("Please enter a valid email"),
 
-      <FormControl id="password" required>
-        <FormLabel>Pasword</FormLabel>
+      password: yup.string().required("Password is required").min(2).max(10),
+    });
 
-        <Input
-        type='password'
-          placeholder="Enter your password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-      </FormControl>
 
-      <Button fullWidth onClick={submitHandler} variant={"contained"}>
-        {" "}
-        Submit{" "}
-      </Button>
-      <Button
-        fullWidth
-        onClick={submitHandler}
-        color="secondary"
-        variant={"outlined"}
+  return (
+    <>
+      <Formik
+        initialValues={defaultValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
       >
-        {" "}
-        OTP Login{" "}
-      </Button>
+        <Form>
+          <Stack
+            direction="column"
+            justifyContent="center"
+            spacing={2}
+            padding={1}
+          >
+            <FormControl id="first-name" required>
+              <FormLabel>Email</FormLabel>
 
-      
-    </Stack>
+              <Field
+                className="inputField"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+              />
+              <p style={{ color: "darkred" }}>
+                <ErrorMessage name="email" />{" "}
+              </p>
+            </FormControl>
 
+            <FormControl id="email" required>
+              <FormLabel>Password</FormLabel>
+
+              <Field
+                className="inputField"
+                type="password"
+                name="password"
+                placeholder="Enter your pasword"
+              />
+              <p style={{ color: "darkred" }}>
+                <ErrorMessage name="password" />
+                {errormsg}
+              </p>
+            </FormControl>
+
+            <Button fullWidth type="submit" variant={"contained"}>
+              Submit
+            </Button>
+          </Stack>
+        </Form>
+      </Formik>
+    </>
   );
 }
 
