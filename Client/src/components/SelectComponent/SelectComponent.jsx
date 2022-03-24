@@ -155,14 +155,14 @@ CustomSelect.propTypes = {
     }),
 };
 
-export default function UnstyledSelectsMultiple() {
+export default function UnstyledSelectsMultiple({cat}) {
     const [value, setValue] = React.useState(10);
     return (
 
         <div>   
                 
             <CustomSelect  value={value} onChange={setValue}>
-                <StyledOption value={"camera"}>Camera</StyledOption>
+                <StyledOption   value={"camera"}>Camera</StyledOption>
                 <StyledOption value={"lens"}>Lens</StyledOption>
                 <StyledOption value={'Gimbal'}>Gimbal</StyledOption>
                 <StyledOption value={"Other"}>Other</StyledOption>
