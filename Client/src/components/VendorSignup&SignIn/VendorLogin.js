@@ -15,11 +15,9 @@ const cookies = new Cookies();
 function Login() {
   const navigate = useNavigate();
   
-
   const { getVLoggedIn } = useContext(VendorContext);
 
   const [errormsg , setErrorMsg]= useState('')
-
 
   const handleSubmit = ({ email, password }) => {
     axios
@@ -49,9 +47,6 @@ function Login() {
         if (responseData.error){
 
           const errMSg = responseData.error
-
-
-
         }
       })
       .catch((err) => {
@@ -124,5 +119,4 @@ function Login() {
     </>
   );
 }
-
 export default Login;
