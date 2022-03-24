@@ -1,69 +1,136 @@
-import React from 'react'
-import './productSlider.css'
-import { useInView } from 'react-intersection-observer';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea, Link, Stack } from '@mui/material';
+import React from "react";
+import "./productSlider.css";
+import { useInView } from "react-intersection-observer";
+
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router";
+import TextField from "@mui/material/TextField";
+import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
+import SelectComponent from "../../SelectComponent/SelectComponent"
 
-const Slider = ({ imageSrc, title, subtitle, flipped }) => {
+const ariaLabel = { "aria-label": "description" };
 
-        const navigate = useNavigate();
+const PSlider = ({ imageSrc, title, subtitle, flipped }) => {
+  const navigate = useNavigate();
 
+  const { ref, inView, entry } = useInView({
+    threshold: 0.2,
+  });
 
-        const { ref, inView, entry } = useInView({
+  const marks = [
+    {
+      value: 100,
+      label: "Rs",
+    },
+    {
+      value: 200,
+      label: "Rs",
+    },
+    {
+      value: 300,
+      label: "Rs",
+    },
+    {
+      value: 400,
+      label: "Rs",
+    },
+  ];
+
+  function valuetext(value) {
+    return `${value}RS`;
+  }
+
+  const renderContent = () => {
+    return (
+      <>
+        <Stack
+          style={{ width: "30rem" }}
+          direction="column"
+          justifyContent="center"
+          spacing={5}
+          padding={1}
+        >
+            
+          <h1 style={{ color: "lightgrey" }}> Register Product </h1>
+        
+
+            <h4 style={{ color: "lightgrey" }}> Select Category </h4>
+                <SelectComponent></SelectComponent>
+
+            <FormControl id="first-name" required>
           
-            threshold: 0.2,
-        });
+            <TextField
+              sx={{ input: { color: "white", fontSize: "20px" } }}
+              label="Product description"
+              variant="standard"
+              color="primary"
+              focused
+            />
+          </FormControl>
+      
+          <FormControl id="email" required>
+        
+
+            <TextField
+              sx={{ input: { color: "white", fontSize: "20px" } }}
+              label="Standard warning"
+              variant="standard"
+              color="primary"
+              focused
+            />
+          </FormControl>
+
+
+          <FormControl id="email" required>
+
+            <h4 style={{ color: "lightgrey" }}> Select Price /day </h4>
+            <Slider
+              defaultValue={0}
+              getAriaValueText={valuetext}
+              step={100}
+              marks
+              min={100}
+              max={1000}
+              valueLabelDisplay="auto"
+              aria-label="Select Price Range"
+            />
+          </FormControl>
 
         
-    const renderContent = () => {
-        if (!flipped) {
-            return (
-                <>
-                    {/* <img src={imageSrc} alt="Travel" className="slider__image" />
-                    <div className="slider__content">
-                        <h1 className="slider__title">{title}</h1>
-                        <p style={{ color: 'white' }} >{subtitle}</p>
-                    </div> */}
+          <Button
+            size={"large"}
+            startIcon={<PublicTwoToneIcon />}
+            variant={"contained"}
+            color="success"
+          >
+            Add Your Location
+          </Button>
 
-                
-
-                        <div>
-                        <button onClick={() => { navigate("/")}} className="VendorButtons" > Register a product  </button>
-                        
-                        
-                        </div>
-
-                </>
-            );
-        } else {
-            return (
-                <>
-                    <div className="slider__content">
-                        <h1 className="slider__title">{title}</h1>
-                        <p style={{ color: 'white' }}  >{subtitle}</p>
-                    </div>
-                    <img src={imageSrc} alt="Travel" className="slider__image" />
-
-
-                
-
-                </>
-            );
-        }
-    };
-
-    return (
-        <div className={inView?'slider slider--zoom':'slider'} ref={ref} >
-
-            {renderContent()}
-
-
-        </div>
+          <button className="VendorButtons">Submit </button>
+        </Stack>
+      </>
     );
+  };
+
+
+  return (
+    <div
+      style={{ width: "70rem", height: "40rem" }}
+      className={inView ? "slider slider--zoom" : "slider"}
+      ref={ref}
+    >
+      {renderContent()}
+    </div>
+  );
 };
 
-export default Slider
+export default PSlider;

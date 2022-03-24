@@ -28,7 +28,7 @@ const navbarlinks = [
   { url: "", title: "About  " },
 ];
 
-const VendorLandingPage = () => {
+const ProductRegisterPage= () => {
   const { currentVendor } = useContext(VendorContext);
   const [cvendor, setCvendor] = useState(null);
 
@@ -49,9 +49,10 @@ const VendorLandingPage = () => {
         console.log(error);
       }
     };
-
     getVendor();
   }, []);
+
+
 
   
   return (
@@ -76,4 +77,4 @@ const VendorLandingPage = () => {
   );
 };
 
-export default VendorLandingPage;
+export default ProductRegisterPage;
