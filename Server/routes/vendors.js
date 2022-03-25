@@ -48,10 +48,23 @@ router.get("/isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 router.post("/proPicUpload", vendorController.proPicUpload)
 
 
-
 // @get params userId
 // @return matched users
 
 router.get("/getbyId", vendorController.getById);
+
+
+
+
+// @post Product picture 
+//@body vendoId
+// @return upload response
+
+
+router.post("/productPicUpload", vendorController.proPicUpload)
+
+
+
+router.post("/productRegister", vendorController.productRegister)
 
 module.exports = router;

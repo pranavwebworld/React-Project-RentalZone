@@ -6,28 +6,28 @@ import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
 
 const blue = {
-    100: '#DAECFF',
-    200: '#99CCF3',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    900: '#003A75',
+  100: '#DAECFF',
+  200: '#99CCF3',
+  400: '#3399FF',
+  500: '#007FFF',
+  600: '#0072E5',
+  900: '#003A75',
 };
 
 const grey = {
-    100: '#E7EBF0',
-    200: '#E0E3E7',
-    300: '#CDD2D7',
-    400: '#B2BAC2',
-    500: '#A0AAB4',
-    600: '#6F7E8C',
-    700: '#3E5060',
-    800: '#2D3843',
-    900: '#1A2027',
+  100: '#E7EBF0',
+  200: '#E0E3E7',
+  300: '#CDD2D7',
+  400: '#B2BAC2',
+  500: '#A0AAB4',
+  600: '#6F7E8C',
+  700: '#3E5060',
+  800: '#2D3843',
+  900: '#1A2027',
 };
 
 const StyledButton = styled('button')(
-    ({ theme }) => `
+  ({ theme }) => `
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
@@ -65,7 +65,7 @@ const StyledButton = styled('button')(
 );
 
 const StyledListbox = styled('ul')(
-    ({ theme }) => `
+  ({ theme }) => `
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
@@ -82,7 +82,7 @@ const StyledListbox = styled('ul')(
 );
 
 const StyledOption = styled(OptionUnstyled)(
-    ({ theme }) => `
+  ({ theme }) => `
   list-style: none;
   padding: 8px;
   border-radius: 0.45em;
@@ -123,7 +123,7 @@ const StyledPopper = styled(PopperUnstyled)`
 `;
 
 const Paragraph = styled('p')(
-    ({ theme }) => `
+  ({ theme }) => `
   font-family: IBM Plex Sans, sans-serif;
   font-size: 0.875rem;
   margin: 10px 0;
@@ -132,43 +132,56 @@ const Paragraph = styled('p')(
 );
 
 function CustomSelect(props) {
-    const components = {
-        Root: StyledButton,
-        Listbox: StyledListbox,
-        Popper: StyledPopper,
-        ...props.components,
-    };
+  const components = {
+    Root: StyledButton,
+    Listbox: StyledListbox,
+    Popper: StyledPopper,
+    ...props.components,
+  };
 
-    return <SelectUnstyled {...props} components={components} />;
+  return <SelectUnstyled {...props} components={components} />;
 }
 
 CustomSelect.propTypes = {
-    /**
-     * The components used for each slot inside the Select.
-     * Either a string to use a HTML element or a component.
-     * @default {}
-     */
-    components: PropTypes.shape({
-        Listbox: PropTypes.elementType,
-        Popper: PropTypes.func,
-        Root: PropTypes.elementType,
-    }),
+  /**
+   * The components used for each slot inside the Select.
+   * Either a string to use a HTML element or a component.
+   * @default {}
+   */
+  components: PropTypes.shape({
+    Listbox: PropTypes.elementType,
+    Popper: PropTypes.func,
+    Root: PropTypes.elementType,
+  }),
 };
 
-export default function UnstyledSelectsMultiple({cat}) {
-    const [value, setValue] = React.useState(10);
-    return (
+export default function UnstyledSelectsMultiple({ getSelect }) {
 
-        <div>   
-                
-            <CustomSelect  value={value} onChange={setValue}>
-                <StyledOption   value={"camera"}>Camera</StyledOption>
-                <StyledOption value={"lens"}>Lens</StyledOption>
-                <StyledOption value={'Gimbal'}>Gimbal</StyledOption>
-                <StyledOption value={"Other"}>Other</StyledOption>
-            </CustomSelect>
+  const [value, setValue] = React.useState('');
 
-        
-        </div>
-    );
+
+  const handleSelect = (e) => {
+
+    setValue(e)
+   
+    getSelect(e)
+  }
+
+
+  console.log(value);
+
+  return (
+
+    <div>
+
+      <CustomSelect value={value} onChange={handleSelect}>
+        <StyledOption value={"camera"}>Camera</StyledOption>
+        <StyledOption value={"lens"}>Lens</StyledOption>
+        <StyledOption value={'Gimbal'}>Gimbal</StyledOption>
+        <StyledOption value={"Other"}>Other</StyledOption>
+      </CustomSelect>
+
+
+    </div>
+  );
 }

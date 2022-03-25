@@ -10,9 +10,11 @@ const Hero = ({ vendor, imgSrc }) => {
 
 
 
-  const [previewSource, setPreviewSource] = useState();
+  const [previewSource, setPreviewSource] = useState("");
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setSelectedfile] = useState("");
+
+
 
   const handeleProPicChange = (e) => {
     const file = e.target.files[0];
@@ -20,7 +22,6 @@ const Hero = ({ vendor, imgSrc }) => {
   };
 
   const previewFile = async  (file) => {
-
     console.log('called previewfile');
 
     const reader = new FileReader();

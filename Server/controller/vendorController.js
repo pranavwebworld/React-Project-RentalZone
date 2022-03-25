@@ -1,8 +1,9 @@
 const JWT = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
-const { signupSchema, loginSchema } = require("../helpers/validation_schema");
+const { signupSchema, loginSchema,ProductSchema } = require("../helpers/validation_schema");
 const Vendor = require("../models/vendor.model");
+const Product=require("../models/ProductModel")
 const createError = require("http-errors");
 const { signVendorAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
@@ -48,6 +49,8 @@ module.exports={
 
 
 
+
+
     login: async (req, res, next) => {
         try {
             const result = await loginSchema.validateAsync(req.body);
@@ -82,9 +85,6 @@ module.exports={
             next(error);
         }
     },
-
-
-
 
 
 
@@ -132,6 +132,50 @@ module.exports={
 
 
 
+
+    productRegister: asyncHandler(async (req, res, next) => {
+
+
+        try {
+            
+
+
+            const { address, productName, productDesc, rent, category, pincode, latitude, longitude, vendorId } = req.body;
+            console.log({ productName });
+            console.log({ productDesc });
+            console.log({ rent });
+            console.log({ category });
+            console.log({ address });
+            console.log({ pincode });
+            console.log({ latitude });
+            console.log({ longitude });
+            console.log({ vendorId });
+
+            // const result = await ProductSchema.validateAsync(req.body);
+
+            // console.log(result);
+
+            const NewProduct = new Product(req.body);
+
+            console.log({ NewProduct });
+
+            const savedProduct = await NewProduct.save();
+
+            console.log({ savedProduct });
+
+            res.status(200).json(NewProduct);
+
+
+
+        } catch (error) {
+            console.log(error);
+            
+        }
+
+       
+    }),
+
+
     getById: asyncHandler(async (req, res, next) => {
 
         const vendorId = req.query.vendorId;
@@ -140,5 +184,9 @@ module.exports={
 
         res.status(200).json(vendor);
     }),
+
+
+    
+
 
 }

@@ -8,7 +8,6 @@ import VendorHero from "./VendorHero/VendorHero";
 import VendorSlider from "./VendorSlider/vendorSlider";
 
 
-
 import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
@@ -50,6 +49,7 @@ const VendorLandingPage = () => {
 
     getVendor();
   }, []);
+
 
   
   return (

@@ -70,7 +70,7 @@ const ProductRegisterPage= () => {
 
       <RadialRed></RadialRed>
 
-      <ProductSlider title={"Camera"} />
+      <ProductSlider vendor={cvendor} title={"Camera"} />
 
       <Footerpic></Footerpic>
     </div>

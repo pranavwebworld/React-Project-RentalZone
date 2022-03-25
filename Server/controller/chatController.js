@@ -89,6 +89,8 @@ module.exports = {
 
     const currentUser = req.payload.aud;
 
+    console.log({currentUser});
+
     const newConversation = new Conversation({
       members: [userId, currentUser],
     });
@@ -102,16 +104,17 @@ module.exports = {
   }),
 
 
+
   getConvo: asyncHandler(async (req, res) => {
 
     console.log("Reached get convo");
 
-    console.log(req.payload);
 
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
     });
 
+    console.log(conversation);
     res.status(200).json(conversation);
   }),
 
