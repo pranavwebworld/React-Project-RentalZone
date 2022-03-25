@@ -18,7 +18,7 @@ function AuthContextProvider(props) {
 
         
     
-    }, [loggedIn]);
+    }, []);
 
 
     async function getLoggedIn() {

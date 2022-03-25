@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.8.1",
+    "@chakra-ui/react": "^1.8.6",
+    "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
     "@material-ui/core": "^4.12.3",
@@ -14,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "formik": "^2.2.9",
+    "framer-motion": "^6.2.8",
     "javascript-time-ago": "^2.3.13",
     "mapbox-gl": "^2.7.1",
     "react": "^17.0.2",

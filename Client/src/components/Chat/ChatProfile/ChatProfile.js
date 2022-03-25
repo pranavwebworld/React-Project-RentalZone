@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import AuthContext from "../../../context/AuthContext";
+import  VendorContext from "../../../context/VendorContext"
 import './chatProfile.css'
 import { BsCameraReelsFill } from "react-icons/bs"
 import { IoIosCall } from "react-icons/io"
@@ -10,25 +11,46 @@ import axios from "../../../axios/axios";
 
 const ChatProfile = ({Users,profile,CF}) => {
 
-    const [vendor, setvendor] = useState(null);
+    const [Chatbuddy, setChatbuddy] = useState(null);
+     const[user,setUser]=useState(null)
+
     const { currentUser } = useContext(AuthContext);
+    const{currentVendor}=useContext(VendorContext)
 
     useEffect(() => {
+        
 
         console.log({Users});
-        const friendId = profile?.members.find((m) => m !== currentUser?.aud);
 
-        console.log('chat profile',friendId);
-
-        const getUser = async () => {
+       
+        const getChatbuddy = async () => {
 
             try {
+                
 
-                console.log('get user called in use effect');
-                const resp = await axios.get('/users/getbyId?userId=' + friendId);
-                console.log(resp.data, " chat buddy details ");
-                let USER = resp.data
-                setvendor(USER)
+                if(currentVendor){
+
+                    const friendId = profile?.members.find((m) => m !== currentVendor?.aud);
+
+                    console.log('Chat buddy is User');
+                    const resp = await axios.get('/users/getbyId?userId=' + friendId);
+                    console.log(resp.data, " chat buddy details ");
+                    let USER = resp.data
+                    setChatbuddy(USER)
+
+
+                }else {
+
+                    const friendId = profile?.members.find((m) => m !== currentUser?.aud);
+                    console.log('Chat buddybis vendor');
+                    const resp = await axios.get('/vendors/getbyId?vendorId=' + friendId);
+                    console.log(resp.data, " chat buddy details ");
+                    let USER = resp.data
+                    setChatbuddy(USER)
+
+                    
+
+                }
 
             } catch (error) {
 
@@ -36,7 +58,7 @@ const ChatProfile = ({Users,profile,CF}) => {
             }
         };
 
-        getUser()
+        getChatbuddy()
     }, [profile]);
 
 
@@ -48,10 +70,10 @@ const ChatProfile = ({Users,profile,CF}) => {
 
             <div className="ChatOnlineFriend" >
 
-                <img className="chatOnlineImg" src={vendor?.propic} alt="" />
+                <img className="chatOnlineImg" src={Chatbuddy?.propic} alt="" />
 
                 <div className="buttongroup">
-                    <span className="chatOnlineName"> {vendor?.name} </span>
+                    <span className="chatOnlineName"> {Chatbuddy?.name} </span>
                     <BsCameraReelsFill onClick={() => { CF(Users) }}   className="videoIcon" color="green" fontSize="30px" />
                     <IoIosCall className="callIcon"  color="green" fontSize="30px" />
 
