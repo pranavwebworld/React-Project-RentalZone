@@ -112,7 +112,7 @@ module.exports = {
 
       console.log("Vendor PAyload",payload);
       req.payload = payload;
-      res.json({ payload })
+      // res.json({ payload })
       next();
     });
   },

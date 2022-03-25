@@ -20,6 +20,7 @@ const removeUser = (socketId) => {
 };
 
 const getUser = (receiverId) => {
+  
   return users.find((user) => user.userId === receiverId);
 };
 
@@ -31,6 +32,8 @@ io.on("connection", (socket) => {
 
   //take userId and SocketId from user
   socket.on("addUser", (userId) => {
+
+    console.log({userId});
     console.log({ user_added: userId });
 
     addUser(userId, socket.id);
@@ -39,6 +42,7 @@ io.on("connection", (socket) => {
   });
 
   //send and get msg
+
 
   socket.on("sendMessage", ({ senderId, receiverId, text }) => {
     console.log({ senderId, receiverId, text });
@@ -53,7 +57,6 @@ io.on("connection", (socket) => {
       text,
     });
   });
-
 
 
 

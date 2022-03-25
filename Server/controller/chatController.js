@@ -1,5 +1,6 @@
 const Chat = require("../models/chatModel");
 const User = require("../models/user.model");
+const Vendor = require("../models/vendor.model");
 const Conversation = require("../models/ConversatioModel");
 const Message = require("../models/MsgModel");
 const asyncHandler = require("express-async-handler");
@@ -84,15 +85,36 @@ module.exports = {
     }
   }),
 
-  accessConvo: asyncHandler(async (req, res) => {
+
+
+  accessVendorConvo: asyncHandler(async (req, res) => {
     const { userId } = req.body;
+
+    const currentVendor = req.payload.aud;
+
+    console.log({ currentVendor });
+
+    const newConversation = new Conversation({
+      members: [userId, currentVendor],
+    });
+
+    try {
+      const savedConversation = await newConversation.save();
+      res.status(200).json(savedConversation);
+    } catch (error) {
+      console.log(err);
+    }
+  }),
+
+  accessConvo: asyncHandler(async (req, res) => {
+    const { vendorId } = req.body;
 
     const currentUser = req.payload.aud;
 
-    console.log({currentUser});
+    console.log({ currentUser });
 
     const newConversation = new Conversation({
-      members: [userId, currentUser],
+      members: [vendorId, currentUser],
     });
 
     try {
@@ -104,48 +126,127 @@ module.exports = {
   }),
 
 
-
   getConvo: asyncHandler(async (req, res) => {
-
-    console.log("Reached get convo");
-
+    console.log("Reached getuser  convo");
 
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
     });
 
     console.log(conversation);
+
+
+
+
+    res.status(200).json(conversation);
+  }),
+
+
+
+
+  getVendorConvo: asyncHandler(async (req, res) => {
+    console.log("Reached get  vendor convo");
+
+    const conversation = await Conversation.find({
+      members: { $in: [req.params.vendorId] },
+    });
+
+    console.log(conversation, "vendor conversation ");
     res.status(200).json(conversation);
   }),
 
 
 
   addMsg: asyncHandler(async (req, res) => {
- 
     console.log(req.body);
     const newMessage = new Message(req.body);
     const savedMessage = await newMessage.save();
 
-    res.status(200).json(savedMessage)
-
+    res.status(200).json(savedMessage);
   }),
 
-
-
   getMsg: asyncHandler(async (req, res) => {
-
     console.log("reached get MSG");
     console.log(req.params.conversationId);
 
     const message = await Message.find({
+      conversationId: req.params.conversationId,
+    });
 
-    conversationId:req.params.conversationId,
+    res.status(200).json(message);
+  }),
 
-    })
 
-      res.status(200).json(message)
+
+  searchVendors: asyncHandler(async (req, res) => {
+
+    const keyword = req.query.search?
+
+    {
+      $or:[
+
+        {name:{$regex:req.query.search, $options:'i'}},
+        { email : { $regex: req.query.search, $options: 'i'}}
+
+          ],
+    }:{}
+
+    const vendors = await Vendor.find(keyword)
+
+    console.log(keyword);
+
+    res.status(200).json(vendors);
+  }),
+
+
+
+
+
+  findOrCreate: asyncHandler(async (req, res) => {
+
+
+    const { vendorId,userId } = req.body;
+
+  
+
+const conversation = await Conversation.find({
+
+      $and: [
+      {
+          members:{$in:[vendorId]}
+      },
+     
+      {
+
+        members:{$in:[userId]}
+      }
+
+    ] ,
+
+    });
+
+      if(conversation.length){
+
+
+        console.log({conversation});
+
+        res.status(200).json(conversation);
+      }else{
+
+
+        const newConversation = new Conversation({
+          members: [vendorId, userId],
+        });
+
+        try {
+          const savedConversation = await newConversation.save();
+          res.status(200).json(savedConversation);
+        } catch (error) {
+          console.log(err);
+        }
+
+      }
 
   })
-
 
 };

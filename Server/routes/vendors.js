@@ -36,7 +36,10 @@ router.post("/login", vendorController.login);
 
 router.get("/isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 
+    var payload = req.payload
     console.log(req.payload);
+    res.json({ payload })
+
 
 });
 
