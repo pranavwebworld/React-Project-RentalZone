@@ -10,26 +10,34 @@ import { BsSearch } from "react-icons/bs";
 import axios from "../../axios/axios";
 import AuthContext from "../../context/AuthContext";
 import VendorContext from "../../context/VendorContext";
-import { ChakraProvider } from '@chakra-ui/react'
-import UserListItem from "../../components/Chat/UserListItem/UserList"
+import {
+  ChakraProvider,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
+import UserListItem from "../../components/Chat/UserListItem/UserList";
 
 import { io } from "socket.io-client";
 
-
 import {
- Drawer,
- DrawerContent,
- DrawerBody,
- DrawerHeader,
- DrawerOverlay,
- useDisclosure,
- Box,
- useToast,
- Button,
- Stack,
- Skeleton,
- Input
-} from "@chakra-ui/react"
+  Drawer,
+  DrawerContent,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  useDisclosure,
+  Box,
+  useToast,
+  Button,
+  Stack,
+  Skeleton,
+  Input,
+} from "@chakra-ui/react";
 
 const Chat = () => {
   const [conversations, setConversations] = useState([]);
@@ -41,19 +49,25 @@ const Chat = () => {
   const [buttonState, setButtonState] = useState(false);
   const [socketUsers, setsocketUsers] = useState("");
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState()
+  const [loading, setLoading] = useState();
   const socket = useRef();
   const { currentUser } = useContext(AuthContext);
   const { currentVendor } = useContext(VendorContext);
   const scrollRef = useRef();
-  const [searchResult,setSearchResult]=useState()
-  const [searchconvo, setSearchconvo] = useState()
+  const [searchResult, setSearchResult] = useState();
+  const [searchconvo, setSearchconvo] = useState();
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const {
+    isOpen: isOpenReportModal,
+    onOpen: onOpenReportModal,
+    onClose: onCloseReportModal,
+  } = useDisclosure();
 
   const childF = (currentSocketUsers) => {
     handleOpen();
-
+    onOpenReportModal();
     console.log({ currentSocketUsers });
     console.log("child called");
   };
@@ -75,8 +89,6 @@ const Chat = () => {
 
     console.log({ arrivalMessage });
   }, []);
-
-
 
   useEffect(() => {
     arrivalMessage &&
@@ -147,7 +159,6 @@ const Chat = () => {
   useEffect(() => {
     try {
       const getMessages = async () => {
-
         const resp = await axios.get("/chat/getMsg/" + currentChat?._id);
 
         console.log(resp.data, "messages resp");
@@ -158,7 +169,7 @@ const Chat = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [currentChat,searchconvo]);
+  }, [currentChat, searchconvo]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -254,53 +265,43 @@ const Chat = () => {
   const toast = useToast();
 
   const handleSearch = async () => {
-
-
     if (!search) {
-
-      return
+      return;
     }
 
     try {
-      
-      setLoading(true)
+      setLoading(true);
 
-      const vendors = await axios.get(`/chat/search?search=${search}`)
+      const vendors = await axios.get(`/chat/search?search=${search}`);
 
-      setLoading(false)
-      setSearchResult(vendors.data)
+      setLoading(false);
+      setSearchResult(vendors.data);
 
       console.log(vendors, "Search data results....");
-
     } catch (error) {
-
       console.log(error);
       toast({
-
         title: " Failed to load Result ",
         status: "warning",
         duration: 3000,
         isClosable: true,
-        position: "top-left"
-
+        position: "top-left",
       });
-      
     }
+  };
 
-  }
-
-
-  const accessChat = async (vendorId)=>{
-
+  const accessChat = async (vendorId) => {
     try {
+      const userId = currentUser.aud;
 
-      const userId = currentUser.aud
+      const resp = await axios.post("/chat/findOrCreateConvo", {
+        userId,
+        vendorId,
+      });
 
-      const resp = await axios.post("/chat/findOrCreateConvo", { userId, vendorId });
+      console.log(resp.data[0], "  find or create response   ");
 
-      console.log(resp.data[0],"  find or create response   ");
-
-      setCurrentChat(resp.data[0])
+      setCurrentChat(resp.data[0]);
 
       const msgresp = await axios.get("/chat/getMsg/" + resp?.data?._id);
 
@@ -308,23 +309,14 @@ const Chat = () => {
 
       setMessages(msgresp.data);
 
-      setSearchconvo(!resp)
-      
+      setSearchconvo(!resp);
     } catch (error) {
-
       console.log(error);
-      
     }
-  
-  
-  }
+  };
 
-
-  
   return (
     <>
- 
-
       <Navbar navbarLinks={navbarlinks}></Navbar>
 
       {/* <Modal
@@ -340,11 +332,32 @@ const Chat = () => {
       </Modal>
  */}
 
+      <ChakraProvider>
+        <Modal isOpen={isOpenReportModal} onClose={onCloseReportModal}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Modal Title</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody></ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost">Secondary Action</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </ChakraProvider>
+
       <div className="messenger">
         <div className="ChatMenu">
           <div className="chatMenuWrapper">
-
-            <input onClick={onOpen} placeholder="search" className="chatMenuInput"></input>
+            <input
+              onClick={onOpen}
+              placeholder="search"
+              className="chatMenuInput"
+            ></input>
 
             {conversations.map((c, index) => (
               <div
@@ -361,63 +374,50 @@ const Chat = () => {
             ))}
           </div>
 
-                
           <ChakraProvider>
+            <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+              <DrawerOverlay>
+                <DrawerContent>
+                  <DrawerHeader borderBottomWidth="1px">
+                    Search user
+                  </DrawerHeader>
+                  <DrawerBody>
+                    <Box d="flex" pb={2}>
+                      <Input
+                        placeholder="Search user"
+                        mr={2}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                      ></Input>
 
-          <Drawer placement="left" onClose={onClose} isOpen={isOpen}  >
-            <DrawerOverlay>
-              <DrawerContent>
-                <DrawerHeader borderBottomWidth="1px" >Search user</DrawerHeader>
-                <DrawerBody>
+                      <Button onClick={handleSearch}> Go </Button>
+                    </Box>
 
-                  <Box d="flex" pb={2} >
-                    <Input placeholder="Search user" mr={2} value={search} onChange={(e) => setSearch(e.target.value)}>
-                    </Input>
-
-                    <Button onClick={handleSearch} > Go  </Button>
-                  </Box>
-
-                  {loading?
-
-                    (<>
-                     <Stack>
-
-                    <Skeleton height="45px" />
-                    <Skeleton height="45px" />
-                    <Skeleton height="45px" />
-                    <Skeleton height="45px" />
-                    <Skeleton height="45px" />
-                    <Skeleton height="45px" />
-
-
-                  </Stack>
-                      
-                      </>)
-
-                :
-
-                      searchResult?.map((user)=>(
-
-
-                          <UserListItem
-                          
+                    {loading ? (
+                      <>
+                        <Stack>
+                          <Skeleton height="45px" />
+                          <Skeleton height="45px" />
+                          <Skeleton height="45px" />
+                          <Skeleton height="45px" />
+                          <Skeleton height="45px" />
+                          <Skeleton height="45px" />
+                        </Stack>
+                      </>
+                    ) : (
+                      searchResult?.map((user) => (
+                        <UserListItem
                           key={user._id}
                           user={user}
-                          handleFunction={()=>accessChat(user._id)}
-                          
-                          
-                          />
-
-
+                          handleFunction={() => accessChat(user._id)}
+                        />
                       ))
-
-                }
-                </DrawerBody>
-              </DrawerContent>
-            </DrawerOverlay>
-          </Drawer>
+                    )}
+                  </DrawerBody>
+                </DrawerContent>
+              </DrawerOverlay>
+            </Drawer>
           </ChakraProvider>
-        
         </div>
 
         <div className="ChatBox">
@@ -425,18 +425,18 @@ const Chat = () => {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  {messages.map((m,index) => (
+                  {messages.map((m, index) => (
                     <div ref={scrollRef}>
                       {currentVendor ? (
                         <Message
-                        key={index}
+                          key={index}
                           chatbuddy={currentVendor}
                           message={m}
                           own={m.sender === currentVendor.aud}
                         />
                       ) : (
                         <Message
-                        key={index}
+                          key={index}
                           chatbuddy={currentUser}
                           message={m}
                           own={m.sender === currentUser.aud}
@@ -482,7 +482,6 @@ const Chat = () => {
           </div>
         </div>
       </div>
-    
     </>
   );
 };

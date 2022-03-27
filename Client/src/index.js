@@ -14,7 +14,7 @@ ReactDOM.render(
 
 
   <React.StrictMode>
-    < ErrorBoundary>
+    {/* < ErrorBoundary> */}
     <AuthContextProvider>
       <VendorContextProvider>
 
@@ -25,7 +25,7 @@ ReactDOM.render(
       
       </VendorContextProvider>
     </AuthContextProvider>
-    </ErrorBoundary>
+    {/* </ErrorBoundary> */}
   </React.StrictMode>,
   
   document.getElementById("root")
