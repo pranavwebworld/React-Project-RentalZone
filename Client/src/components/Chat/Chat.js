@@ -8,16 +8,28 @@ import ChatProfile from "./ChatProfile/ChatProfile";
 import { ImAttachment } from "react-icons/im";
 import { BsSearch } from "react-icons/bs";
 import axios from "../../axios/axios";
-
 import AuthContext from "../../context/AuthContext";
 import VendorContext from "../../context/VendorContext";
+import { ChakraProvider } from '@chakra-ui/react'
+import UserListItem from "../../components/Chat/UserListItem/UserList"
 
 import { io } from "socket.io-client";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+
+import {
+ Drawer,
+ DrawerContent,
+ DrawerBody,
+ DrawerHeader,
+ DrawerOverlay,
+ useDisclosure,
+ Box,
+ useToast,
+ Button,
+ Stack,
+ Skeleton,
+ Input
+} from "@chakra-ui/react"
 
 const Chat = () => {
   const [conversations, setConversations] = useState([]);
@@ -28,10 +40,16 @@ const Chat = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [buttonState, setButtonState] = useState(false);
   const [socketUsers, setsocketUsers] = useState("");
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState()
   const socket = useRef();
   const { currentUser } = useContext(AuthContext);
   const { currentVendor } = useContext(VendorContext);
   const scrollRef = useRef();
+  const [searchResult,setSearchResult]=useState()
+  const [searchconvo, setSearchconvo] = useState()
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const childF = (currentSocketUsers) => {
     handleOpen();
@@ -57,6 +75,8 @@ const Chat = () => {
 
     console.log({ arrivalMessage });
   }, []);
+
+
 
   useEffect(() => {
     arrivalMessage &&
@@ -127,6 +147,7 @@ const Chat = () => {
   useEffect(() => {
     try {
       const getMessages = async () => {
+
         const resp = await axios.get("/chat/getMsg/" + currentChat?._id);
 
         console.log(resp.data, "messages resp");
@@ -137,7 +158,7 @@ const Chat = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [currentChat]);
+  }, [currentChat,searchconvo]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -230,8 +251,80 @@ const Chat = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const toast = useToast();
+
+  const handleSearch = async () => {
+
+
+    if (!search) {
+
+      return
+    }
+
+    try {
+      
+      setLoading(true)
+
+      const vendors = await axios.get(`/chat/search?search=${search}`)
+
+      setLoading(false)
+      setSearchResult(vendors.data)
+
+      console.log(vendors, "Search data results....");
+
+    } catch (error) {
+
+      console.log(error);
+      toast({
+
+        title: " Failed to load Result ",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left"
+
+      });
+      
+    }
+
+  }
+
+
+  const accessChat = async (vendorId)=>{
+
+    try {
+
+      const userId = currentUser.aud
+
+      const resp = await axios.post("/chat/findOrCreateConvo", { userId, vendorId });
+
+      console.log(resp.data[0],"  find or create response   ");
+
+      setCurrentChat(resp.data[0])
+
+      const msgresp = await axios.get("/chat/getMsg/" + resp?.data?._id);
+
+      console.log(msgresp, "messages resp");
+
+      setMessages(msgresp.data);
+
+      setSearchconvo(!resp)
+      
+    } catch (error) {
+
+      console.log(error);
+      
+    }
+  
+  
+  }
+
+
+  
   return (
     <>
+ 
+
       <Navbar navbarLinks={navbarlinks}></Navbar>
 
       {/* <Modal
@@ -250,7 +343,8 @@ const Chat = () => {
       <div className="messenger">
         <div className="ChatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="search" className="chatMenuInput"></input>
+
+            <input onClick={onOpen} placeholder="search" className="chatMenuInput"></input>
 
             {conversations.map((c, index) => (
               <div
@@ -267,10 +361,63 @@ const Chat = () => {
             ))}
           </div>
 
+                
+          <ChakraProvider>
+
+          <Drawer placement="left" onClose={onClose} isOpen={isOpen}  >
+            <DrawerOverlay>
+              <DrawerContent>
+                <DrawerHeader borderBottomWidth="1px" >Search user</DrawerHeader>
+                <DrawerBody>
+
+                  <Box d="flex" pb={2} >
+                    <Input placeholder="Search user" mr={2} value={search} onChange={(e) => setSearch(e.target.value)}>
+                    </Input>
+
+                    <Button onClick={handleSearch} > Go  </Button>
+                  </Box>
+
+                  {loading?
+
+                    (<>
+                     <Stack>
+
+                    <Skeleton height="45px" />
+                    <Skeleton height="45px" />
+                    <Skeleton height="45px" />
+                    <Skeleton height="45px" />
+                    <Skeleton height="45px" />
+                    <Skeleton height="45px" />
 
 
+                  </Stack>
+                      
+                      </>)
 
-          
+                :
+
+                      searchResult?.map((user)=>(
+
+
+                          <UserListItem
+                          
+                          key={user._id}
+                          user={user}
+                          handleFunction={()=>accessChat(user._id)}
+                          
+                          
+                          />
+
+
+                      ))
+
+                }
+                </DrawerBody>
+              </DrawerContent>
+            </DrawerOverlay>
+          </Drawer>
+          </ChakraProvider>
+        
         </div>
 
         <div className="ChatBox">
@@ -278,16 +425,18 @@ const Chat = () => {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  {messages.map((m) => (
+                  {messages.map((m,index) => (
                     <div ref={scrollRef}>
                       {currentVendor ? (
                         <Message
+                        key={index}
                           chatbuddy={currentVendor}
                           message={m}
                           own={m.sender === currentVendor.aud}
                         />
                       ) : (
                         <Message
+                        key={index}
                           chatbuddy={currentUser}
                           message={m}
                           own={m.sender === currentUser.aud}
@@ -333,6 +482,7 @@ const Chat = () => {
           </div>
         </div>
       </div>
+    
     </>
   );
 };

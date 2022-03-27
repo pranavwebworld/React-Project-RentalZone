@@ -66,13 +66,13 @@ font-weight:900 ;
   
 }
 
-.videoIcon{
+.VideoIcon{
 
-padding-right: 15px;
+margin-right: 3px;
+padding-right: 5px;
 cursor: pointer;
 
 }
-
 
 .callIcon{
 

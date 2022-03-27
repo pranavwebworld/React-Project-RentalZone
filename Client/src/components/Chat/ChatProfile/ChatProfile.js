@@ -30,9 +30,10 @@ const ChatProfile = ({Users,profile,CF}) => {
 
                 if(currentVendor){
 
+                    console.log('Chat buddy is User');
+                  
                     const friendId = profile?.members.find((m) => m !== currentVendor?.aud);
 
-                    console.log('Chat buddy is User');
                     const resp = await axios.get('/users/getbyId?userId=' + friendId);
                     console.log(resp.data, " chat buddy details ");
                     let USER = resp.data
@@ -41,8 +42,12 @@ const ChatProfile = ({Users,profile,CF}) => {
 
                 }else {
 
-                    const friendId = profile?.members.find((m) => m !== currentUser?.aud);
                     console.log('Chat buddybis vendor');
+                    
+                    console.log(profile,"profile.memebrs");
+
+                    const friendId = profile?.members.find((m) => m !== currentUser?.aud);
+              
                     const resp = await axios.get('/vendors/getbyId?vendorId=' + friendId);
                     console.log(resp.data, " chat buddy details ");
                     let USER = resp.data
@@ -74,7 +79,7 @@ const ChatProfile = ({Users,profile,CF}) => {
 
                 <div className="buttongroup">
                     <span className="chatOnlineName"> {Chatbuddy?.name} </span>
-                    <BsCameraReelsFill onClick={() => { CF(Users) }}   className="videoIcon" color="green" fontSize="30px" />
+                    <BsCameraReelsFill onClick={() => { CF(Users) }}   className="VideoIcon" color="green" fontSize="30px" />
                     <IoIosCall className="callIcon"  color="green" fontSize="30px" />
 
                 </div>

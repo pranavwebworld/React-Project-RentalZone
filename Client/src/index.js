@@ -6,17 +6,28 @@ import reportWebVitals from "./reportWebVitals";
 import  { AuthContextProvider } from "./context/AuthContext";
 import {VendorContextProvider} from "./context/VendorContext"
 
+import ErrorBoundary from "../src/Error/ErrorBoundary"
+
+
 
 ReactDOM.render(
+
+
   <React.StrictMode>
+    < ErrorBoundary>
     <AuthContextProvider>
       <VendorContextProvider>
 
+
+  
+
         <App />
-        
+      
       </VendorContextProvider>
     </AuthContextProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
+  
   document.getElementById("root")
 );
 

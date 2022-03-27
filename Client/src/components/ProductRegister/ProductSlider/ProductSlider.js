@@ -340,7 +340,7 @@ const PSlider = ({ vendor }) => {
 
                         <NavigationControl />
 
-                        <Marker longitude={longitude} latitude={latitude} anchor="bottom">
+                        <Marker longitude={longitude} latitude={latitude}>
                             <img src={marker} />
                         </Marker>
                     </ReactMapGL>

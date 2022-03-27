@@ -136,8 +136,6 @@ module.exports = {
     console.log(conversation);
 
 
-
-
     res.status(200).json(conversation);
   }),
 
@@ -191,11 +189,12 @@ module.exports = {
           ],
     }:{}
 
+
     const vendors = await Vendor.find(keyword)
 
     console.log(keyword);
-
-    res.status(200).json(vendors);
+    console.log(vendors);
+    res.json(vendors);
   }),
 
 
@@ -225,17 +224,18 @@ const conversation = await Conversation.find({
 
     });
 
-      if(conversation.length){
+      if(conversation.length>0){
 
 
-        console.log({conversation});
+        console.log({conversation});  
+        
 
         res.status(200).json(conversation);
       }else{
 
-
         const newConversation = new Conversation({
           members: [vendorId, userId],
+
         });
 
         try {
