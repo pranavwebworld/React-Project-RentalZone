@@ -5,7 +5,7 @@ import Chat from "./components/Chat/Chat"
 import LandingPage from "./components/LandingPage/LandingPage"
 import UserPage from './components/userPage/UserPage'
 import ProductRegister from "./components/ProductRegister/ProductPage"  
-
+import VideCallOrg from "./components/VideoCallOrg/VideoCallOrg"
 import VideoCall from "./components/VideoCall/VideoCall";
 import Calender from "./components/Calender/Calender";
 import VendorSignupSignin from "./components/VendorSignup&SignIn/VendorSignup&Signin"
@@ -56,7 +56,7 @@ function App() {
 
           <Route exact path="chat" element={<Chat />} />
 
-          <Route exact path="video" element={<VideoCall />} />
+          <Route exact path="video" element={<VideCallOrg />} />
 
           <Route exact path="cal" element={<Calender />} />
 

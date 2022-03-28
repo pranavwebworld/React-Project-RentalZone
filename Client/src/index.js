@@ -26,8 +26,7 @@ ReactDOM.render(
       </VendorContextProvider>
     </AuthContextProvider>
     {/* </ErrorBoundary> */}
-  </React.StrictMode>,
-  
+  </React.StrictMode>, 
   document.getElementById("root")
 );
 

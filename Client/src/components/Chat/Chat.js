@@ -20,9 +20,13 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import UserListItem from "../../components/Chat/UserListItem/UserList";
 
+
+import UserListItem from "../../components/Chat/UserListItem/UserList";
+import { useNavigate } from "react-router";
 import { io } from "socket.io-client";
+
+
 
 import {
   Drawer,
@@ -56,6 +60,8 @@ const Chat = () => {
   const scrollRef = useRef();
   const [searchResult, setSearchResult] = useState();
   const [searchconvo, setSearchconvo] = useState();
+  const [modalHeader, setModelHeader] = useState();
+  const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -66,11 +72,54 @@ const Chat = () => {
   } = useDisclosure();
 
   const childF = (currentSocketUsers) => {
-    handleOpen();
-    onOpenReportModal();
+
+
+    const receiverId = currentChat.members.find(
+      (member) => member !== currentUser.aud
+    );
+
+      var CALLIING = currentUser.name
+
+    socket.current.emit("VideoCall", {
+      senderId: currentUser.aud,
+      receiverId: receiverId,
+      text: `${CALLIING} wants to make a Video call `,
+    });
+
     console.log({ currentSocketUsers });
     console.log("child called");
   };
+
+
+
+   const AcceptCall=()=>{
+
+    
+     const callerId = currentChat.members.find(
+       (member) => member !== currentVendor.aud
+     )
+
+     const vendorId = currentChat.members.find(
+       (member) => member === currentVendor.aud
+     )
+
+     console.log({callerId,vendorId});
+
+     socket.current.emit("CallAccepted", {
+       callerId: callerId,
+       vendorId});
+
+       
+
+       setTimeout(() => {
+         navigate('/video')
+       }, 2000);
+
+
+
+
+   }
+
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
@@ -88,7 +137,35 @@ const Chat = () => {
     });
 
     console.log({ arrivalMessage });
+
+
+    socket.current.on("getVideoCall", (data) => {
+      console.log({ data });
+      
+      setModelHeader(data.text)
+
+      setTimeout(() => {
+        onOpenReportModal();
+      }, 2000);
+
+      console.log({modalHeader});
+
+      console.log('video callled.......');
+
+      
+    });
+
+    socket.current.on("CallAccepted", () => {
+
+
+      navigate('/video')
+  
+    });
+
+
   }, []);
+
+
 
   useEffect(() => {
     arrivalMessage &&
@@ -98,15 +175,19 @@ const Chat = () => {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
+
     if (currentUser) {
+      
       socket.current.emit("addUser", currentUser?.aud);
 
       socket.current.on("getUsers", (users) => {
+
         setsocketUsers(users);
 
         console.log({ users });
       });
     } else {
+
       socket.current.emit("addUser", currentVendor?.aud);
 
       socket.current.on("getUsers", (users) => {
@@ -115,7 +196,11 @@ const Chat = () => {
         console.log({ users });
       });
     }
+
   }, [currentUser, currentVendor]);
+
+
+
 
   useEffect(() => {
     const getConversations = async () => {
@@ -156,6 +241,8 @@ const Chat = () => {
     getConversations();
   }, [currentUser, currentVendor]);
 
+
+
   useEffect(() => {
     try {
       const getMessages = async () => {
@@ -170,6 +257,8 @@ const Chat = () => {
       console.log(error);
     }
   }, [currentChat, searchconvo]);
+
+
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -336,15 +425,15 @@ const Chat = () => {
         <Modal isOpen={isOpenReportModal} onClose={onCloseReportModal}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader>{modalHeader}</ModalHeader>
             <ModalCloseButton />
             <ModalBody></ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
+              <Button colorScheme="blue" mr={3} onClick={onCloseReportModal}>
+                Reject
               </Button>
-              <Button variant="ghost">Secondary Action</Button>
+              <Button  onClick={AcceptCall}  variant="ghost">Answer the call</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
