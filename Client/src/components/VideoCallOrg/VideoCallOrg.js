@@ -3,16 +3,27 @@ import IconButton from "@material-ui/core/IconButton"
 import TextField from "@material-ui/core/TextField"
 import AssignmentIcon from "@material-ui/icons/Assignment"
 import PhoneIcon from "@material-ui/icons/Phone"
-import React, { useEffect, useRef, useState } from "react"
+import VideocamTwoToneIcon from '@mui/icons-material/VideocamTwoTone';
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
 import "./VideoCallOrg.css"
 
+import AuthContext from "../../context/AuthContext";
+import VendorContext from "../../context/VendorContext";
+import UserList from "../Chat/UserListItem/UserList"
+import { useNavigate } from "react-router"
 
-const socket = io.connect('http://localhost:5001')
+
+
+
 
 function VideoCallOrg() {
+    const { currentUser } = useContext(AuthContext);
+    const { currentVendor } = useContext(VendorContext);
+    const navigate = useNavigate()
+    const socket = useRef();
     const [me, setMe] = useState("")
     const [stream, setStream] = useState()
     const [receivingCall, setReceivingCall] = useState(false)
@@ -22,29 +33,138 @@ function VideoCallOrg() {
     const [idToCall, setIdToCall] = useState("")
     const [callEnded, setCallEnded] = useState(false)
     const [name, setName] = useState("")
+    const [buttonState, setButtonState] = useState(false);
+    const [socketUsers, setsocketUsers] = useState("");
     const myVideo = useRef()
     const userVideo = useRef()
     const connectionRef = useRef()
 
-    useEffect(() => {
+
+    useEffect( () => {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
             setStream(stream)
             myVideo.current.srcObject = stream
         })
 
-        socket.on("me", (id) => {
+
+        
+        socket.current = io.connect('http://localhost:5001')
+         
+            socket.current.on("me", (id) => {
+
             setMe(id)
+
+
+                if (currentUser) {
+
+                    try {
+
+
+
+                        console.log({ id },);
+
+                        socket.current.emit("addUser", currentUser?.aud, id);
+
+                        console.log(currentUser?.aud);
+
+                        socket.current.on("getUsers", (users) => {
+
+                            setsocketUsers(users);
+
+                            console.log(users, " user in get users ");
+
+                            if (users?.length > 1) {
+
+                                const vendorId = users.find(
+
+                                    (user) => user.userId !== currentUser.aud
+
+
+                                )
+
+                                console.log(vendorId, "Video call vendorId video call");
+
+                                setIdToCall(vendorId?.socketId)
+
+                                console.log(users, currentVendor.aud, currentUser.aud, vendorId);
+                                    
+                                
+                                setTimeout(callUser(idToCall),2000)
+
+                         
+
+                               
+
+                            }
+
+                        });
+
+
+
+                        
+                    } catch (error) {
+
+                        console.log(error);
+                        
+                        
+                    }
+
+                    
+                } else {
+                    console.log({id});
+
+                    socket.current.emit("addUser", currentVendor?.aud, id);
+
+                    socket.current.on("getUsers", (users) => {
+                        setsocketUsers(users);
+
+                        console.log({ users });
+                    });
+                }
+
+                
+
         })
 
-        socket.on("callUser", (data) => {
+
+        socket.current.on("callUser", (data) => {
+
             setReceivingCall(true)
             setCaller(data.from)
             setName(data.name)
             setCallerSignal(data.signal)
+
+
         })
+
+
+        socket.current.on("callEnded", () => {
+
+            console.log("recieved call ended");
+            navigate('/chat')
+            setCallEnded(true)
+            connectionRef.current.destroy()
+            socket.current.disconnect()
+        
+
+        })
+
+
+
+        // return () => {
+
+        //     setCallEnded(true)
+     
+
+        // }
+
+
     }, [])
 
+
+
     const callUser = (id) => {
+
         const peer = new Peer({
             initiator: true,
             trickle: false,
@@ -52,11 +172,14 @@ function VideoCallOrg() {
         })
 
         peer.on("signal", (data) => {
-            socket.emit("callUser", {
+
+            socket.current.emit("callUser", {
+
                 userToCall: id,
                 signalData: data,
                 from: me,
                 name: name
+
             })
         })
 
@@ -65,7 +188,7 @@ function VideoCallOrg() {
             userVideo.current.srcObject = stream
 
         })
-        socket.on("callAccepted", (signal) => {
+        socket.current.on("callAccepted", (signal) => {
             setCallAccepted(true)
             peer.signal(signal)
         })
@@ -73,7 +196,9 @@ function VideoCallOrg() {
         connectionRef.current = peer
     }
 
-    
+
+
+
     const answerCall = () => {
 
         setCallAccepted(true)
@@ -83,7 +208,7 @@ function VideoCallOrg() {
             stream: stream
         })
         peer.on("signal", (data) => {
-            socket.emit("answerCall", { signal: data, to: caller })
+            socket.current.emit("answerCall", { signal: data, to: caller })
         })
         peer.on("stream", (stream) => {
             userVideo.current.srcObject = stream
@@ -94,9 +219,21 @@ function VideoCallOrg() {
     }
 
     const leaveCall = () => {
+
+
+        socket.current.emit("callEnded")
         setCallEnded(true)
         connectionRef.current.destroy()
+        socket.current.disconnect()
+        navigate('/chat')
+
     }
+
+
+
+
+
+
 
     return (
         <>
@@ -113,27 +250,7 @@ function VideoCallOrg() {
                     </div>
                 </div>
                 <div className="myId">
-                    <TextField
-                        id="filled-basic"
-                        label="Name"
-                        variant="filled"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        style={{ marginBottom: "20px" }}
-                    />
-                    <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-                        <Button variant="contained" color="primary" startIcon={<AssignmentIcon fontSize="large" />}>
-                            Copy ID
-					</Button>
-                    </CopyToClipboard>
-
-                    <TextField
-                        id="filled-basic"
-                        label="ID to call"
-                        variant="filled"
-                        value={idToCall}
-                        onChange={(e) => setIdToCall(e.target.value)}
-                    />
+           
                     <div className="call-button">
                         {callAccepted && !callEnded ? (
                             <Button variant="contained" color="secondary" onClick={leaveCall}>
@@ -141,10 +258,10 @@ function VideoCallOrg() {
                             </Button>
                         ) : (
                             <IconButton color="primary" aria-label="call" onClick={() => callUser(idToCall)}>
-                                <PhoneIcon fontSize="large" />
+                                    <VideocamTwoToneIcon fontSize="large" />
                             </IconButton>
                         )}
-                        {idToCall}
+                       
                     </div>
                 </div>
                 <div>

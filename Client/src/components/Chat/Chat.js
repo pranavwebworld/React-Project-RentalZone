@@ -43,6 +43,8 @@ import {
   Input,
 } from "@chakra-ui/react";
 
+
+
 const Chat = () => {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -92,6 +94,7 @@ const Chat = () => {
 
 
 
+
    const AcceptCall=()=>{
 
     
@@ -109,7 +112,6 @@ const Chat = () => {
        callerId: callerId,
        vendorId});
 
-       
 
        setTimeout(() => {
          navigate('/video')
@@ -122,6 +124,7 @@ const Chat = () => {
 
 
   useEffect(() => {
+
     socket.current = io("ws://localhost:8900");
     socket.current.on("welcome", (msg) => {
       console.log({ msg });
@@ -177,7 +180,7 @@ const Chat = () => {
   useEffect(() => {
 
     if (currentUser) {
-      
+
       socket.current.emit("addUser", currentUser?.aud);
 
       socket.current.on("getUsers", (users) => {

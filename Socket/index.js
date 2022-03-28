@@ -103,27 +103,6 @@ io.on("connection", (socket) => {
   });
 
 
-    socket.on("disconnect", () => {
-        socket.broadcast.emit("callEnded")
-    })
-
-
-    socket.on("callUser", (data) => {
-
-        console.log('call user called',{data});
-
-        console.log(data.from, " data from ")
-        console.log(data.signalData, " data signal ")
-        console.log(data.userToCall, " data.userToCall")
-
-        io.to(data.userToCall).emit("callUser", { signal: data.signalData, from: data.from, name: data.name })
-    })
-
-
-    socket.on("answerCall", (data) => {
-        io.to(data.to).emit("callAccepted", data.signal)
-    })
-
 
 
 
@@ -131,8 +110,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("a user disconnected");
     removeUser(socket.id);
-
-
 
 
 
