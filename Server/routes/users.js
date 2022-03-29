@@ -40,11 +40,9 @@ router.get("/isLoggedIn", verifyAccessToken, async (req, res, next) => {
 });
 
 
-
 // @post user propic
 // @return boolean True or false 
 router.post("/proPicUpload", userController.proPicUpload)
-
 
 
 

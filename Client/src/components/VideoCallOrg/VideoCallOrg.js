@@ -47,6 +47,7 @@ function VideoCallOrg() {
         })
 
 
+
         
         socket.current = io.connect('http://localhost:5001')
          
@@ -54,12 +55,9 @@ function VideoCallOrg() {
 
             setMe(id)
 
-
                 if (currentUser) {
 
                     try {
-
-
 
                         console.log({ id },);
 
@@ -82,6 +80,7 @@ function VideoCallOrg() {
 
                                 )
 
+                                
                                 console.log(vendorId, "Video call vendorId video call");
 
                                 setIdToCall(vendorId?.socketId)
@@ -92,8 +91,6 @@ function VideoCallOrg() {
                                 setTimeout(callUser(idToCall),2000)
 
                          
-
-                               
 
                             }
 

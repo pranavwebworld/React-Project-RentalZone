@@ -36,29 +36,26 @@ transform:scale(75%)  ;
 
 
 
-
-
-
-.VendorButtons{
- --color: #ab1941;
- --color2: #212121;
+.VendorButtonsR{
+ --color: #fff2f6;
+ --color2: #6f6f6f;
  padding: 0.8em 1.7em;
- background-color: transparent;
+ background-color: lightblue;
  border-radius: 10px;
- border: 1.5px solid var(--color);
+ border: .5px solid var(--color);
  transition: .5s ease;
  position: relative;
  overflow: hidden;
  cursor: pointer;
  z-index: 1;
- font-weight: 300;
- font-size: 17px;
+ font-weight: 200;
+ font-size: 12px;
  font-family: 'Roboto', 'Segoe UI', sans-serif;
  text-transform: uppercase;
  color: var(--color);
 }
 
-.VendorButtons::before {
+.VendorButtonsR::before {
  content: '';
  display: block;
  height: 110%;
@@ -74,15 +71,15 @@ transform:scale(75%)  ;
  background: linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
 }
 
-.VendorButtons:hover::before {
+.VendorButtonsR:hover::before {
  left: -200%;
 }
 
-.VendorButtons:hover {
+.VendorButtonsR:hover {
  color: var(--color2);
 }
 
-.VendorButtons:active {
+.VendorButtonsR:active {
  transform: scale(.98);
  filter: brightness(.8);
 }

@@ -20,9 +20,10 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-
+import { ThemeProvider, ColorModeProvider } from "@chakra-ui/react"
 
 import UserListItem from "../../components/Chat/UserListItem/UserList";
+
 import { useNavigate } from "react-router";
 import { io } from "socket.io-client";
 
@@ -97,7 +98,6 @@ const Chat = () => {
 
    const AcceptCall=()=>{
 
-    
      const callerId = currentChat.members.find(
        (member) => member !== currentVendor.aud
      )
@@ -246,6 +246,7 @@ const Chat = () => {
 
 
 
+
   useEffect(() => {
     try {
       const getMessages = async () => {
@@ -350,9 +351,7 @@ const Chat = () => {
     boxShadow: 24,
     p: 4,
   };
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
 
   const toast = useToast();
 
@@ -410,21 +409,8 @@ const Chat = () => {
   return (
     <>
       <Navbar navbarLinks={navbarlinks}></Navbar>
-
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <VideoChat Users={socketUsers}  modal={ handleOpen}   ></VideoChat>
-
-        </Box>
-      </Modal>
- */}
-
       <ChakraProvider>
+
         <Modal isOpen={isOpenReportModal} onClose={onCloseReportModal}>
           <ModalOverlay />
           <ModalContent>
@@ -440,6 +426,7 @@ const Chat = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
+        
       </ChakraProvider>
 
       <div className="messenger">

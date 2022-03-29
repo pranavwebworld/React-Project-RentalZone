@@ -22,6 +22,29 @@ import ReactMapGL, {
     Marker,
 } from "react-map-gl";
 import axios from "../../../axios/axios";
+import { makeStyles } from "@material-ui/core"
+import { color } from "@chakra-ui/styled-system";
+import { ClassNames } from "@emotion/react";
+
+
+import ReactCrop from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+
+const useStyles = makeStyles({
+
+    root:{
+
+        backgroundColor:"fff",
+        color:"fff"
+
+    }
+
+
+})
+
+
+
+
 
 
 const PSlider = ({ vendor }) => {
@@ -141,7 +164,9 @@ const PSlider = ({ vendor }) => {
     const [rent, setRent] = useState(null);
     const [address, setAddress] = useState(null);
     const [pincode, setPincode] = useState(null);
-
+    const [cityName, setCityName] = useState(null);
+    
+    const [avatar, setAvatar] = useState('https://res.cloudinary.com/deb6scajo/image/upload/v1640784817/avatars/sample_dp_luhfir.png');
 
 
     console.log({productName});
@@ -158,7 +183,7 @@ const PSlider = ({ vendor }) => {
     const submitHandler = () => {
        const  vendorId=vendor._id
         console.log("submit handler called");
-        axios.post("/vendors/productRegister", {  productName, productDesc, rent, category, address, pincode, latitude, longitude, vendorId});
+        axios.post("/vendors/productRegister", {  productName, productDesc, rent, category, address, pincode, latitude, longitude, vendorId,cityName});
     };
 
 
@@ -184,17 +209,22 @@ const PSlider = ({ vendor }) => {
                 >
                     <h1 style={{ color: "lightgrey" }}> Register Product </h1>
 
-                    <h4 style={{ color: "lightgrey" }}> Select Category </h4>
-
-
+                 
                     <SelectComponent getSelect={getSelect}  ></SelectComponent>
 
                     <FormControl id="first-name" required>
+
                         <TextField
+                            InputLabelProps={{
+                                style: { color: '#fff', fontSize: "25px" },
+                            }}
+                            
+                            style={{ color: 'white' }}
                             sx={{ input: { color: "white", fontSize: "20px" } }}
                             label="Product Name"
                             variant="standard"
-                            color="primary"
+
+                            size="large"
                             focused
                             onChange={(e) => {
                                 setProductName(e.target.value);
@@ -204,11 +234,17 @@ const PSlider = ({ vendor }) => {
 
 
                     <FormControl id="email" required>
+
+                      
+
                         <TextField
+                            InputLabelProps={{
+                                style: { color: '#fff', fontSize: "25px" },
+                            }}
                             sx={{ input: { color: "white", fontSize: "20px" } }}
                             label="Product details"
                             variant="standard"
-                            color="primary"
+                       
                             focused
                             onChange={(e) => {
                                 setProductDesc(e.target.value);
@@ -218,13 +254,31 @@ const PSlider = ({ vendor }) => {
 
                     <FormControl id="email" required>
                         <TextField
+                            InputLabelProps={{
+                                style: { color: '#fff', fontSize: "25px" },
+                            }}
                             sx={{ input: { color: "white", fontSize: "20px" } }}
                             label=" Location Address"
                             variant="standard"
-                            color="primary"
+                     
                             focused
                             onChange={(e) => {
                                 setAddress(e.target.value);
+                            }}
+                        />
+                    </FormControl>
+
+                    <FormControl id="email" required>
+                        <TextField
+                            InputLabelProps={{
+                                style: { color: '#fff', fontSize: "25px" },
+                            }}
+                            sx={{ input: { color: "white", fontSize: "20px" } }}
+                            label=" City Name"
+                            variant="standard"
+                            focused
+                            onChange={(e) => {
+                                setCityName(e.target.value);
                             }}
                         />
                     </FormControl>
@@ -233,10 +287,13 @@ const PSlider = ({ vendor }) => {
                     <FormControl id="email" required>
 
                         <TextField
+                            InputLabelProps={{
+                                style: { color: '#fff',fontSize:"25px" },
+                            }}
                             sx={{ input: { color: "white", fontSize: "20px" } }}
                             label=" Pin Code"
                             variant="standard"
-                            color="primary"
+                       
                             focused
                             onChange={(e) => {
 
@@ -248,8 +305,13 @@ const PSlider = ({ vendor }) => {
 
 
                     <FormControl id="email" required>
-                        <h4 style={{ color: "lightgrey" }}> Select Price /day </h4>
+
+                        <h4 style={{ color: "white", fontSize:"22px" }}> Select Price /day </h4>
+
                         <Slider
+                            InputLabelProps={{
+                                style: { color: '#fff', fontSize: "25px" },
+                            }}
                             defaultValue={0}
                             getAriaValueText={valuetext}
                             step={100}
@@ -268,7 +330,7 @@ const PSlider = ({ vendor }) => {
                         size={"large"}
                         startIcon={<PublicTwoToneIcon />}
                         variant={"contained"}
-                        color="success"
+                        className="VendorButtonsR"
                         onClick={() => {
                             getLocation();
                         }}
@@ -276,9 +338,11 @@ const PSlider = ({ vendor }) => {
                         {map ? "Close map" : "Add you Location"}
                     </Button>
 
-                    <button onClick={submitHandler} className="VendorButtons">
+
+                    <Button onClick={submitHandler} variant={"contained"}  color="success">
                         Submit
-                    </button>
+                    </Button>
+
 
                     <div className="productImage">
                         <div class="product-pic1">
@@ -301,6 +365,39 @@ const PSlider = ({ vendor }) => {
                             />
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </Stack>
             </>
         );

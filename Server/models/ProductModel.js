@@ -5,8 +5,8 @@ const { string } = require("joi");
 
 
 
-const ProductSchema = new Schema({
 
+const ProductSchema = new Schema({
 
     productName: {
         type: String,
@@ -44,6 +44,11 @@ const ProductSchema = new Schema({
         required: [true, " vendorId is required"],
     },
 
+    cityName: {
+        type: String,
+        required: [true, " vendorId is required"],
+    },
+
     productpic: {
 
         type: String,
@@ -51,11 +56,33 @@ const ProductSchema = new Schema({
         default: "https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
 
     },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'], 
+        },
+        coordinates: {
+            type: [Number],
+            index: '2dsphere'
+        }
+    }
 },
     {
         timestamps: true
     }
 );
+
+
+
+
+ProductSchema.pre('save', async function (next) {
+    this.location = {
+        type: 'Point',
+        coordinates: [this.longitude, this.latitude],
+    }
+    next();
+}, { timestamps: true });
+
 
 
 const Product = mongoose.model("product", ProductSchema);

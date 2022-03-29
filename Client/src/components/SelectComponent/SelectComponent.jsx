@@ -1,10 +1,19 @@
 import * as React from 'react';
+import {useState} from "react"
 import PropTypes from 'prop-types';
 import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled';
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
+import {makeStyles} from "@material-ui/core"
 import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
-
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 const blue = {
   100: '#DAECFF',
   200: '#99CCF3',
@@ -33,14 +42,14 @@ const StyledButton = styled('button')(
   box-sizing: border-box;
   min-height: calc(1.5em + 22px);
   min-width: 320px;
-  background: #444444;
+  background: #grey;
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[300]};
   border-radius: 0.75em;
   margin-top: 0.5em;
   padding: 10px;
   text-align: left;
   line-height: 1.5;
-  color: white;
+  color: black;
 
   &:hover {
     background: grey;
@@ -93,7 +102,7 @@ const StyledOption = styled(OptionUnstyled)(
   }
 
   &.${optionUnstyledClasses.selected} {
-    background-color: #44444;
+    background-color: white;
     color: white;
   }
 
@@ -155,9 +164,14 @@ CustomSelect.propTypes = {
   }),
 };
 
+
+
+
+
 export default function UnstyledSelectsMultiple({ getSelect }) {
 
-  const [value, setValue] = React.useState('');
+
+  const [value, setValue] = useState(null);
 
 
   const handleSelect = (e) => {
@@ -167,20 +181,22 @@ export default function UnstyledSelectsMultiple({ getSelect }) {
     getSelect(e)
   }
 
-
   console.log(value);
 
   return (
 
     <div>
+        <FormControl>
+        {value ? value:  < InputLabel > Select Category</InputLabel>}
 
-      <CustomSelect value={value} onChange={handleSelect}>
+
+      <CustomSelect  label="Age"  value={value} onChange={handleSelect}>
         <StyledOption value={"camera"}>Camera</StyledOption>
         <StyledOption value={"lens"}>Lens</StyledOption>
         <StyledOption value={'Gimbal'}>Gimbal</StyledOption>
         <StyledOption value={"Other"}>Other</StyledOption>
       </CustomSelect>
-
+      </FormControl>
 
     </div>
   );

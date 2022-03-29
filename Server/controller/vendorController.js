@@ -140,7 +140,7 @@ module.exports={
             
 
 
-            const { address, productName, productDesc, rent, category, pincode, latitude, longitude, vendorId } = req.body;
+            const { address, productName, productDesc, rent, category, pincode, latitude, longitude, vendorId, cityName } = req.body;
             console.log({ productName });
             console.log({ productDesc });
             console.log({ rent });
@@ -150,6 +150,7 @@ module.exports={
             console.log({ latitude });
             console.log({ longitude });
             console.log({ vendorId });
+            console.log({ cityName });
 
             // const result = await ProductSchema.validateAsync(req.body);
 
