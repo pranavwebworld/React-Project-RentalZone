@@ -45,8 +45,6 @@ const useStyles = makeStyles({
 
 
 
-
-
 const PSlider = ({ vendor }) => {
 
     const [latitude, setlatitude] = useState("");
@@ -117,6 +115,8 @@ const PSlider = ({ vendor }) => {
     const [fileInputState3, setFileInputState3] = useState("");
     const [selectedFile, setSelectedfile] = useState("");
 
+
+
     const previewFile = async (file) => {
         console.log("called previewfile");
 
@@ -147,6 +147,12 @@ const PSlider = ({ vendor }) => {
         previewFile(file);
     };
 
+
+
+
+
+
+
     const geolocateControlRef = useCallback(
         (ref) => {
             if (ref) {
@@ -166,7 +172,7 @@ const PSlider = ({ vendor }) => {
     const [pincode, setPincode] = useState(null);
     const [cityName, setCityName] = useState(null);
     
-    const [avatar, setAvatar] = useState('https://res.cloudinary.com/deb6scajo/image/upload/v1640784817/avatars/sample_dp_luhfir.png');
+
 
 
     console.log({productName});
@@ -195,6 +201,7 @@ const PSlider = ({ vendor }) => {
         setCategory(value)
 
     }
+
 
 
     const renderContent = () => {
@@ -365,33 +372,6 @@ const PSlider = ({ vendor }) => {
                             />
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
