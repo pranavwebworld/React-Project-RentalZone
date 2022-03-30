@@ -11,8 +11,8 @@ const ProductSchema = new Schema({
     productName: {
         type: String,
         required:[true,"Product Name is required"],
-        lowercase: true,
-        unique: true,
+        uppercase: true,
+       
     },
     productDesc: {
         type: String,

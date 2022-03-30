@@ -41,7 +41,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                     >
                         
 
-                        <Card onClick={navigate("/camera")} sx={{ maxWidth: 345, border:"solid 0.5px #ab1941" }}>
+                        <Card onClick={ ()=>{navigate("/category/camera")}} sx={{ maxWidth: 345, border:"solid 0.5px #ab1941" }}>
                             <CardActionArea>
                                 <CardMedia
                                     className="Zoomi-In"
@@ -62,7 +62,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                         </Card>
 
 
-                        <Card sx={{ width: "22rem", border: "solid 1px #ab1941" , }} >
+                        <Card onClick={() => { navigate("/category/gymbal") }} sx={{ width: "22rem", border: "solid 1px #ab1941" , }} >
                             <CardActionArea>
                                 <CardMedia
                                     className="Zoomi-In"
@@ -83,7 +83,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                             </CardActionArea>
                         </Card>
 
-                        <Card sx={{ width: "22rem", border: "solid 1px #ab1941"}}>
+                        <Card onClick={() => { navigate("/category/lens") }}  sx={{ width: "22rem", border: "solid 1px #ab1941"}}>
                             <CardActionArea 
                                
                             >
@@ -106,7 +106,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                             </CardActionArea>
                         </Card>
 
-                        <Card sx={{ width: "22rem", border: "solid 1px #ab1941" }}>
+                        <Card onClick={() => { navigate("/category/other") }} sx={{ width: "22rem", border: "solid 1px #ab1941" }}>
                             <CardActionArea>
                                 <CardMedia
                                     className="Zoomi-In"

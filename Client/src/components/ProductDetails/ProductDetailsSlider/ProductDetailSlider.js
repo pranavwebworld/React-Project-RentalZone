@@ -1,5 +1,5 @@
 import { React, useState, useEffect, useCallback } from "react";
-import "./productSlider.css";
+import "./productdetailsSlider.css";
 import marker from "../../../assets/iconMarker.png";
 import { useInView } from "react-intersection-observer";
 import {

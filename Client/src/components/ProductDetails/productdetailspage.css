@@ -1,0 +1,48 @@
+
+.VendorPageButtons {
+ --color: #ab1941;
+ --color2: #212121;
+ padding: 0.8em 1.7em;
+ background-color: transparent;
+ border-radius: 10px;
+ border: 1.5px solid var(--color);
+ transition: .5s ease;
+ position: relative;
+ overflow: hidden;
+ cursor: pointer;
+ z-index: 1;
+ font-weight: 300;
+ font-size: 17px;
+
+
+ color: var(--color);
+}
+
+.VendorPageButtons::before {
+ content: '';
+ display: block;
+ height: 110%;
+ width: 310%;
+ transform: translate(0, -50%);
+ position: absolute;
+ top: 50%;
+ left: -5%;
+ z-index: -1;
+ transition: .7s;
+ background: -moz-linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
+ background: -webkit-linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
+ background: linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
+}
+
+.VendorPageButtons:hover::before {
+ left: -200%;
+}
+
+.VendorPageButtons:hover {
+ color: var(--color2);
+}
+
+.VendorPageButtons:active {
+ transform: scale(.98);
+ filter: brightness(.2);
+}

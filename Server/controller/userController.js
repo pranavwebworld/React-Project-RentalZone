@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { signupSchema, loginSchema } = require("../helpers/validation_schema");
 const User = require("../models/user.model");
+const Product = require("../models/ProductModel")
 const createError = require("http-errors");
 const { signAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
@@ -132,11 +133,25 @@ module.exports = {
 
     res.send(users);
   }),
+
+
   getById: asyncHandler(async (req, res, next) => {
     const userId = req.query.userId;
 
     const user = await User.findById(userId);
 
     res.status(200).json(user);
+  }),
+
+  getCategoryProducts: asyncHandler(async (req, res, next) => {
+
+    const categoryName = req.params.categoryName;
+
+    console.log({categoryName});
+
+    const products = await Product.find({category: categoryName});
+
+      console.log(products);
+    res.status(200).json(products);
   }),
 };

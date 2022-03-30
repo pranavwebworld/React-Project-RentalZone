@@ -62,7 +62,7 @@ const LandingPage = () => {
         <div className="landing__page">
 
             <Navbar navbarLinks={navbarlinks} />
-            x
+            
             <UserHero user={cuser}   imgSrc={coverpic} />
 
             <Parallax speed={-5}>

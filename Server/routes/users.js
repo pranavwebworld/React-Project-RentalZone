@@ -57,5 +57,9 @@ router.get("/searchUsers", userController.searchUsers);
 router.get("/getbyId", userController.getById);
 
 
+// @get params category name
+// @return matched category products
+router.get("/getCatproduct/:categoryName", userController.getCategoryProducts);
+
 module.exports = router;
- 
+  

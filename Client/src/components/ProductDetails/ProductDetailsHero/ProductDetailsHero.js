@@ -3,7 +3,7 @@ import usePagination from "@mui/material/usePagination/usePagination";
 import { React, useState } from "react";
 import axios from "../../../axios/axios";
 
-import "./producthero.css";
+import "./productdetailshero.css";
 
 
 const Hero = ({ vendor, imgSrc }) => {

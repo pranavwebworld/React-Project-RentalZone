@@ -1,12 +1,12 @@
 import { React,useContext,useEffect, useState}from "react";
 import "../LandingPage/landingpage.css";
 import "../Illustartions/RadialRed";
-import coverpic from "../../assets/userPage3.jpg";
+import coverpic from "../../assets/CategoryCamera.jpeg";
 import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
-import UserHero from "./UserHero/UserHero";
-import UserSlider from "./UserSlider/UserSlider";
+import CategoryHero from "./CategoryHero/CategoryHero";
+import CategorySlider from "./CategorySlider/CategorySlider";
 import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
@@ -14,7 +14,10 @@ import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
 import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
+import { useNavigate,useParams } from "react-router-dom"
+import { set } from "react-hook-form";
 
+ 
 
 const navbarlinks = [
     { url: "", title: "Home" },
@@ -22,13 +25,19 @@ const navbarlinks = [
     { url: "", title: "About  " },
 ];
 
-const LandingPage = () => {
+
+const CategoryPage = ({route}) => {
 
     const { currentUser } = useContext(AuthContext)
     const [cuser,setCuser]= useState(null)
+    const [cat , setCat]= useState('')
+    const categoryName = useParams()
+    const catName = categoryName.categoryName
+
 
 
     useEffect(() => {
+        setCat(catName)
 
         const getUser = async () => {
 
@@ -51,9 +60,7 @@ const LandingPage = () => {
         };
 
         getUser()
-    }, [currentUser]);
-
-
+    }, [currentUser,catName]);
 
 
     return (
@@ -62,8 +69,8 @@ const LandingPage = () => {
         <div className="landing__page">
 
             <Navbar navbarLinks={navbarlinks} />
-            x
-            <UserHero user={cuser}   imgSrc={coverpic} />
+            
+            <CategoryHero user={cuser} title={cat}  imgSrc={coverpic} />
 
             <Parallax speed={-5}>
                 <CameraSvg></CameraSvg>
@@ -71,14 +78,14 @@ const LandingPage = () => {
       
             <RadialRed></RadialRed>
 
-            <UserSlider
-                title={"Camera"}/>
+            <CategorySlider
+            
+                category={cat}  title={"Camera"}/>
     
             <Footerpic></Footerpic>
         </div>
 
-
     );
 };
 
-export default LandingPage;
+export default CategoryPage;

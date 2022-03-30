@@ -1,0 +1,377 @@
+.slider {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+
+opacity: 0;
+  transform: scale(55%);
+  transition: 2s;
+}
+
+.slider__image {
+  width: 35%;
+}
+
+.slider--zoom{
+
+opacity: 1;
+transform:scale(75%)  ;
+
+}
+
+.slider__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.slider__title {
+  text-align: center;
+  color: white;
+}
+
+
+
+.VendorButtonsR{
+ --color: #fff2f6;
+ --color2: #6f6f6f;
+ padding: 0.8em 1.7em;
+ background-color: lightblue;
+ border-radius: 10px;
+ border: .5px solid var(--color);
+ transition: .5s ease;
+ position: relative;
+ overflow: hidden;
+ cursor: pointer;
+ z-index: 1;
+ font-weight: 200;
+ font-size: 12px;
+ font-family: 'Roboto', 'Segoe UI', sans-serif;
+ text-transform: uppercase;
+ color: var(--color);
+}
+
+.VendorButtonsR::before {
+ content: '';
+ display: block;
+ height: 110%;
+ width: 310%;
+ transform: translate(0, -50%);
+ position: absolute;
+ top: 50%;
+ left: -5%;
+ z-index: -1;
+ transition: .7s;
+ background: -moz-linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
+ background: -webkit-linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
+ background: linear-gradient(45deg, var(--color2) 33%, var(--color) 66%);
+}
+
+.VendorButtonsR:hover::before {
+ left: -200%;
+}
+
+.VendorButtonsR:hover {
+ color: var(--color2);
+}
+
+.VendorButtonsR:active {
+ transform: scale(.98);
+ filter: brightness(.8);
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+  .slider {
+    flex-direction: column;
+    background-color: rgb(0, 0, 0);
+  }
+
+  .slider__image {
+    width: 100%;
+  }
+}
+
+
+
+.productImage{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 8rem;
+left: 50rem;
+z-index: 1000;
+
+}
+
+
+
+
+
+.productImage2{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 8rem;
+left: 62rem;
+z-index: 1000;
+
+}
+
+
+.productImage3{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 8rem;
+left: 74rem;
+z-index: 1000;
+
+}
+
+
+
+
+
+.product-pic1 {
+  color: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+.product-pic1 input {
+  display: none;
+}
+.product-pic1 img {
+  position: absolute;
+  object-fit: cover;
+  width: 150px;
+  height: 200px;
+  box-shadow: 0 0 40px 0 rgba(255, 254, 254, 0.35);
+  border-radius: 30px;
+  z-index: 3;
+  border: solid 2px #ab1941
+}
+.product-pic1 .-label {
+  cursor: pointer;
+  height: 200px;
+  width: 158px;
+}
+.product-pic1:hover .-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 30px;
+  margin-bottom: 0;
+}
+.product-pic1 span {
+  display: inline-flex;
+  padding: 0.2em;
+  height: 2em;
+  z-index: 1000;
+}
+
+
+
+
+
+
+
+
+
+.chatOnlin2{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: -18rem;
+left: 50rem;
+
+}
+
+
+
+.product-pic2 {
+  color: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.product-pic2 input {
+  display: none;
+}
+.product-pic2 img {
+  position: absolute;
+  object-fit: cover;
+  height: 200px;
+  width: 158px;
+  box-shadow: 0 0 40px 0 rgba(255, 254, 254, 0.35);
+  border-radius: 30px;
+  z-index: 0;
+  border: solid 2px #ab1941
+}
+.product-pic2 .-label {
+  cursor: pointer;
+ height: 200px;
+  width: 158px;
+}
+.product-pic2:hover .-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 30px;
+  margin-bottom: 0;
+}
+.product-pic2 span {
+  display: inline-flex;
+  padding: 0.2em;
+  height: 2em;
+}
+
+
+
+
+
+
+.chatOnlin3{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: -18rem;
+left: 73rem;
+
+}
+
+
+
+.product-pic3 {
+  color: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.product-pic3 input {
+  display: none;
+}
+.product-pic3 img {
+  position: absolute;
+  object-fit: cover;
+  width: 150px;
+  height: 200px;
+  box-shadow: 0 0 40px 0 rgba(255, 254, 254, 0.35);
+  border-radius: 30px;
+  z-index: 0;
+  border: solid 2px #ab1941
+}
+.product-pic3 .-label {
+  cursor: pointer;
+  height: 200px;
+  width: 158px;
+}
+.product-pic3:hover .-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 30px;
+  margin-bottom: 0;
+}
+.product-pic5 span {
+  display: inline-flex;
+  padding: 0.2em;
+  height: 2em;
+}
+
+
+
+
+/* From cssbuttons.io by @EmmaxPlay */
+.spinner {
+ position: relative;
+ width: 50px;
+ height: 50px;
+ border-radius: 50%;
+}
+
+.spinner::before,
+.spinner:after {
+ content: "";
+ position: absolute;
+ border-radius: inherit;
+}
+
+.spinner:before {
+ width: 100%;
+ height: 100%;
+ background-image: linear-gradient(0deg, #ab1941 0%, #333399 100%);
+ animation: spin8932 .5s infinite linear;
+}
+
+.spinner:after {
+ width: 85%;
+ height: 85%;
+ background-color: #212121;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+}
+
+@keyframes spin8932 {
+ to {
+  transform: rotate(360deg);
+ }
+}
