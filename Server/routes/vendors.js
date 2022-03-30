@@ -51,6 +51,8 @@ router.get("/isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 router.post("/proPicUpload", vendorController.proPicUpload)
 
 
+
+
 // @get params userId
 // @return matched users
 
@@ -65,6 +67,7 @@ router.get("/getbyId", vendorController.getById);
 
 
 router.post("/productPicUpload", vendorController.proPicUpload)
+
 
 
 

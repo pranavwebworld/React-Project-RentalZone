@@ -2,9 +2,9 @@ import { withStyles } from "@mui/material";
 import usePagination from "@mui/material/usePagination/usePagination";
 import { React, useState,useEffect,useContext } from "react";
 import axios from "../../../axios/axios";
-import UserPropic from "../userProfile/userProfile";
+import UserPropic from "../CategoryProfile/userProfile";
 import "./userhero.css";
-import "../userProfile/userProfile";
+import "../CategoryProfile/userProfile";
 import AuthContext from "../../../context/AuthContext";
 
 

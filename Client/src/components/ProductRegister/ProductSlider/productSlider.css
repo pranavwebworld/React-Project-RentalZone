@@ -119,6 +119,44 @@ z-index: 1000;
 }
 
 
+
+
+
+.productImage2{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 8rem;
+left: 62rem;
+z-index: 1000;
+
+}
+
+
+.productImage3{
+position: absolute;
+display: flex;
+flex-direction: column;
+height: 80vh;
+align-items: center;
+justify-content: center;
+justify-items: center;
+background-color: transparent;
+bottom: 8rem;
+left: 74rem;
+z-index: 1000;
+
+}
+
+
+
+
+
 .product-pic1 {
   color: transparent;
   transition: all 0.3s ease;
@@ -296,4 +334,44 @@ left: 73rem;
   display: inline-flex;
   padding: 0.2em;
   height: 2em;
+}
+
+
+
+
+/* From cssbuttons.io by @EmmaxPlay */
+.spinner {
+ position: relative;
+ width: 50px;
+ height: 50px;
+ border-radius: 50%;
+}
+
+.spinner::before,
+.spinner:after {
+ content: "";
+ position: absolute;
+ border-radius: inherit;
+}
+
+.spinner:before {
+ width: 100%;
+ height: 100%;
+ background-image: linear-gradient(0deg, #ab1941 0%, #333399 100%);
+ animation: spin8932 .5s infinite linear;
+}
+
+.spinner:after {
+ width: 85%;
+ height: 85%;
+ background-color: #212121;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+}
+
+@keyframes spin8932 {
+ to {
+  transform: rotate(360deg);
+ }
 }

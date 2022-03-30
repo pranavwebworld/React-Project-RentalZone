@@ -60,6 +60,8 @@ function App() {
 
           <Route exact path="cal" element={<Calender />} />
 
+          <Route exact path="/category" element={<Camera />} />
+
           <Route exact path="/Signup" element={loggedIn ? <Navigate to="/user" /> : <SignupSignin />} />
 
 

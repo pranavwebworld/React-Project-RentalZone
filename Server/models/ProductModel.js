@@ -49,10 +49,24 @@ const ProductSchema = new Schema({
         required: [true, " vendorId is required"],
     },
 
-    productpic: {
+    Product_pic1: {
 
         type: String,
         
+        default: "https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
+
+    },
+    Product_pic2: {
+
+        type: String,
+
+        default: "https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
+
+    },
+    Product_pic: {
+
+        type: String,
+
         default: "https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
 
     },
