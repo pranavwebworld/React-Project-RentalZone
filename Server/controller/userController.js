@@ -117,7 +117,6 @@ module.exports = {
 
 
 
-  
   searchUsers: asyncHandler(async (req, res, next) => {
     const keyword = req.query.search
       ? {
@@ -153,5 +152,27 @@ module.exports = {
 
       console.log(products);
     res.status(200).json(products);
+  }),
+
+
+  getProductById: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const productId = req.params.productId;
+
+      console.log({ productId });
+
+      const product = await Product.findById(productId ); 
+
+      console.log(product);
+      res.status(200).json(product);
+      
+    } catch (error) {
+
+      console.log(error);
+      
+    }
+
   }),
 };

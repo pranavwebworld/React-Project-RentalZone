@@ -51,15 +51,23 @@ router.post("/proPicUpload", userController.proPicUpload)
 router.get("/searchUsers", userController.searchUsers);
 
 
+
 // @get params userId
 // @return matched users
-
 router.get("/getbyId", userController.getById);
+
 
 
 // @get params category name
 // @return matched category products
 router.get("/getCatproduct/:categoryName", userController.getCategoryProducts);
 
-module.exports = router;
-  
+
+
+// @get params productID
+// @return product Details
+router.get("/getProductById/:productId", userController.getProductById);
+
+
+
+module.exports = router;  

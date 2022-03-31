@@ -25,7 +25,7 @@ import axios from "../../../axios/axios";
 import { makeStyles } from "@material-ui/core";
 import { color } from "@chakra-ui/styled-system";
 import { ClassNames } from "@emotion/react";
-
+import "mapbox-gl/dist/mapbox-gl.css"
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
