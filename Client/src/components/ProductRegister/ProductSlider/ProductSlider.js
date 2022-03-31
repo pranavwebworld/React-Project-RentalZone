@@ -101,7 +101,6 @@ const PSlider = ({ vendor }) => {
 
   const [previewSource, setPreviewSource] = useState();
   const [previewSource2, setPreviewSource2] = useState();
-
   const [fileInputState, setFileInputState] = useState("");
   const [fileInputState2, setFileInputState2] = useState("");
   const [fileInputState3, setFileInputState3] = useState("");
@@ -111,7 +110,6 @@ const PSlider = ({ vendor }) => {
 
   const previewFile = async (file) => {
     console.log("called previewfile");
-
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
@@ -292,14 +290,7 @@ const PSlider = ({ vendor }) => {
           setImage2('')
           setImage3('')
           setLoading('')
-
-
-
         }
-
-
-
-
       })
 
 
@@ -476,8 +467,8 @@ const PSlider = ({ vendor }) => {
             </div>
           </div>
 
+
           <div className="productImage2">
-    
             <div class="product-pic1">
               <label class="-label" for="file2">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -499,8 +490,9 @@ const PSlider = ({ vendor }) => {
             </div>
           </div>
 
+
+
           <div className="productImage3">
-        
             <div class="product-pic1">
               <label class="-label" for="file3">
                 <span class="glyphicon glyphicon-camera"></span>

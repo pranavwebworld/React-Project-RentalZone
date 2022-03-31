@@ -38,8 +38,8 @@ import "react-image-crop/dist/ReactCrop.css";
 import { FullscreenControl } from "mapbox-gl";
 import GlassCard from "../../GlassCard/GlassCard";
 
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 const useStyles = makeStyles({
   root: {
     backgroundColor: "fff",
@@ -92,8 +92,6 @@ const PSlider = ({ user, product }) => {
     }
   }
 
- 
-
   const geolocateControlRef = useCallback(
     (ref) => {
       if (ref) {
@@ -121,35 +119,79 @@ const PSlider = ({ user, product }) => {
 
 
   const minDate = new Date();
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [total ,setTotal ]= useState(0)
   const [Days, setTotalDays] = useState(0)
+  const [Booked, setBooked] = useState(false)
+  const [startingDate, setStartingDate] = useState(0)
+  const [endingDate, setEndingDate] = useState(0)
  
 
   const handleDate = (e)=>{
 
+
     console.log(e.target.value);
-
     const dates = e.target.value
-
     console.log({dates});
 
-
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000; 
     const firstDate = dates[0]
     const secondDate =dates[1];
-
     const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+    setStartingDate(firstDate)
+    setEndingDate(secondDate)
+
+
     const total=product.rent*diffDays
     console.log(diffDays);
     setTotalDays(diffDays)
     setTotal(total)
-
+    setBooked(true)
+ 
 
   }
+
+
+
+  const submitHandler = () => {
+    handleClose()
+
+    const userId = user.aud;
+
+    console.log("  Booking submit handler called");
+
+    try {
+
+
+
+      axios.post("/users/order", {
+
+        product,
+        userId,
+        total,
+        Days,
+        startingDate,
+        endingDate
+        
+      }).then((resp) => {
+
+
+        if (resp) {
+
+          console.log(resp);
+
+        }
+      })
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
 
   const renderContent = () => {
     return (
@@ -169,7 +211,6 @@ const PSlider = ({ user, product }) => {
           <h3 style={{ color: "white", marginBottom: "-30px" }}>
             Product Name
           </h3>
-
           <FormControl id="first-name">
             <InputLabel style={{ color: "white" }} htmlFor="add">
               {product?.productName}
@@ -256,7 +297,7 @@ const PSlider = ({ user, product }) => {
 
 
               <Typography id="modal-modal-title" variant="h6" component="h2">
-               Total = Rs {total} <br></br> Todal days ={Days} 
+                Total = ₹  {total} <br></br>  Days = {Days}
           </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Please select required Dates 
@@ -272,13 +313,15 @@ const PSlider = ({ user, product }) => {
                 onChange={handleDate}
                 
                 ></DateRangePickerComponent>
+
+              {Booked && <Button style={{ marginTop: "5px", float: "right" }} onClick={submitHandler} variant={"contained"} color="success">
+            Submit
+          </Button>}
       
             </Box>
           </Modal>
 
 
-
-       
         </Stack>
 
         <Box>

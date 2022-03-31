@@ -69,5 +69,11 @@ router.get("/getCatproduct/:categoryName", userController.getCategoryProducts);
 router.get("/getProductById/:productId", userController.getProductById);
 
 
+//@post order registration
+//@body order details
+//@return  save response
+router.post("/order", userController.orders);
+
+
 
 module.exports = router;  

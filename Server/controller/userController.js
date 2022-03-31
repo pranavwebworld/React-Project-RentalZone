@@ -1,9 +1,11 @@
 const JWT = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
-const { signupSchema, loginSchema } = require("../helpers/validation_schema");
+const { signupSchema, loginSchema,OrderSchema } = require("../helpers/validation_schema");
 const User = require("../models/user.model");
 const Product = require("../models/ProductModel")
+const Order = require("../models/OrderModel")
+
 const createError = require("http-errors");
 const { signAccessToken } = require("../helpers/jwt_helpers");
 const { verifyAccessToken } = require("../helpers/jwt_helpers");
@@ -175,4 +177,30 @@ module.exports = {
     }
 
   }),
+
+
+  orders: asyncHandler(async (req, res, next) => {
+
+    try {
+
+
+      const result = await OrderSchema.validateAsync(req.body);
+
+
+      const order = new Order(result);
+
+      const savedOrder = await order.save();
+
+
+      console.log(savedOrder);
+
+      res.status(200).json(savedOrder);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  })
 };

@@ -40,14 +40,34 @@ const ProductSchema = joi.object({
     vendorId: joi.required()
 
 
+})
+
+
+
+const OrderSchema = joi.object({
+
+
+    product: joi.required(),
+
+    userId: joi.string().required(),
+
+    total: joi.number().required(),
+
+    Days: joi.required(),
+
+    startingDate:joi.date().required(),
+
+    endingDate:joi.date().required()
+
 
 })
 
 
 
 
+
 module.exports = {
-    signupSchema, loginSchema,ProductSchema
+    signupSchema, loginSchema,ProductSchema,OrderSchema
 
 
 }

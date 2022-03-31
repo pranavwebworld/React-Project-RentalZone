@@ -7,6 +7,7 @@ import UserPage from './components/userPage/UserPage'
 import ProductRegister from "./components/ProductRegister/ProductPage"  
 import ProductDetailsPage from "./components/ProductDetails/ProductDetailsPage"
 import CategoryPage from "./components/Categorypage/CategoryPage"
+import BookedPage from "./components/BookedPage/BookedPage" 
 import VideCallOrg from "./components/VideoCallOrg/VideoCallOrg"
 import VideoCall from "./components/VideoCall/VideoCall";
 import Calender from "./components/Calender/Calender";
@@ -63,6 +64,8 @@ function App() {
           <Route exact path="cal" element={<Calender />} />
 
           <Route exact path="/category/:categoryName" element={<CategoryPage />} />
+
+          <Route exact path="/booked/:bookingId" element={<BookedPage />} />
 
           <Route exact path="/Signup" element={loggedIn ? <Navigate to="/user" /> : <SignupSignin />} />
 

@@ -1,0 +1,92 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.hero__title {
+  position: absolute;
+  bottom: 15%;
+  right: 2%;
+  color: white;
+  font-size: 3rem;
+  padding: 15px;
+}
+
+.gradDiv {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0px;
+
+  background: linear-gradient(
+    175.01deg,
+    rgba(0, 0, 0, 0) -18.95%,
+    rgba(0, 0, 0, 0.489356) 56.95%,
+    #000000 84.76%
+  );
+}
+
+.animate {
+  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+
+#videographersvg {
+  bottom: 0%;
+  left: 30%;
+  position: absolute;
+  z-index: 50;
+}
+
+#camerasvg {
+  left: 75%;
+  bottom: 20%;
+  top: 40%;
+  position: absolute;
+  z-index: 50;
+  opacity: 0.6;
+}
+
+
+
+@-webkit-keyframes up-down {
+  0% {
+    transform: translateY(15px);
+  }
+
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes up-down {
+  0% {
+    transform: translateY(15px);
+  }
+
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #camerasvg {
+    left: 20px;
+  }
+
+  .hero__title {
+  position: absolute;
+  bottom: 15%;
+  right: 6%;
+  color: white;
+  font-size: 3rem;
+  padding: 15px;
+}
+}
