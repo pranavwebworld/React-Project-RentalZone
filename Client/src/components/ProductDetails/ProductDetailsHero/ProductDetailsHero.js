@@ -24,7 +24,7 @@ const Hero = ({ vendor, imgSrc }) => {
 
     
       <h1 className="hero__title animate">
-        <span style={{ color: "#5D5D5D" }}> Register A product </span>
+        <span style={{ color: "#5D5D5D" }}>  Product Details </span>
       </h1>
     </div>
   );

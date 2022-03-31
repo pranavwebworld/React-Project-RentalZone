@@ -326,7 +326,7 @@ const PSlider = ({ vendor }) => {
           style={{ width: "30rem" }}
           direction="column"
           justifyContent="center"
-          spacing={10}
+          spacing={4}
           padding={5}
         >
           <h1 style={{ color: "lightgrey" }}> Register Product </h1>
@@ -452,8 +452,9 @@ const PSlider = ({ vendor }) => {
             Submit
           </Button>}
 
-
+          
           <div className="productImage">
+     
             <div class="product-pic1">
               <label class="-label" for="file">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -476,6 +477,7 @@ const PSlider = ({ vendor }) => {
           </div>
 
           <div className="productImage2">
+    
             <div class="product-pic1">
               <label class="-label" for="file2">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -498,6 +500,7 @@ const PSlider = ({ vendor }) => {
           </div>
 
           <div className="productImage3">
+        
             <div class="product-pic1">
               <label class="-label" for="file3">
                 <span class="glyphicon glyphicon-camera"></span>

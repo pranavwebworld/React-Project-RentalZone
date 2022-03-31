@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const { string } = require("joi");
+const { string, number } = require("joi");
 
 
 
@@ -22,7 +22,11 @@ const ProductSchema = new Schema({
         type: String,
         required: [true, "Product Category is required"],
     },
-
+    rent: {
+        type: Number,
+        required: [true, "Product Category is required"],
+    },
+ 
     latitude: {
         type: String,
         required: [true, "Product latitude is missing"],
@@ -63,7 +67,7 @@ const ProductSchema = new Schema({
         default: "https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
 
     },
-    Product_pic: {
+    Product_pic3: {
 
         type: String,
 

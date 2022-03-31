@@ -1,23 +1,28 @@
-import { React, useState, useEffect, useCallback } from "react";
+import  React ,{ useState, useEffect, useCallback } from "react";
+
 import "./productdetailslider.css";
 import marker from "../../../assets/iconMarker.png";
 import { useInView } from "react-intersection-observer";
-import "mapbox-gl/dist/mapbox-gl.css"
+import "mapbox-gl/dist/mapbox-gl.css";
 
 import {
+  Box,
   Button,
   FormControl,
   FormLabel,
   InputLabel,
   MenuItem,
+  Modal,
   Select,
+  Typography,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
-import { useNavigate, useParams  } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import TextField from "@mui/material/TextField";
 import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
 import SelectComponent from "../../SelectComponent/SelectComponent";
+
 import ReactMapGL, {
   GeolocateControl,
   NavigationControl,
@@ -31,6 +36,9 @@ import { ClassNames } from "@emotion/react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { FullscreenControl } from "mapbox-gl";
+import GlassCard from "../../GlassCard/GlassCard";
+
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 const useStyles = makeStyles({
   root: {
@@ -39,20 +47,17 @@ const useStyles = makeStyles({
   },
 });
 
-const PSlider = ({ user,product }) => {
-  
+const PSlider = ({ user, product }) => {
+
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [map, setmap] = useState(false);
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
 
-
-
-
   const [viewport, setViewport] = useState({
     latitude: latitude,
-    longitude:longitude,
+    longitude: longitude,
     zoom: 4,
     width: "100vw",
     height: "100vh",
@@ -62,28 +67,8 @@ const PSlider = ({ user,product }) => {
     threshold: 0.2,
   });
 
-  const marks = [
-    {
-      value: 100,
-      label: "Rs",
-    },
-    {
-      value: 200,
-      label: "Rs",
-    },
-    {
-      value: 300,
-      label: "Rs",
-    },
-    {
-      value: 400,
-      label: "Rs",
-    },
-  ];
+  
 
-  function valuetext(value) {
-    return `${value}RS`;
-  }
 
   function getLocation() {
     navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
@@ -91,7 +76,6 @@ const PSlider = ({ user,product }) => {
     });
 
     function successLocation(position) {
-
       setLatitude(product?.latitude);
       setLongitude(product.longitude);
 
@@ -108,12 +92,7 @@ const PSlider = ({ user,product }) => {
     }
   }
 
-  const [previewSource, setPreviewSource] = useState();
-  const [previewSource2, setPreviewSource2] = useState();
-
-
-
-  
+ 
 
   const geolocateControlRef = useCallback(
     (ref) => {
@@ -125,124 +104,125 @@ const PSlider = ({ user,product }) => {
     [map]
   );
 
-
-  const [productName, setProductName] = useState(null);
-  const [productDesc, setProductDesc] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [rent, setRent] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [pincode, setPincode] = useState(null);
-  const [cityName, setCityName] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [image3, setImage3] = useState(null);
-  const [loading, setLoading] = useState(false)
-
-
-
-
- 
-
-
-  console.log({ productName });
-  console.log({ productDesc });
-  console.log({ rent });
-  console.log({ category });
-  console.log({ address });
-  console.log({ pincode });
-  console.log({ latitude });
-  console.log({ longitude });
-
-  const submitHandler = () => {
-
- 
-
-
-    
-
-
-
+  
+  const style = {
+    position: 'absolute',
+    top: '20%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: '#5b5a5a',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    color:"white"
   };
 
-  const getSelect = (value) => {
-    console.log("select in child", value);
 
-    setCategory(value);
-  };
+
+  const minDate = new Date();
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [total ,setTotal ]= useState(0)
+  const [Days, setTotalDays] = useState(0)
+ 
+
+  const handleDate = (e)=>{
+
+    console.log(e.target.value);
+
+    const dates = e.target.value
+
+    console.log({dates});
+
+
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate = dates[0]
+    const secondDate =dates[1];
+
+    const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+    const total=product.rent*diffDays
+    console.log(diffDays);
+    setTotalDays(diffDays)
+    setTotal(total)
+
+
+  }
 
   const renderContent = () => {
     return (
       <>
         <Stack
-          style={{ width: "30rem" }}
+          style={{ width: "82rem" }}
           direction="column"
           justifyContent="center"
-          spacing={6}
-          padding={5}
+          spacing={8}
+          padding={1}
         >
+          <h1 style={{ color: "lightgrey", marginBottom: "20px" }}>
+      
+            Product Details
+          </h1>
 
-          <h1 style={{ color: "lightgrey",marginBottom:"20px" }}>  Product Details</h1>
+          <h3 style={{ color: "white", marginBottom: "-30px" }}>
+            Product Name
+          </h3>
 
-         
-          <h3 style={{ color: "white", marginBottom: "-30px"}} >Product Name</h3>
+          <FormControl id="first-name">
+            <InputLabel style={{ color: "white" }} htmlFor="add">
+              {product?.productName}
+            </InputLabel>
 
-          <FormControl id="first-name" >
-
-            <InputLabel style={{ color: 'white' }} htmlFor="add" >{product?.productName}</InputLabel>
-                
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
               style={{ color: "white" }}
               sx={{ input: { color: "white", fontSize: "20px" } }}
-              
               variant="standard"
               size="large"
-             
               focused
-          
             />
           </FormControl>
 
-     
-          <h3 style={{ color: "white",marginBottom:"-30px" }} >Product Address</h3>
-          <FormControl id="email" >
-       
-            <InputLabel style={{ color: 'white' }} htmlFor="add" >{product?.address}</InputLabel>
+          <h3 style={{ color: "white", marginBottom: "-30px" }}>
+            Product Address
+          </h3>
+          <FormControl id="email">
+            <InputLabel style={{ color: "white" }} htmlFor="add">
+              {product?.address}
+            </InputLabel>
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
               sx={{ input: { color: "white", fontSize: "20px" } }}
-           
               variant="standard"
               focused
-            
             />
           </FormControl>
 
-
-
-          <h3 style={{ color: "white", marginBottom: "-30px" }} >City Name</h3>
-          <FormControl id="email"> 
-            
-            <InputLabel style={{ color: 'white', fontSize: "15px", }} htmlFor="add" >{product?.cityName}</InputLabel>
+          <h3 style={{ color: "white", marginBottom: "-30px" }}>City Name</h3>
+          <FormControl id="email">
+            <InputLabel
+              style={{ color: "white", fontSize: "15px" }}
+              htmlFor="add"
+            >
+              {product?.cityName}
+            </InputLabel>
 
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
               sx={{ input: { color: "white", fontSize: "20px" } }}
-
               variant="standard"
               focused
-              onChange={(e) => {
-                setCityName(e.target.value);
-              }}
+            
             />
           </FormControl>
-
 
           <Button
             size={"large"}
@@ -256,28 +236,62 @@ const PSlider = ({ user,product }) => {
             {map ? "Close map" : "Show Location"}
           </Button>
 
-          {loading && <div class="spinner"> <span>  Please Wait </span>  </div>}
+    
+            <Button
+              onClick={handleOpen}
+              variant={"contained"}
+              color="success"
+            >
+              Book This device
+            </Button>
+       
 
-          {!loading && <Button onClick={submitHandler} variant={"contained"} color="success">
-           Book This device
-          </Button>}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
 
 
-        
-          
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+               Total = Rs {total} <br></br> Todal days ={Days} 
+          </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Please select required Dates 
+          </Typography>
+         
+                <DateRangePickerComponent 
+
+           
+                min={minDate}
+                
+                placeholder=" ..... " 
+                
+                onChange={handleDate}
+                
+                ></DateRangePickerComponent>
+      
+            </Box>
+          </Modal>
+
+
+
+       
         </Stack>
+
+        <Box>
+          <GlassCard product={product}></GlassCard>
+        </Box>
       </>
     );
   };
 
-
-
-
   return (
     <>
-
       <div
-        style={{ width: "70rem", height: "40rem" }}
+        style={{ width: "90rem", height: "40rem" }}
         className={inView ? "slider slider--zoom" : "slider"}
         ref={ref}
       >
@@ -307,17 +321,13 @@ const PSlider = ({ user,product }) => {
             <GeolocateControl trackUserLocation> </GeolocateControl>
 
             <NavigationControl />
-    
 
             <Marker longitude={longitude} latitude={latitude}>
-
               <img src={marker} />
             </Marker>
           </ReactMapGL>
         )}
       </div>
-
-
     </>
   );
 };

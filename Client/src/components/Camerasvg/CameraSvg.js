@@ -9,7 +9,7 @@ const CameraSvg = () => {
         data-name="Layer 1"
         width="256.4834"
         height="371.24242"
-        viewBox="34 -100 956.4834 471.24242"
+        viewBox="30 200 956.4834 971.24242"
        
       >
         <title>moments</title>

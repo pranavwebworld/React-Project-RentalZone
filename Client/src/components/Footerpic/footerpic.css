@@ -4,6 +4,7 @@ position: relative;
 width: 100vW;
 height: 1096px;
 object-fit: cover;
+z-index: -1;
 
 
 }
