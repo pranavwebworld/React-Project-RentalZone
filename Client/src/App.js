@@ -5,6 +5,7 @@ import Chat from "./components/Chat/Chat"
 import LandingPage from "./components/LandingPage/LandingPage"
 import UserPage from './components/userPage/UserPage'
 import ProductRegister from "./components/ProductRegister/ProductPage"  
+import ProductDetailsPage from "./components/ProductDetails/ProductDetailsPage"
 import CategoryPage from "./components/Categorypage/CategoryPage"
 import VideCallOrg from "./components/VideoCallOrg/VideoCallOrg"
 import VideoCall from "./components/VideoCall/VideoCall";
@@ -65,6 +66,7 @@ function App() {
 
           <Route exact path="/Signup" element={loggedIn ? <Navigate to="/user" /> : <SignupSignin />} />
 
+          <Route exact path="/productDetails/:productId" element={<ProductDetailsPage />} />
 
           <Route exact path="/" element={<LandingPage />} />
 

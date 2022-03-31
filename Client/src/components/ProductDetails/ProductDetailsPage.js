@@ -4,20 +4,20 @@ import "../Illustartions/RadialRed";
 import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
-import ProductHero from "./ProductDetailsHero/ProductHero";
-import ProductSlider from "./ProductDetailsSlider/ProductSlider";
-
-
+import ProductDetailsHero from "./ProductDetailsHero/ProductDetailsHero";
+import ProductDetailsSlider from "./ProductDetailsSlider/ProductDetailSlider";
 
 import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
-import VendorContext from "../../context/VendorContext";
+import AuthContext from "../../context/AuthContext";
 import coverpic from "../../assets/product_page.jpeg";
 import axios from "../../axios/axios";
 import "./productdetailspage.css";
+
+import { useNavigate,useParams } from "react-router-dom"
 
 
 const navbarlinks = [
@@ -26,39 +26,66 @@ const navbarlinks = [
   { url: "", title: "About  " },
 ];
 
-const ProductRegisterPage= () => {
-  const { currentVendor } = useContext(VendorContext);
+
+const ProductDetailsPage= () => {
+
+  const { currentUser } = useContext(AuthContext);
   const [cvendor, setCvendor] = useState(null);
+  const [productId, setproductId] = useState(null);
+  const [product, setProduct] = useState(null);
+
+  const ProductId= useParams()
+  let PRODUCTID = ProductId?.productId
+
+  // useEffect(() => {
+    
+  //   console.log(PRODUCTID, "Product Id ");
+
+  //   setproductId(PRODUCTID)
+
+  
+  // }, [])
+
+
 
   useEffect(() => {
-    const getVendor = async () => {
+
+
+
+    const Products = async () => {
+
       try {
-        console.log("get vendor called in Landing page");
 
-        const resp = await axios.get(
-          "/vendors/getbyId?vendorId=" + currentVendor?.aud
-        );
-        console.log(resp.data, " Current user Details");
+        const resp = await axios.get('/users/getProductById/' + ProductId?.productId);
 
-        let vendor = resp.data;
+        console.log(resp.data, "All products");
 
-        setCvendor(vendor);
+        let foundProduct = resp.data
+
+        console.log({ foundProduct });
+
+        setProduct(foundProduct)
+
       } catch (error) {
+
         console.log(error);
       }
     };
-    getVendor();
-  }, []);
+
+
+    Products();
+
+  }, [])
 
 
 
-  
+
   return (
     <div className="landing__page">
 
       <Navbar navbarLinks={navbarlinks} />
 
-      <ProductHero vendor={cvendor} imgSrc={coverpic} />
+      <ProductDetailsHero vendor={cvendor} imgSrc={coverpic} />
 
       <Parallax speed={-5}>
 
@@ -68,11 +95,12 @@ const ProductRegisterPage= () => {
 
       <RadialRed></RadialRed>
 
-      <ProductSlider vendor={cvendor} title={"Camera"} />
+      < ProductDetailsSlider product={product} user={currentUser } title={"Camera"} />
 
       <Footerpic></Footerpic>
     </div>
   );
 };
 
-export default ProductRegisterPage;
+
+export default ProductDetailsPage;

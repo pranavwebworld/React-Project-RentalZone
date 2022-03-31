@@ -1,7 +1,9 @@
 import { React, useState, useEffect, useCallback } from "react";
-import "./productdetailsSlider.css";
+import "./productdetailslider.css";
 import marker from "../../../assets/iconMarker.png";
 import { useInView } from "react-intersection-observer";
+import "mapbox-gl/dist/mapbox-gl.css"
+
 import {
   Button,
   FormControl,
@@ -12,7 +14,7 @@ import {
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams  } from "react-router";
 import TextField from "@mui/material/TextField";
 import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
 import SelectComponent from "../../SelectComponent/SelectComponent";
@@ -22,12 +24,13 @@ import ReactMapGL, {
   Marker,
 } from "react-map-gl";
 import axios from "../../../axios/axios";
-import { makeStyles } from "@material-ui/core";
+import { Input, makeStyles } from "@material-ui/core";
 import { color } from "@chakra-ui/styled-system";
 import { ClassNames } from "@emotion/react";
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { FullscreenControl } from "mapbox-gl";
 
 const useStyles = makeStyles({
   root: {
@@ -36,16 +39,21 @@ const useStyles = makeStyles({
   },
 });
 
-const PSlider = ({ vendor }) => {
-  const [latitude, setlatitude] = useState("");
+const PSlider = ({ user,product }) => {
+  
+  const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [map, setmap] = useState(false);
   const ariaLabel = { "aria-label": "description" };
+  const navigate = useNavigate();
+
+
+
 
   const [viewport, setViewport] = useState({
     latitude: latitude,
-    longitude: longitude,
-    zoom: 3,
+    longitude:longitude,
+    zoom: 4,
     width: "100vw",
     height: "100vh",
   });
@@ -83,8 +91,9 @@ const PSlider = ({ vendor }) => {
     });
 
     function successLocation(position) {
-      setlatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
+
+      setLatitude(product?.latitude);
+      setLongitude(product.longitude);
 
       console.log(latitude);
       console.log(longitude);
@@ -102,121 +111,9 @@ const PSlider = ({ vendor }) => {
   const [previewSource, setPreviewSource] = useState();
   const [previewSource2, setPreviewSource2] = useState();
 
-  const [fileInputState, setFileInputState] = useState("");
-  const [fileInputState2, setFileInputState2] = useState("");
-  const [fileInputState3, setFileInputState3] = useState("");
-  const [selectedFile, setSelectedfile] = useState("");
 
-  //image 1
 
-  const previewFile = async (file) => {
-    console.log("called previewfile");
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = async () => {
-      setPreviewSource(reader.result);
-      // uploadImage(reader?.result)
-      setImage1(reader?.result);
-    };
-  };
-
-  const uploadImage = async (base64Img) => {
-    console.log(base64Img);
-    try {
-      const vendorId = vendor?._id;
-      console.log({ vendorId });
-      axios.post(
-        "/vendors/proPicUpload",
-        { base64Img, vendorId },
-        { withCredentials: true }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  var loadFile = function (event) {
-    const file = event.target.files[0];
-    var image = document.getElementById("output");
-    console.log(image);
-    image.src = URL.createObjectURL(event.target.files[0]);
-    previewFile(file);
-  };
-
-  //image 2
-
-  const previewFile2 = async (file2) => {
-    console.log("called previewfile");
-
-    const reader2 = new FileReader();
-    reader2.readAsDataURL(file2);
-    reader2.onloadend = async () => {
-      setPreviewSource2(reader2.result);
-      // uploadImage2(reader2?.result)
-      setImage2(reader2?.result);
-    };
-  };
-
-  const uploadImage2 = async (base64Img) => {
-    // console.log(base64Img);
-    try {
-      const vendorId = vendor?._id;
-      console.log({ vendorId });
-      axios.post(
-        "/vendors/ProductPicUpload2",
-        { base64Img, vendorId },
-        { withCredentials: true }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  var loadFile2 = function (e) {
-    console.log("Loadfile 2 called");
-    const file2 = e.target.files[0];
-    var image2 = document.getElementById("output2");
-    image2.src = URL.createObjectURL(e.target.files[0]);
-    previewFile2(file2);
-  };
-
-  //image 3
-
-  const previewFile3 = async (file3) => {
-    console.log("called previewfile3");
-
-    const reader3 = new FileReader();
-    reader3.readAsDataURL(file3);
-    reader3.onloadend = async () => {
-      // setPreviewSource3(reader3.result);
-      // uploadImage3(reader3?.result)
-      setImage3(reader3?.result);
-    };
-  };
-
-  const uploadImage3 = async (base64Img) => {
-    // console.log(base64Img);
-    try {
-      const vendorId = vendor?._id;
-      console.log({ vendorId });
-      axios.post(
-        "/vendors/ProductPicUpload3",
-        { base64Img, vendorId },
-        { withCredentials: true }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  var loadFile3 = function (e) {
-    console.log("Loadfile 2 called");
-    const file3 = e.target.files[0];
-    var image3 = document.getElementById("output3");
-    image3.src = URL.createObjectURL(e.target.files[0]);
-    previewFile3(file3);
-  };
+  
 
   const geolocateControlRef = useCallback(
     (ref) => {
@@ -227,6 +124,7 @@ const PSlider = ({ vendor }) => {
     },
     [map]
   );
+
 
   const [productName, setProductName] = useState(null);
   const [productDesc, setProductDesc] = useState(null);
@@ -240,6 +138,12 @@ const PSlider = ({ vendor }) => {
   const [image3, setImage3] = useState(null);
   const [loading, setLoading] = useState(false)
 
+
+
+
+ 
+
+
   console.log({ productName });
   console.log({ productDesc });
   console.log({ rent });
@@ -251,63 +155,10 @@ const PSlider = ({ vendor }) => {
 
   const submitHandler = () => {
 
-    setLoading(true)
-    console.log(image1, image2, image3);
-    const vendorId = vendor._id;
-    console.log("submit handler called");
+ 
 
 
-    try {
-
-      axios.post("/vendors/productRegister", {
-
-        productName,
-        productDesc,
-        rent,
-        category,
-        address,
-        pincode,
-        latitude,
-        longitude,
-        vendorId,
-        cityName,
-        image1,
-        image2,
-        image3,
-
-      }).then((resp) => {
-
-        if (resp) {
-
-          setLoading(false)
-
-          setProductName('')
-          setProductDesc('')
-          setCategory('')
-          setRent('')
-          setAddress('')
-          setPincode('')
-          setCityName('')
-          setImage1('')
-          setImage2('')
-          setImage3('')
-          setLoading('')
-
-
-
-        }
-
-
-
-
-      })
-
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
+    
 
 
 
@@ -326,67 +177,64 @@ const PSlider = ({ vendor }) => {
           style={{ width: "30rem" }}
           direction="column"
           justifyContent="center"
-          spacing={10}
+          spacing={6}
           padding={5}
         >
-          <h1 style={{ color: "lightgrey" }}> Register Product </h1>
 
-          <SelectComponent getSelect={getSelect}></SelectComponent>
+          <h1 style={{ color: "lightgrey",marginBottom:"20px" }}>  Product Details</h1>
 
-          <FormControl id="first-name" required>
+         
+          <h3 style={{ color: "white", marginBottom: "-30px"}} >Product Name</h3>
+
+          <FormControl id="first-name" >
+
+            <InputLabel style={{ color: 'white' }} htmlFor="add" >{product?.productName}</InputLabel>
+                
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
               style={{ color: "white" }}
               sx={{ input: { color: "white", fontSize: "20px" } }}
-              label="Product Name"
+              
               variant="standard"
               size="large"
+             
               focused
-              onChange={(e) => {
-                setProductName(e.target.value);
-              }}
+          
             />
           </FormControl>
 
-          <FormControl id="email" required>
+     
+          <h3 style={{ color: "white",marginBottom:"-30px" }} >Product Address</h3>
+          <FormControl id="email" >
+       
+            <InputLabel style={{ color: 'white' }} htmlFor="add" >{product?.address}</InputLabel>
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
               sx={{ input: { color: "white", fontSize: "20px" } }}
-              label="Product details"
+           
               variant="standard"
               focused
-              onChange={(e) => {
-                setProductDesc(e.target.value);
-              }}
+            
             />
           </FormControl>
 
-          <FormControl id="email" required>
+
+
+          <h3 style={{ color: "white", marginBottom: "-30px" }} >City Name</h3>
+          <FormControl id="email"> 
+            
+            <InputLabel style={{ color: 'white', fontSize: "15px", }} htmlFor="add" >{product?.cityName}</InputLabel>
+
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
               sx={{ input: { color: "white", fontSize: "20px" } }}
-              label=" Location Address"
-              variant="standard"
-              focused
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
-            />
-          </FormControl>
 
-          <FormControl id="email" required>
-            <TextField
-              InputLabelProps={{
-                style: { color: "#fff", fontSize: "25px" },
-              }}
-              sx={{ input: { color: "white", fontSize: "20px" } }}
-              label=" City Name"
               variant="standard"
               focused
               onChange={(e) => {
@@ -395,44 +243,6 @@ const PSlider = ({ vendor }) => {
             />
           </FormControl>
 
-          <FormControl id="email" required>
-            <TextField
-              InputLabelProps={{
-                style: { color: "#fff", fontSize: "25px" },
-              }}
-              sx={{ input: { color: "white", fontSize: "20px" } }}
-              label=" Pin Code"
-              variant="standard"
-              focused
-              onChange={(e) => {
-                setPincode(e.target.value);
-              }}
-            />
-          </FormControl>
-
-          <FormControl id="email" required>
-            <h4 style={{ color: "white", fontSize: "22px" }}>
-              {" "}
-              Select Price /day{" "}
-            </h4>
-
-            <Slider
-              InputLabelProps={{
-                style: { color: "#fff", fontSize: "25px" },
-              }}
-              defaultValue={0}
-              getAriaValueText={valuetext}
-              step={100}
-              marks
-              min={100}
-              max={1000}
-              valueLabelDisplay="auto"
-              aria-label="Select Price Range"
-              onChange={(e) => {
-                setRent(e.target.value);
-              }}
-            />
-          </FormControl>
 
           <Button
             size={"large"}
@@ -443,81 +253,18 @@ const PSlider = ({ vendor }) => {
               getLocation();
             }}
           >
-            {map ? "Close map" : "Add you Location"}
+            {map ? "Close map" : "Show Location"}
           </Button>
 
           {loading && <div class="spinner"> <span>  Please Wait </span>  </div>}
 
           {!loading && <Button onClick={submitHandler} variant={"contained"} color="success">
-            Submit
+           Book This device
           </Button>}
 
 
-          <div className="productImage">
-            <div class="product-pic1">
-              <label class="-label" for="file">
-                <span class="glyphicon glyphicon-camera"></span>
-                <span>Change Image</span>
-              </label>
-              <input
-                id="file"
-                name="proImage"
-                type="file"
-                onChange={loadFile}
-              />
-              <img
-                src={
-                  "https://image.shutterstock.com/image-vector/add-image-vector-icon-260nw-1042853482.jpg"
-                }
-                id="output"
-                width="00"
-              />
-            </div>
-          </div>
-
-          <div className="productImage2">
-            <div class="product-pic1">
-              <label class="-label" for="file2">
-                <span class="glyphicon glyphicon-camera"></span>
-                <span>Change Image</span>
-              </label>
-              <input
-                id="file2"
-                name="proImage2"
-                type="file"
-                onChange={loadFile2}
-              />
-              <img
-                src={
-                  "https://image.shutterstock.com/image-vector/add-image-vector-icon-260nw-1042853482.jpg"
-                }
-                id="output2"
-                width="00"
-              />
-            </div>
-          </div>
-
-          <div className="productImage3">
-            <div class="product-pic1">
-              <label class="-label" for="file3">
-                <span class="glyphicon glyphicon-camera"></span>
-                <span>Change Image</span>
-              </label>
-              <input
-                id="file3"
-                name="proImage3"
-                type="file"
-                onChange={loadFile3}
-              />
-              <img
-                src={
-                  "https://image.shutterstock.com/image-vector/add-image-vector-icon-260nw-1042853482.jpg"
-                }
-                id="output3"
-                width="00"
-              />
-            </div>
-          </div>
+        
+          
         </Stack>
       </>
     );
@@ -528,6 +275,7 @@ const PSlider = ({ vendor }) => {
 
   return (
     <>
+
       <div
         style={{ width: "70rem", height: "40rem" }}
         className={inView ? "slider slider--zoom" : "slider"}
@@ -556,16 +304,20 @@ const PSlider = ({ vendor }) => {
             onMove={(e) => setViewport(e.viewport)}
             ref={() => geolocateControlRef}
           >
-            <GeolocateControl trackUserLocation> Track</GeolocateControl>
+            <GeolocateControl trackUserLocation> </GeolocateControl>
 
             <NavigationControl />
+    
 
             <Marker longitude={longitude} latitude={latitude}>
+
               <img src={marker} />
             </Marker>
           </ReactMapGL>
         )}
       </div>
+
+
     </>
   );
 };

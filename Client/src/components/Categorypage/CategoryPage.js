@@ -37,6 +37,7 @@ const CategoryPage = ({route}) => {
 
 
     useEffect(() => {
+        
         setCat(catName)
 
         const getUser = async () => {

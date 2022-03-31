@@ -20,7 +20,7 @@ const Slider = ({ flipped, category }) => {
           
             threshold: 0.4,
         });
-        
+    const navigate = useNavigate();
      
 
         useEffect(() => {
@@ -28,20 +28,21 @@ const Slider = ({ flipped, category }) => {
 
             console.log(category,"category name ");
 
+
+
             const Products = async () => {
 
                 try {
 
-                
-                    const resp = await axios.get('/users/getCatproduct/'+category);
+                const resp = await axios.get('/users/getCatproduct/'+category);
 
-                    console.log(resp.data, "All products");
+                console.log(resp.data, "All products");
 
-                    let foundProducts = resp.data
+                let foundProducts = resp.data
 
-
-                    console.log({ foundProducts });
-                    setProducts(foundProducts)
+                console.log({ foundProducts });
+ 
+                setProducts(foundProducts)
 
                 } catch (error) {
 
@@ -49,7 +50,7 @@ const Slider = ({ flipped, category }) => {
                 }
             };
 
-
+            
             Products()
 
        
@@ -79,7 +80,7 @@ const Slider = ({ flipped, category }) => {
                         {products?.map((product,index)=>(
 
 
-                            <Card key={index}  sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
+                            <Card onClick= { ()=>{navigate("/productDetails/"+product?._id)}}  key={index}  sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
                                 <CardActionArea>
                                     <CardMedia
                                         className="Zoomi-In"
