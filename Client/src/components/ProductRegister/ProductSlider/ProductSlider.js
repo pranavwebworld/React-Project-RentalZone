@@ -110,6 +110,7 @@ const PSlider = ({ vendor }) => {
 
   const previewFile = async (file) => {
     console.log("called previewfile");
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
@@ -491,7 +492,6 @@ const PSlider = ({ vendor }) => {
           </div>
 
 
-
           <div className="productImage3">
             <div class="product-pic1">
               <label class="-label" for="file3">
@@ -517,8 +517,6 @@ const PSlider = ({ vendor }) => {
       </>
     );
   };
-
-
 
 
   return (

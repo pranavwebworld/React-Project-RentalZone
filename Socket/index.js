@@ -79,8 +79,6 @@ io.on("connection", (socket) => {
 
 
 
-
-
   socket.on("VideoCall", async ({ senderId, receiverId, text }) => {
     console.log({ senderId, receiverId, text });
 
@@ -101,8 +99,6 @@ io.on("connection", (socket) => {
   socket.on("answerCall", (data) => {
     io.to(data.to).emit("callAccepted", data.signal);
   });
-
-
 
 
 

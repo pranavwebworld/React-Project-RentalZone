@@ -2,6 +2,11 @@ import React from 'react';
 import Campic from '../../assets/CategoryCamera.jpeg';
 import styled from 'styled-components';
 import { useSpring, animated, config } from 'react-spring';
+import { Button } from '@mui/material';
+import MessageIcon from '@mui/icons-material/Message';
+import { useNavigate, useParams } from "react-router";
+
+
 
 const Container = styled(animated.div)`
 display: inline-block;
@@ -46,19 +51,37 @@ const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWid
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
 const GlassCard = ({product}) => {
+    const navigate = useNavigate();
     const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: config.default }))
     return (
         <Container
             onMouseMove={({ clientX: x, clientY: y }) => (set({ xys: calc(x, y) }))}
             onMouseLeave={() => set({ xys: [0, 0, 1] })}
             style={{
-                transform: props.xys.interpolate(trans)
+                transform: props.xys.interpolate(trans),
+                width: "41rem" 
+            
             }}
         >
             <StyledImg src={product?.Product_pic1} />
             <StyledImg src={product?.Product_pic2} />
             <StyledImg src={product?.Product_pic3} />
-            <StyledH1  >{product?.productName} <br /> <br /> <span style={{ fontWeight: "3800",color:"lightgray" }} >₹ {product?.rent}/Day   </span>  </StyledH1>
+            <StyledH1  >{product?.productName} <br /> <br /> <span style={{ fontWeight: "3800", color: "lightgray" }} >₹ {product?.rent}/Day   </span>  </StyledH1> 
+                 
+                 <Button 
+                size={"large"}
+                startIcon={< MessageIcon />}
+                variant={"contained"}
+                color="success"
+            
+                onClick={() => {
+
+                    navigate("/chat/"+product.vendorId)
+                }}
+            >
+                Start a Conversation
+            </Button>
+
             <StyledH3>{product?.productDesc} <br /> </StyledH3>
         </Container>
     );

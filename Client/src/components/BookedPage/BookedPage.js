@@ -29,7 +29,7 @@ const navbarlinks = [
 const BookedPage = ({route}) => {
 
     const { currentUser } = useContext(AuthContext)
-    const [cuser,setCuser]= useState(null)
+    const [order,setOrder]= useState(null)
 
     const bookingId = useParams()
     const BookingId = bookingId.bookingId
@@ -38,30 +38,33 @@ const BookedPage = ({route}) => {
 
     useEffect(() => {
         
-      
 
-        const getUser = async () => {
+        const getOrder = async () => {
 
             try {
 
-                console.log('get user called in Landing page');
+                console.log({BookingId});
 
-                const resp = await axios.get('/users/getOrderbyId?userId=' + BookingId);
+                const resp = await axios.get('/users/getOrderbyId/' + bookingId.bookingId);
 
-                console.log(resp.data, " Current user Details");
+                console.log(resp.data, " Order Details");
 
-                let user = resp.data
+                let Order = resp.data
 
-                setCuser(user)
-                console.log({user});
+                setOrder(Order)
+
+                console.log(Order);
+   
+                
             } catch (error) {
 
                 console.log(error);
             }
         };
 
-        getUser()
-    }, [currentUser]);
+        getOrder()
+
+    }, []);
 
 
     return (
@@ -71,7 +74,7 @@ const BookedPage = ({route}) => {
 
             <Navbar navbarLinks={navbarlinks} />
             
-            <BookedHero user={cuser}  imgSrc={coverpic} />
+            <BookedHero   imgSrc={coverpic} />
 
             <Parallax speed={-5}>
                 <CameraSvg></CameraSvg>
@@ -81,7 +84,7 @@ const BookedPage = ({route}) => {
 
             <BookedSlider
             
-                  title={"Camera"}/>
+               order={order}   title={"Camera"}/>
     
             <Footerpic></Footerpic>
         </div>

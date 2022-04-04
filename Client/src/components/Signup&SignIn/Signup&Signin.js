@@ -9,7 +9,7 @@ import { buttonUnstyledClasses } from "@mui/base/ButtonUnstyled";
 import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 import Login from "../Signup&SignIn/Login";
 import Signup from "../Signup&SignIn/Signup";
-
+import Helmet from "react-helmet"
 <a href="https://icons8.com/icon/zA8CKq2IOOWF/camera">Camera icon by Icons8</a>;
 
 const blue = {
@@ -161,12 +161,21 @@ const itemData = [
 
 function HomePage() {
   return (
+
+
     <Grid
       backgroundColor="black"
       height="100vh"
       container
       justifyContent={"center"}
     >
+      <Helmet>
+
+        <title>  Signup/Login Rental Zone   </title>
+        <meta name="description" content="Create or loginin to your account " />
+
+      </Helmet>
+
       <Grid item sm={false} xs={false} lg={4}>
         <Box
           d="flex"

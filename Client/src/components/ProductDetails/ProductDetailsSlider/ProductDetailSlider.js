@@ -68,8 +68,6 @@ const PSlider = ({ user, product }) => {
   });
 
   
-
-
   function getLocation() {
     navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
       enableHighAccuracy: true,
@@ -109,11 +107,12 @@ const PSlider = ({ user, product }) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: '#5b5a5a',
-    border: '2px solid #000',
+    bgcolor: 'black',
+    border: '1px solid #ab1941',
     boxShadow: 24,
     p: 4,
     color:"white"
+    
   };
 
 
@@ -149,11 +148,8 @@ const PSlider = ({ user, product }) => {
     setTotalDays(diffDays)
     setTotal(total)
     setBooked(true)
- 
 
   }
-
-
 
   const submitHandler = () => {
     handleClose()
@@ -163,8 +159,6 @@ const PSlider = ({ user, product }) => {
     console.log("  Booking submit handler called");
 
     try {
-
-
 
       axios.post("/users/order", {
 
@@ -177,10 +171,11 @@ const PSlider = ({ user, product }) => {
         
       }).then((resp) => {
 
-
         if (resp) {
 
           console.log(resp);
+          console.log(resp?.data?._id);
+          navigate("/booked/"+resp?.data?._id)
 
         }
       })
@@ -193,6 +188,7 @@ const PSlider = ({ user, product }) => {
 
   };
 
+
   const renderContent = () => {
     return (
       <>
@@ -200,7 +196,7 @@ const PSlider = ({ user, product }) => {
           style={{ width: "82rem" }}
           direction="column"
           justifyContent="center"
-          spacing={8}
+          spacing={6}
           padding={1}
         >
           <h1 style={{ color: "lightgrey", marginBottom: "20px" }}>
@@ -277,7 +273,6 @@ const PSlider = ({ user, product }) => {
             {map ? "Close map" : "Show Location"}
           </Button>
 
-    
             <Button
               onClick={handleOpen}
               variant={"contained"}
@@ -286,14 +281,15 @@ const PSlider = ({ user, product }) => {
               Book This device
             </Button>
        
-
+       
           <Modal
+            
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={style}>
+            <Box style={{borderRadius:"10px"}}  sx={style}>
 
 
               <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -304,29 +300,28 @@ const PSlider = ({ user, product }) => {
           </Typography>
          
                 <DateRangePickerComponent 
-
            
                 min={minDate}
                 
                 placeholder=" ..... " 
                 
                 onChange={handleDate}
+
+                style={{color:"white"}}
                 
                 ></DateRangePickerComponent>
 
               {Booked && <Button style={{ marginTop: "5px", float: "right" }} onClick={submitHandler} variant={"contained"} color="success">
             Submit
           </Button>}
-      
+    
             </Box>
           </Modal>
-
-
         </Stack>
-
         <Box>
           <GlassCard product={product}></GlassCard>
         </Box>
+
       </>
     );
   };

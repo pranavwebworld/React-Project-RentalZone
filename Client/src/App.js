@@ -8,6 +8,7 @@ import ProductRegister from "./components/ProductRegister/ProductPage"
 import ProductDetailsPage from "./components/ProductDetails/ProductDetailsPage"
 import CategoryPage from "./components/Categorypage/CategoryPage"
 import BookedPage from "./components/BookedPage/BookedPage" 
+import OrderPage from "./components/OrderPage/OrderPage"
 import VideCallOrg from "./components/VideoCallOrg/VideoCallOrg"
 import VideoCall from "./components/VideoCall/VideoCall";
 import Calender from "./components/Calender/Calender";
@@ -17,7 +18,7 @@ import Cookies from 'universal-cookie';
 import React, { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import VendorContext from "./context/VendorContext"
-
+import Helmet from "react-helmet"
 import Videographer from "../src/components/VideographerSvg/Videographer";
 import Wave from "../src/components/Wave/Wave";
 import footerpic from "./components/Footerpic/Footerpic";
@@ -50,6 +51,13 @@ function App() {
 
   
       <BrowserRouter>
+     
+     <Helmet>
+
+    <title>  Rental Zone   </title>
+    <meta name="description" content="Rentout your devices or book camera,lens,gymbals or other content creation equipments to rent out using our symbol UI "/>
+
+     </Helmet>
 
         <Routes>
     
@@ -59,6 +67,8 @@ function App() {
 
           <Route exact path="chat" element={<Chat />} />
 
+          <Route exact  path="chat/:vendorId" element={<Chat />} />
+
           <Route exact path="video" element={<VideCallOrg />} />
 
           <Route exact path="cal" element={<Calender />} />
@@ -66,6 +76,8 @@ function App() {
           <Route exact path="/category/:categoryName" element={<CategoryPage />} />
 
           <Route exact path="/booked/:bookingId" element={<BookedPage />} />
+
+          <Route exact path="/orders" element={<OrderPage />} />
 
           <Route exact path="/Signup" element={loggedIn ? <Navigate to="/user" /> : <SignupSignin />} />
 

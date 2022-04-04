@@ -16,7 +16,7 @@ import AuthContext from "../../context/AuthContext";
 import coverpic from "../../assets/product_page.jpeg";
 import axios from "../../axios/axios";
 import "./productdetailspage.css";
-
+import Helmet from "react-helmet"
 import { useNavigate,useParams } from "react-router-dom"
 
 
@@ -27,13 +27,13 @@ const navbarlinks = [
 ];
 
 
+
 const ProductDetailsPage= () => {
 
   const { currentUser } = useContext(AuthContext);
   const [cvendor, setCvendor] = useState(null);
   const [productId, setproductId] = useState(null);
   const [product, setProduct] = useState(null);
-
   const ProductId= useParams()
   let PRODUCTID = ProductId?.productId
 
@@ -43,14 +43,10 @@ const ProductDetailsPage= () => {
 
   //   setproductId(PRODUCTID)
 
-  
   // }, [])
 
 
-
   useEffect(() => {
-
-
 
     const Products = async () => {
 
@@ -72,10 +68,10 @@ const ProductDetailsPage= () => {
       }
     };
 
-
     Products();
 
   }, [])
+
 
 
 
@@ -84,6 +80,14 @@ const ProductDetailsPage= () => {
     <div className="landing__page">
 
       <Navbar navbarLinks={navbarlinks} />
+
+      <Helmet>
+
+      <title> {`Product-${product?.productName}`} </title>
+    
+      <meta name="description" content={`Product-${product?.productDesc}`} />
+
+      </Helmet>
 
       <ProductDetailsHero vendor={cvendor} imgSrc={coverpic} />
 
@@ -95,7 +99,7 @@ const ProductDetailsPage= () => {
 
       <RadialRed></RadialRed>
 
-      < ProductDetailsSlider product={product} user={currentUser } title={"Camera"} />
+      < ProductDetailsSlider product={product} user={currentUser} title={"Camera"} />
 
       <Footerpic></Footerpic>
     </div>

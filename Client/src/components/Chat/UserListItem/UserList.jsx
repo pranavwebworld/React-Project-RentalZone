@@ -14,13 +14,13 @@ const UserList = ({ user,handleFunction }) => {
 
     return (
 
+
         <Box
 
             onClick={handleFunction}
             cursor="pointer"
             bg="lightgrey"
             _hover={{
-
                 background: "#28B2AC",
                 color: "white",
 
@@ -33,8 +33,8 @@ const UserList = ({ user,handleFunction }) => {
             py={2}
             mb={2}
             borderRadius="lg"
-
         >
+
 
             <Avatar
             mr={2}

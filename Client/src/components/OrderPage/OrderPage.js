@@ -1,12 +1,12 @@
 import { React,useContext,useEffect, useState}from "react";
-import "../LandingPage/landingpage.css";
+import "../OrderPage/orderpage.css";
 import "../Illustartions/RadialRed";
-import coverpic from "../../assets/userPage3.jpg";
+import coverpic from "../../assets/CategoryCamera.jpeg";
 import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
-import UserHero from "./UserHero/UserHero";
-import UserSlider from "./UserSlider/UserSlider";
+import OrderHero from "./OrderHero/OrderHero";
+import OrderSlider from "./OrderSlider/OrderSlider";
 import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
@@ -14,46 +14,54 @@ import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
 import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
-import Helmet from "react-helmet"
+import { useNavigate,useParams } from "react-router-dom"
+import { set } from "react-hook-form";
 
+ 
 const navbarlinks = [
     { url: "", title: "Home" },
     { url: "", title: "Contact" },
     { url: "", title: "About  " },
 ];
 
-const LandingPage = () => {
+
+const BookedPage = ({route}) => {
 
     const { currentUser } = useContext(AuthContext)
-    const [cuser,setCuser]= useState(null)
+    const [order,setOrder]= useState(null)
+    const bookingId = useParams()
+    const BookingId = bookingId.bookingId
 
 
     useEffect(() => {
+        
 
-        const getUser = async () => {
+        const getOrder = async () => {
 
             try {
 
-                console.log('get user called in Landing page');
+                console.log({BookingId});
 
-                const resp = await axios.get('/users/getbyId?userId=' + currentUser?.aud);
+                const resp = await axios.get('/users/getOrderbyId/' + bookingId.bookingId);
 
-                console.log(resp.data, " Current user Details");
+                console.log(resp.data, " Order Details");
 
-                let user = resp.data
+                let Order = resp.data
 
-                setCuser(user)
-                console.log({user});
+                setOrder(Order)
+
+                console.log(Order);
+   
+                
             } catch (error) {
 
                 console.log(error);
             }
         };
 
-        getUser()
-    }, [currentUser]);
+        getOrder()
 
-
+    }, []);
 
 
     return (
@@ -61,29 +69,24 @@ const LandingPage = () => {
 
         <div className="landing__page">
 
-            <Helmet>
-                <title> My Account   </title>
-                <meta name="description" content="user personal account account" />
-            </Helmet>
-
             <Navbar navbarLinks={navbarlinks} />
             
-            <UserHero user={cuser}   imgSrc={coverpic} />
+            <OrderHero  imgSrc={coverpic} />
 
             <Parallax speed={-5}>
                 <CameraSvg></CameraSvg>
             </Parallax>
       
             <RadialRed></RadialRed>
-
-            <UserSlider
-                title={"Camera"}/>
+                
+            <OrderSlider
+            
+               order={order}   title={"Camera"}/>
     
             <Footerpic></Footerpic>
         </div>
 
-
     );
 };
 
-export default LandingPage;
+export default BookedPage;

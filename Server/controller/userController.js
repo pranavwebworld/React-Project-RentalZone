@@ -1,10 +1,14 @@
 const JWT = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
-const { signupSchema, loginSchema,OrderSchema } = require("../helpers/validation_schema");
+const {
+  signupSchema,
+  loginSchema,
+  OrderSchema,
+} = require("../helpers/validation_schema");
 const User = require("../models/user.model");
-const Product = require("../models/ProductModel")
-const Order = require("../models/OrderModel")
+const Product = require("../models/ProductModel");
+const Order = require("../models/OrderModel");
 
 const createError = require("http-errors");
 const { signAccessToken } = require("../helpers/jwt_helpers");
@@ -16,6 +20,7 @@ router.use(cookieParser());
 const asyncHandler = require("express-async-handler");
 
 module.exports = {
+
   register: async (req, res, next) => {
     try {
       const result = await signupSchema.validateAsync(req.body);
@@ -39,9 +44,8 @@ module.exports = {
       });
     } catch (error) {
       console.log(error.message);
-      res.json({error})
+      res.json({ error });
       if (error.isJoi === true) error.status = 422;
-     
     }
   },
 
@@ -77,18 +81,15 @@ module.exports = {
       console.log(error);
       if (error.isJoi === true)
         return next(createError.BadRequest("invalid username/password"));
-       res.json({error})
-   
+      res.json({ error });
     }
   },
 
-
   proPicUpload: async (req, res, next) => {
     try {
+      console.log(req.body);
+      const userId = req.body.userId;
 
-        console.log(req.body);
-      const userId = req.body.userId
- 
       console.log({ userId });
 
       const imgStr = req.body.base64Img;
@@ -104,7 +105,9 @@ module.exports = {
 
       console.log({ imgUrl });
 
-          const updateResp = await User.findByIdAndUpdate(userId, {propic:imgUrl })
+      const updateResp = await User.findByIdAndUpdate(userId, {
+        propic: imgUrl,
+      });
 
       console.log({ updateResp });
       res.json({ msg: "uploaded" });
@@ -116,8 +119,6 @@ module.exports = {
       next(error);
     }
   },
-
-
 
   searchUsers: asyncHandler(async (req, res, next) => {
     const keyword = req.query.search
@@ -135,7 +136,6 @@ module.exports = {
     res.send(users);
   }),
 
-
   getById: asyncHandler(async (req, res, next) => {
     const userId = req.query.userId;
 
@@ -145,62 +145,97 @@ module.exports = {
   }),
 
   getCategoryProducts: asyncHandler(async (req, res, next) => {
-
     const categoryName = req.params.categoryName;
 
-    console.log({categoryName});
+    console.log({ categoryName });
 
-    const products = await Product.find({category: categoryName});
+    const products = await Product.find({ category: categoryName });
 
-      console.log(products);
+    console.log(products);
     res.status(200).json(products);
   }),
 
-
   getProductById: asyncHandler(async (req, res, next) => {
-
     try {
-
       const productId = req.params.productId;
 
       console.log({ productId });
 
-      const product = await Product.findById(productId ); 
+      const product = await Product.findById(productId);
 
       console.log(product);
       res.status(200).json(product);
-      
     } catch (error) {
-
       console.log(error);
-      
     }
-
   }),
 
-
+  
   orders: asyncHandler(async (req, res, next) => {
-
     try {
-
-
       const result = await OrderSchema.validateAsync(req.body);
-
 
       const order = new Order(result);
 
       const savedOrder = await order.save();
 
-
       console.log(savedOrder);
 
       res.status(200).json(savedOrder);
+    } catch (error) {
+      console.log(error);
+    }
+  }),
+
+
+
+  findOrders: asyncHandler(async (req, res, next) => {
+    try {
+      const orderId = req.params.orderId;
+
+      const order = await Order.findById(orderId);
+
+      console.log(order);
+
+      res.status(200).json(order);
 
     } catch (error) {
 
       console.log(error);
-
     }
+  }),
 
+
+  locationSort: asyncHandler(async (req, res, next) => {
+    try {
+
+
+      const { userLatitude, userLongitude} = req.body;
+
+      console.log({ userLatitude, userLongitude });
+      
+        var radius = 15000;
+      const sortedProducts = await Product.aggregate([
+
+        {
+          $geoNear: {
+            near: { type: "Point", coordinates: [+userLongitude,+userLatitude ] },
+            distanceField: "dist.calculated",
+            maxDistance: radius?+radius:15000,
+            includeLocs: "dist.location",
+            spherical: true
+          }
+        }
+
+      ]);
+      console.log(sortedProducts);
+
+      res.status(200).json({sortedProducts});
+
+    } catch (error) {
+
+      console.log(error);
+    }
   })
+
 };

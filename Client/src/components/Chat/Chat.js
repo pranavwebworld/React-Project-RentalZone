@@ -24,10 +24,10 @@ import { ThemeProvider, ColorModeProvider } from "@chakra-ui/react"
 
 import UserListItem from "../../components/Chat/UserListItem/UserList";
 
-import { useNavigate } from "react-router";
+import { useNavigate,useParams } from "react-router";
 import { io } from "socket.io-client";
 
-
+import Helmet from "react-helmet"
 
 import {
   Drawer,
@@ -65,8 +65,11 @@ const Chat = () => {
   const [searchconvo, setSearchconvo] = useState();
   const [modalHeader, setModelHeader] = useState();
   const navigate = useNavigate();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+
+
 
   const {
     isOpen: isOpenReportModal,
@@ -112,13 +115,9 @@ const Chat = () => {
        callerId: callerId,
        vendorId});
 
-
        setTimeout(() => {
          navigate('/video')
        }, 2000);
-
-
-
 
    }
 
@@ -381,6 +380,10 @@ const Chat = () => {
     }
   };
 
+
+
+
+
   const accessChat = async (vendorId) => {
     try {
       const userId = currentUser.aud;
@@ -389,7 +392,6 @@ const Chat = () => {
         userId,
         vendorId,
       });
-
       console.log(resp.data[0], "  find or create response   ");
 
       setCurrentChat(resp.data[0]);
@@ -406,8 +408,40 @@ const Chat = () => {
     }
   };
 
+
+  const VENDORID = useParams()
+
+
+useEffect(() => {
+
+
+
+  if (VENDORID) {
+
+
+
+      accessChat(VENDORID.vendorId)
+
+
+  }
+
+
+}, [])
+
+
+
+
   return (
     <>
+
+
+      <Helmet>
+
+        <title>  Chat   </title>
+        <meta name="description" content="Make conversation between  user and vendor"/>
+
+      </Helmet>
+
       <Navbar navbarLinks={navbarlinks}></Navbar>
       <ChakraProvider>
 
@@ -426,7 +460,6 @@ const Chat = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
-        
       </ChakraProvider>
 
       <div className="messenger">

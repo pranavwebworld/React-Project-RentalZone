@@ -6,10 +6,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Stack } from '@mui/material';
+import { Button, CardActionArea, Stack } from '@mui/material';
 import axios from "../../../axios/axios"
-
-
+import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 
 const Slider = ({ flipped, category }) => {
@@ -56,7 +56,51 @@ const Slider = ({ flipped, category }) => {
        
         }, [category])
 
+    const[loading,setLoading]=useState()
 
+
+    function getLocation() {
+        setLoading(true)
+        navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
+            enableHighAccuracy: true,
+        });
+
+        function successLocation(position) {
+            // setLatitude(product?.latitude);
+            // setLongitude(product.longitude);
+
+            // console.log(latitude);
+            // console.log(longitude);
+            console.log("HELLO");
+            console.log(position.coords.latitude);
+            console.log(position.coords.longitude);
+            const userLatitude = position.coords.latitude;
+            const userLongitude = position.coords.longitude;
+
+            setLoading(false)
+
+            try {
+
+                axios.post('/users/sortByLocation', { userLatitude, userLongitude }).then((resp) => {
+
+                    console.log(resp);
+
+                    setProducts(resp.data.sortedProducts)
+
+                })
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
+
+           
+        }   
+
+        function errorLocation() {
+            console.log("location not available");
+        }
+    }
 
 
     const renderContent = () => {
@@ -64,18 +108,36 @@ const Slider = ({ flipped, category }) => {
         if (!flipped) {
             return (
                 <>
-                 
+
+                <div style={{width:"5 rem",position:'absolute',top:"-6rem",left:"1rem"  }} >
+                        <Button
+                            fullWidth
+                            size={"large"}
+                            startIcon={< FilterListIcon />}
+                            variant={"Outlined"}
+                            className="VendorButtonsR"
+                            onClick={() => {
+                                getLocation();
+                            }}
+                        >
+                            Sort by Location
+                        </Button>
+
+                </div>
+
+
+                    
+
 
                     <Stack
 
                         direction="row"
                         justifyContent="right"
-
                         spacing={4}
                         padding={2}
-
-
                     >
+
+                     
 
                         {products?.map((product,index)=>(
 
@@ -102,7 +164,6 @@ const Slider = ({ flipped, category }) => {
                                 </CardActionArea>
                             </Card>
                             
-
                         ) )}
 
 

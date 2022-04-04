@@ -16,7 +16,7 @@ import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
 import { useNavigate,useParams } from "react-router-dom"
 import { set } from "react-hook-form";
-
+import Helmet from "react-helmet"
  
 
 const navbarlinks = [
@@ -70,6 +70,10 @@ const CategoryPage = ({route}) => {
         <div className="landing__page">
 
             <Navbar navbarLinks={navbarlinks} />
+            <Helmet>
+                <title> Categories  </title>
+                <meta name="description" content="Choose devices from available category to rent out" />
+            </Helmet>
             
             <CategoryHero user={cuser} title={cat}  imgSrc={coverpic} />
 

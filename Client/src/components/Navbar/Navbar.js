@@ -8,16 +8,19 @@ import AuthContext from "../../context/AuthContext";
 import VendorContext from "../../context/VendorContext";
 
 const Navbar = () => {
-  const { getLoggedIn } = useContext(AuthContext);
-  const { getVLoggedIn } = useContext(VendorContext);
+  const { getLoggedIn, currentUser } = useContext(AuthContext);
+  const { getVLoggedIn, currentVendor } = useContext(VendorContext);
+  
   const [cookies, setCookie, removeCookie] = useCookies(["userAccessToken"]);
   const navigate = useNavigate();
+
   function handleRemoveCookie() {
     removeCookie("userAccessToken");
     removeCookie("vendorAccessToken");
 
     getLoggedIn();
     getVLoggedIn();
+
     navigate("/");
   }
 
@@ -62,9 +65,14 @@ const Navbar = () => {
             </li>
           );
         })}
-        <button onClick={handleRemoveCookie} className="logoutB">
-          Logout{" "}
-        </button>
+        {
+        
+          (currentUser  && < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>)
+         
+        
+        
+        }
+       
       </ul>
     </nav>
   );

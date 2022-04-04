@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const { string, number } = require("joi");
+const { string, number, boolean } = require("joi");
 
 
 
@@ -34,7 +34,29 @@ const OrderSchema = new Schema({
         type: Date,
 
     },
-    endingDate: {
+
+    Pending: {
+
+        type: Boolean,
+        default:true
+
+    },
+
+    Accepted: {
+
+        type: Boolean,
+        default: false
+
+    },
+
+    Returned:{
+
+        type: Boolean,
+        default: false
+
+    },
+
+    endingDate:{
 
         type: Date,
 

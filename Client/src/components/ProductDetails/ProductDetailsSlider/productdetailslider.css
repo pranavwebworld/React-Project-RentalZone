@@ -390,3 +390,16 @@ left: 73rem;
       
         color: white;
 }
+.e-input-group-icon.e-range-icon, *.e-control-wrapper .e-input-group-icon.e-range-icon {
+
+
+  color: #fafafa;
+
+}
+.e-input-group-icon.e-range-icon, *.e-control-wrapper .e-input-group-icon.e-range-icon :hover {
+
+
+  color: #ab1941;
+
+
+}
