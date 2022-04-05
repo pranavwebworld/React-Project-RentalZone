@@ -27,7 +27,7 @@ import {
 
 
 
-const Slider = ({order}) => {
+const Slider = ({orders}) => {
 
 
 
@@ -45,8 +45,6 @@ const Slider = ({order}) => {
 
 
 
-
-
                 <ChakraProvider >
                     <TableContainer>
                         <Table borderRadius='10px' maxWidth="800" bgColor="transparent" color="white" variant='simple' colorScheme="facebook">
@@ -59,25 +57,35 @@ const Slider = ({order}) => {
                                     <Th >Return date</Th>
                                     <Th >Location</Th>
                                     <Th >Total</Th>
+                                    <Th >Status</Th>
                                   
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                <Tr>
-                                    <Td>{<button onClick={() => { navigate("/productDetails/" + order?.product?._id) }}  style={{border:"1px solid #ab1941",padding:"5px",borderRadius:'10px' }} >{order?.product?.productName}</button>}</Td>
-                                    <Td>{order?.Days}</Td>
-                                    <Td >{moment(order?.startingDate).format("MMM DD,YYYY")}</Td>
-                                    <Td>{moment(order?.endingDate).format("MMM DD,YYYY") }</Td>
-                                    <Td>{order?.product.cityName}</Td>
-                                    <Td>{order?.total}</Td>
-                                </Tr>
+
+                                    {   orders?.map((order)=>(
+
+                                        <Tr>
+                                            <Td>{<button onClick={()=>{ navigate("/productDetails/" + order?.product?._id) }} style={{ border: "1px solid #87ceeb ", padding: "5px", borderRadius: '10px' }} >{order?.product?.productName}</button>}</Td>
+                                            <Td>{order?.Days}</Td>
+                                            <Td >{moment(order?.startingDate).format("MMM DD,YYYY")}</Td>
+                                            <Td>{moment(order?.endingDate).format("MMM DD,YYYY")}</Td>
+                                            <Td>{order?.product.cityName}</Td>
+                                            <Td>{order?.total}</Td>
+                                            <Td>{order?.Pending ? <button style={{ border: "1px solid #ab1941", padding: "5px", borderRadius: '10px' }} >Pending
+                                            </button> : order?.Accepted ? <button  style={{ border: "1px solid green", padding: "5px", borderRadius: '10px' }} >Accepted
+                                            </button> : <button  >Returned</button>  }</Td>
+                                        </Tr>
+                                    ))      
+                              
+                                    }
                             </Tbody>
                           
                         </Table>
                     </TableContainer>
                 </ChakraProvider>
 
-                <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', padding: "2rem", margin: '3rem', color:"white",fontSize:"1.5rem"  }}  >     < BsFillCheckCircleFill color="green" fontSize="4rem"   >  </BsFillCheckCircleFill>   <p fontSize="2opx" > Booking request placed  </p>   </div>
+               
                
 
             </div>

@@ -55,21 +55,23 @@ const OrderSchema = new Schema({
         default: false
 
     },
+    Rejected: {
+
+        type: Boolean,
+        default: false
+    },
 
     endingDate:{
 
         type: Date,
 
     },
-    
+
 },
     {
         timestamps: true
     }
 );
-
-
-
 
 
 

@@ -206,6 +206,23 @@ module.exports = {
   }),
 
 
+  findAllOrders: asyncHandler(async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+
+      const orders = await Order.find({userId:userId});
+
+      console.log(orders);
+
+      res.status(200).json(orders);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  }),
+
+
   locationSort: asyncHandler(async (req, res, next) => {
     try {
 

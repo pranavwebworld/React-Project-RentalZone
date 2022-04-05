@@ -74,6 +74,13 @@ const ProductSchema = new Schema({
         default: "https://upload.wikimedia.org/wikipedia/commons/f/f4/User_Avatar_2.png?20170128014309"
 
     },
+    inStock: {
+
+        type: Boolean,
+
+        default:true
+
+    },
     location: {
         type: {
             type: String,
@@ -89,7 +96,6 @@ const ProductSchema = new Schema({
         timestamps: true
     }
 );
-
 
 
 

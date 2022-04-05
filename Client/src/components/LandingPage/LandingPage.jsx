@@ -55,6 +55,7 @@ const LandingPage = () => {
         }
         flipped={true}
       />
+      
       <Slider
         imageSrc={s3}
         title={"24x7 Service "}

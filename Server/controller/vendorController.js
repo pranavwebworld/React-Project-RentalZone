@@ -15,6 +15,7 @@ const { signRefreshToken } = require("../helpers/jwt_helpers");
 const cookieParser = require("cookie-parser");
 const { cloudinary } = require("../cloudinary/cloudinary");
 const asyncHandler = require("express-async-handler");
+const Order = require("../models/OrderModel");
 
 router.use(cookieParser());
 
@@ -229,4 +230,116 @@ module.exports = {
 
     res.status(200).json(vendor);
   }),
+
+
+
+  findAllProducts: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const vendorId = req.params.vendorId;
+
+      const alllProducts = await Product.find({vendorId:vendorId});
+
+      console.log(alllProducts);
+
+      res.status(200).json(alllProducts);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+
+  }),
+
+
+  findAllVendorOrder: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const vendorId = req.params.vendorId;
+
+      const allOrders = await Order.find({ "product.vendorId": vendorId });
+
+      console.log(allOrders);
+
+      res.status(200).json(allOrders);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+
+  }),
+
+
+
+  AcceptOrder: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const orderId = req.params.orderId;
+
+      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Accepted : true ,Pending:false});
+
+
+      console.log(updateResp.product._id);
+      const stockUpdateResp = await Product.findOneAndUpdate({ _id: updateResp.product._id }, { inStock: false });
+      // const productId = await Order.findOne({ "product._id": orderId }, );
+
+      console.log({ stockUpdateResp});
+
+      console.log({updateResp});
+
+      res.status(200).json(updateResp);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+
+  }),
+
+
+
+  RejectOrder: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const orderId = req.params.orderId;
+
+      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Rejected: true, Accepted: false});
+
+      console.log(updateResp);
+
+      res.status(200).json(updateResp);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+
+  }),
+
+  ReturnOrder: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const orderId = req.params.orderId;
+
+      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Returned: true, Accepted: false,Pending:false });
+
+      console.log(updateResp);
+
+      const stockUpdateResp = await Product.findOneAndUpdate({ _id: updateResp.product._id }, {inStock:true });
+      console.log(stockUpdateResp );
+      res.status(200).json(updateResp);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+
+  })
+
 };

@@ -6,7 +6,8 @@ import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
 import VendorHero from "./VendorHero/VendorHero";
 import VendorSlider from "./VendorSlider/vendorSlider";
-
+import VendorSlider2 from "./VendorSlider2/vendorSlider2"
+import moment from "moment"
 
 import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
@@ -27,9 +28,16 @@ const navbarlinks = [
 ];
 
 const VendorLandingPage = () => {
+
+
+
+  const [orders, setOrder] = useState(null)
+
   const { currentVendor } = useContext(VendorContext);
   const [cvendor, setCvendor] = useState(null);
+
   useEffect(() => {
+
     const getVendor = async () => {
       try {
         console.log("get vendor called in Landing page");
@@ -47,27 +55,53 @@ const VendorLandingPage = () => {
       }
     };
 
+
+
     getVendor();
+
+    const getVendorOrders = async () => {
+
+      try {
+
+        const resp = await axios.get('/vendors/getAllVendorOrders/' + currentVendor?.aud);
+
+        console.log(resp.data, "   All Vendor Order");
+
+        let VendorOrders = resp.data
+
+        setOrder(VendorOrders)
+
+        console.log(VendorOrders);
+
+      } catch (error) {
+
+        console.log(error);
+      }
+    };
+
+    getVendorOrders()
+
+
+
   }, []);
 
-
-  
   return (
     <div className="landing__page">
+
       <Navbar navbarLinks={navbarlinks} />
+
       <VendorHero vendor={cvendor} imgSrc={coverpic} />
 
-    
       <Parallax speed={-5}>
         <CameraSvg></CameraSvg>
       </Parallax>
 
       <RadialRed></RadialRed>
       
+      <VendorSlider orders={orders}  />
 
-      <VendorSlider title={"Camera"} />
-      
-
+      <VendorSlider2 vendor={currentVendor}       >   </VendorSlider2>
+   
       <Footerpic></Footerpic>
     </div>
   );

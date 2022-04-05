@@ -24,35 +24,34 @@ const navbarlinks = [
     { url: "", title: "About  " },
 ];
 
+const OrderPage = ({route}) => {
 
-const BookedPage = ({route}) => {
 
     const { currentUser } = useContext(AuthContext)
-    const [order,setOrder]= useState(null)
-    const bookingId = useParams()
-    const BookingId = bookingId.bookingId
+    const [user,setUser]= useState()
+ 
+    const [orders,setOrder]= useState(null)
+    
+    console.log({currentUser});
 
 
     useEffect(() => {
-        
 
+        setUser(currentUser?.aud)
         const getOrder = async () => {
 
             try {
 
-                console.log({BookingId});
+                const resp = await axios.get('/users/getAllOrders/' + currentUser?.aud  );
 
-                const resp = await axios.get('/users/getOrderbyId/' + bookingId.bookingId);
+                console.log(resp.data, " AllOrder Details");
 
-                console.log(resp.data, " Order Details");
+                let Orders = resp.data
 
-                let Order = resp.data
+                setOrder(Orders)
 
-                setOrder(Order)
-
-                console.log(Order);
+                console.log(Orders);
    
-                
             } catch (error) {
 
                 console.log(error);
@@ -61,7 +60,8 @@ const BookedPage = ({route}) => {
 
         getOrder()
 
-    }, []);
+    }, [currentUser]);
+
 
 
     return (
@@ -78,15 +78,14 @@ const BookedPage = ({route}) => {
             </Parallax>
       
             <RadialRed></RadialRed>
-                
+
             <OrderSlider
             
-               order={order}   title={"Camera"}/>
+               orders={orders}   title={"Camera"}/>
     
             <Footerpic></Footerpic>
         </div>
-
     );
 };
 
-export default BookedPage;
+export default OrderPage;

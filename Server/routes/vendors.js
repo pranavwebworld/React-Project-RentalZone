@@ -44,13 +44,10 @@ router.get("/isVLoggedIn", verifyVendorAccessToken, async (req, res, next) => {
 });
 
 
-
 // @post vendor propic
 // @return boolean True or false 
 
 router.post("/proPicUpload", vendorController.proPicUpload)
-
-
 
 
 // @get params userId
@@ -59,18 +56,49 @@ router.post("/proPicUpload", vendorController.proPicUpload)
 router.get("/getbyId", vendorController.getById);
 
 
-
-
 // @post Product picture 
 //@body vendoId
 // @return upload response
-
-
 router.post("/productPicUpload", vendorController.proPicUpload)
 
 
 
+//@get Product Details 
+//@params vendorId Details
+//@return register  response
+router.get("/getAllVendorProducts/:vendorId", vendorController.findAllProducts)
 
-router.post("/productRegister", vendorController.productRegister)
+
+
+//@get All vendor Orders 
+//@params Product Details
+//@return register  response
+router.get("/getAllVendorOrders/:vendorId", vendorController.findAllVendorOrder)
+
+
+
+
+//@patch order Accepted
+//@params  order status and orderId
+//@return register  response
+router.patch("/Orderstatus/Accepted/:orderId", vendorController.AcceptOrder)
+
+
+
+
+//@patch order Rejected
+//@params  order status and orderId
+//@return register  response
+router.patch("/Orderstatus/Rejected/:orderId", vendorController.RejectOrder)
+
+
+
+
+//@patch order Returned
+//@params  order status and orderId
+//@return register  response
+router.patch("/Orderstatus/Returned/:orderId", vendorController.ReturnOrder)
+
+
 
 module.exports = router;

@@ -273,14 +273,15 @@ const PSlider = ({ user, product }) => {
             {map ? "Close map" : "Show Location"}
           </Button>
 
-            <Button
-              onClick={handleOpen}
-              variant={"contained"}
-              color="success"
-            >
-              Book This device
-            </Button>
-       
+
+          {user && <Button
+            onClick={handleOpen}
+            variant={"contained"}
+            color="success"
+          >
+            Book This device
+            </Button>  }
+           
        
           <Modal
             
@@ -311,6 +312,7 @@ const PSlider = ({ user, product }) => {
                 
                 ></DateRangePickerComponent>
 
+
               {Booked && <Button style={{ marginTop: "5px", float: "right" }} onClick={submitHandler} variant={"contained"} color="success">
             Submit
           </Button>}
@@ -319,7 +321,9 @@ const PSlider = ({ user, product }) => {
           </Modal>
         </Stack>
         <Box>
-          <GlassCard product={product}></GlassCard>
+
+
+          <GlassCard user={user}     product={product}></GlassCard>
         </Box>
 
       </>
@@ -364,6 +368,7 @@ const PSlider = ({ user, product }) => {
               <img src={marker} />
             </Marker>
           </ReactMapGL>
+
         )}
       </div>
     </>

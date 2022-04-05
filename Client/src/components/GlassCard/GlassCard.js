@@ -50,7 +50,7 @@ const StyledH3 = styled.h3`
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1]
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
-const GlassCard = ({product}) => {
+const GlassCard = ({product,user}) => {
     const navigate = useNavigate();
     const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: config.default }))
     return (
@@ -67,20 +67,21 @@ const GlassCard = ({product}) => {
             <StyledImg src={product?.Product_pic2} />
             <StyledImg src={product?.Product_pic3} />
             <StyledH1  >{product?.productName} <br /> <br /> <span style={{ fontWeight: "3800", color: "lightgray" }} >₹ {product?.rent}/Day   </span>  </StyledH1> 
-                 
-                 <Button 
+
+            {user && <Button
                 size={"large"}
                 startIcon={< MessageIcon />}
                 variant={"contained"}
                 color="success"
-            
+
                 onClick={() => {
 
-                    navigate("/chat/"+product.vendorId)
+                    navigate("/chat/" + product.vendorId)
                 }}
             >
                 Start a Conversation
-            </Button>
+            </Button>          }
+                 
 
             <StyledH3>{product?.productDesc} <br /> </StyledH3>
         </Container>

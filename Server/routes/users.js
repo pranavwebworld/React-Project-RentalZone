@@ -90,6 +90,11 @@ router.get("/getOrderbyId/:orderId", userController.findOrders);
 router.post("/sortByLocation", userController.locationSort);
 
 
+//@get 
+//@params UserId
+//@return  allorders of user
+router.get("/getAllOrders/:userId", userController.findAllOrders);
+
 
 
 module.exports = router;  

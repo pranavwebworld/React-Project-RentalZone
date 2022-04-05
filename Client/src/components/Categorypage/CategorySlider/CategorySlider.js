@@ -25,10 +25,7 @@ const Slider = ({ flipped, category }) => {
 
         useEffect(() => {
 
-
             console.log(category,"category name ");
-
-
 
             const Products = async () => {
 
@@ -93,14 +90,15 @@ const Slider = ({ flipped, category }) => {
                 console.log(error);
                 
             }
-
-           
         }   
+
+
 
         function errorLocation() {
             console.log("location not available");
         }
     }
+
 
 
     const renderContent = () => {
@@ -126,9 +124,7 @@ const Slider = ({ flipped, category }) => {
                 </div>
 
 
-                    
-
-
+                
                     <Stack
 
                         direction="row"
@@ -137,10 +133,7 @@ const Slider = ({ flipped, category }) => {
                         padding={2}
                     >
 
-                     
-
                         {products?.map((product,index)=>(
-
 
                             <Card onClick= { ()=>{navigate("/productDetails/"+product?._id)}}  key={index}  sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
                                 <CardActionArea>
