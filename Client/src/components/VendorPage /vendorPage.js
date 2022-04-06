@@ -27,11 +27,11 @@ const navbarlinks = [
   { url: "", title: "About  " },
 ];
 
+
 const VendorLandingPage = () => {
 
-
-
   const [orders, setOrder] = useState(null)
+  const [Change, setChanged] = useState(true)
 
   const { currentVendor } = useContext(VendorContext);
   const [cvendor, setCvendor] = useState(null);
@@ -56,10 +56,10 @@ const VendorLandingPage = () => {
     };
 
 
-
     getVendor();
 
     const getVendorOrders = async () => {
+
 
       try {
 
@@ -81,9 +81,18 @@ const VendorLandingPage = () => {
 
     getVendorOrders()
 
-
-
   }, []);
+
+
+  const change = ()=>{
+
+
+    setChanged(!Change)
+  console.log("Chnaged called");
+
+
+  }
+
 
   return (
     <div className="landing__page">
@@ -98,11 +107,12 @@ const VendorLandingPage = () => {
 
       <RadialRed></RadialRed>
       
-      <VendorSlider orders={orders}  />
+      <VendorSlider change={change}  orders={orders} />
 
-      <VendorSlider2 vendor={currentVendor}       >   </VendorSlider2>
+      <VendorSlider2  Change={Change}  vendor={currentVendor}>  </VendorSlider2>
    
       <Footerpic></Footerpic>
+
     </div>
   );
 };

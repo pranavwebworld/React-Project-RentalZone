@@ -9,7 +9,7 @@ import { CardActionArea, Divider, Link, Stack } from '@mui/material';
 import { useNavigate } from "react-router";
 import axios from "../../../axios/axios"
 
-const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
+const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
         const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
 
         VendorProducts()
 
-    }, [])
+    }, [Change,vendor])
 
 
 
@@ -61,11 +61,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
                         <button onClick={() => { navigate("/ProductRegister") }} className="VendorButtons" > Register a product  </button>
 
 
-                    </div> */}
-
-                    
-
-             
+                    </div> */}             
 
 
                     <Stack
@@ -84,7 +80,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
                                     <CardMedia
                                         className="Zoomi-In"
                                         component="img"
-                                        height="240rem"
+                                        height="20rem"
                                         width="18rem"
                                         image={product?.Product_pic1}
                                         alt="green iguana"
@@ -96,8 +92,8 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
 
-
-                                            {product?.inStock ? <h2 style={{ color: "green" }} >In Stock</h2> : <h3 style={{ color: "tomato" }} > In Service </h3>}
+                                        
+                                            {product?.inStock ? <h2 style={{ color: "green", fontSize: "20px" }} >In Stock</h2> : <h3 style={{ color: "tomato", fontSize: "20px" }} > In Service </h3>}
 
                                         </Typography>
                                     </CardContent>
@@ -107,8 +103,6 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
                         ))}
 
                     </Stack>
-
-
 
                 </>
             );
@@ -120,7 +114,6 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped }) => {
                         <p style={{ color: 'white' }}  >{subtitle}</p>
                     </div>
                     <img src={imageSrc} alt="Travel" className="slider__image" />
-
                 </>
             );
         }

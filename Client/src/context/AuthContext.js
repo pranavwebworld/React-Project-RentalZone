@@ -36,6 +36,7 @@ function AuthContextProvider(props) {
           }else{
 
               setLoggedIn(true);
+              
               setCurrentUser(resp.data.payload)
 
           }

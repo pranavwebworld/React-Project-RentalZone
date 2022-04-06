@@ -25,12 +25,14 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-const Slider = ({ orders, imageSrc, title, subtitle, flipped }) => {
+const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
+
   const navigate = useNavigate();
 
   const { ref, inView, entry } = useInView({
     threshold: 0.2,
   });
+
 
   const [vendorProducts, setVendorProducts] = useState();
 
@@ -40,6 +42,9 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped }) => {
     console.log(orderId);
     console.log(e.target.value);
     const status = e.target.value;
+    
+    change()
+
 
     try {
       const resp = await axios.patch(
@@ -51,6 +56,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped }) => {
       console.log(error);
     }
   };
+
 
 
   const renderContent = () => {
@@ -127,7 +133,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped }) => {
                           <Select
                             onChange={(e) => handlePending(order._id, e)}
                             iconColor="green"
-                            color="green"
+                              color="#00FF40"
                             placeholder="Accepted"
                           >
                             <option value="Returned">Returned</option>

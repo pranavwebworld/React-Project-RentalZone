@@ -52,14 +52,13 @@ io.on("connection", (socket) => {
 
     console.log({ Receiving_user: user });
 
-    io.to(user?.socketId).emit("VideoCall", {
+    io.to(user?.socketId).emit("getMessage", {
       senderId,
       text,
     });
   });
 
   
-
   socket.on("CallAccepted", ({ callerId, vendorId }) => {
 
     console.log({ callerId,vendorId });
@@ -78,7 +77,6 @@ io.on("connection", (socket) => {
   });
 
 
-
   socket.on("VideoCall", async ({ senderId, receiverId, text }) => {
     console.log({ senderId, receiverId, text });
 
@@ -95,11 +93,9 @@ io.on("connection", (socket) => {
   });
 
 
-
   socket.on("answerCall", (data) => {
     io.to(data.to).emit("callAccepted", data.signal);
   });
-
 
 
   //When disconnected
@@ -107,11 +103,10 @@ io.on("connection", (socket) => {
     console.log("a user disconnected");
     removeUser(socket.id);
 
-
-
     console.log({ users });
     io.emit("getUsers", users);
   });
+
 
   socket.on("connect_error", (err) => {
     console.log(`connect_error due to ${err.message}`);
