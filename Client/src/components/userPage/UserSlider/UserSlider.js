@@ -24,7 +24,11 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                         <p style={{ color: 'white' }} >{}</p>
                     </div> */}
 
-          <Stack direction="row" justifyContent="right" spacing={4} padding={2}>
+          <Stack direction={{ xs: 'column', sm: 'row' }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+
+            spacing={4}
+            padding={2}>
             <Card
               onClick={() => {
                 navigate("/category/camera");

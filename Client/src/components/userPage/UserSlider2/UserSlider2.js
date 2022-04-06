@@ -72,8 +72,9 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
 
           <Stack
 
-            direction="row"
-            justifyContent="right"
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+
             spacing={4}
             padding={2}
           >
@@ -95,8 +96,8 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                     <Typography gutterBottom variant="h5" component="div">
                       {product?.product?.productName}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                     {moment(product.endingDate).format("MMM DD,YYYY")}
+                    <Typography variant="body2" fontSize="18px" color="red">
+                      Return Date {moment(product.endingDate).format("MMM DD,YYYY")}
                     </Typography>
                   </CardContent>
                 </CardActionArea>

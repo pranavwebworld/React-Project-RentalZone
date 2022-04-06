@@ -5,10 +5,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Divider, Link, Stack } from '@mui/material';
+import { Button, CardActionArea, Divider, IconButton, Link, Stack } from '@mui/material';
 import { useNavigate } from "react-router";
 import axios from "../../../axios/axios"
+import EditIcon from '@mui/icons-material/Edit';
 
+import DeleteIcon from '@mui/icons-material/Delete';
 const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
         const navigate = useNavigate();
@@ -75,25 +77,34 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
                     
 
                         {vendorProducts?.map((product, index) => (
-                            <Card  onClick={() => { navigate("/productDetails/" + product?._id) }} key={product._id} sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
+                            <Card  onClick={() => { navigate("/productDetails/" + product?._id) }} key={product._id} sx={{ width: "15rem",  border: "solid 1px #ab1941" }}>
                                 <CardActionArea>
                                     <CardMedia
                                         className="Zoomi-In"
                                         component="img"
-                                        height="20rem"
+                                        height="10rem"
                                         width="18rem"
                                         image={product?.Product_pic1}
                                         alt="green iguana"
                                     />
 
                                     <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            {product?.productName}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
+                                        <Typography  style={{display:"flex"}} gutterBottom variant="h5" component="div">
 
-                                        
-                                            {product?.inStock ? <h2 style={{ color: "green", fontSize: "20px" }} >In Stock</h2> : <h3 style={{ color: "tomato", fontSize: "20px" }} > In Service </h3>}
+                                            <span> {product?.productName}  </span>         <span style={{marginLeft:"15px"}} > {product?.inStock ? <h2 style={{ color: "green", fontSize: "20px" }} >In Stock</h2> : <h3 style={{ color: "tomato", fontSize: "20px" }} > In Service </h3>}  </span>
+
+                                        </Typography>
+                                        <Typography variant="body2" color="secondary">
+
+                                            <IconButton aria-label="Edit"  color="primary">
+                                                < EditIcon />
+                                            </IconButton>  
+                                            
+                                            
+                                            <IconButton style={{ marginLeft: "6rem" }} color="error" aria-label="add an alarm">
+                                                <DeleteIcon />
+                                            </IconButton>
+                                           
 
                                         </Typography>
                                     </CardContent>

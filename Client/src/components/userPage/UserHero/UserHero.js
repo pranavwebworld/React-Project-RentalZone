@@ -17,9 +17,6 @@ const Hero = ({ user, imgSrc }) => {
   const [selectedFile, setSelectedfile] = useState("");
 
 
-
-
-
   const handeleProPicChange = (e) => {
     const file = e.target.files[0];
     setSelectedfile(file)
@@ -42,14 +39,12 @@ const Hero = ({ user, imgSrc }) => {
   };
 
 
-
   const handleSubmitFile = (e) => {
     e.preventDefault();
     if (!previewSource) return;
     uploadImage(previewSource);
    
   };
-
 
   const uploadImage = async (base64Img) => {
     console.log(base64Img);
@@ -82,7 +77,6 @@ const Hero = ({ user, imgSrc }) => {
                 <VideoSVG  ></VideoSVG> */}
       </div>
 
-    
 
         <div className="chatOnlin" >
           <div class="profile-pic">
