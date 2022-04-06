@@ -13,8 +13,15 @@ function AuthContextProvider(props) {
     useEffect(() => {
 
      
+        setLoggedIn(false);
 
         getLoggedIn();
+
+        return () => {
+
+            setLoggedIn(false);
+
+        }
 
         
     
@@ -36,7 +43,7 @@ function AuthContextProvider(props) {
           }else{
 
               setLoggedIn(true);
-              
+
               setCurrentUser(resp.data.payload)
 
           }

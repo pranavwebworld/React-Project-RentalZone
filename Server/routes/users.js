@@ -97,4 +97,13 @@ router.get("/getAllOrders/:userId", userController.findAllOrders);
 
 
 
+//@get 
+//@params UserId
+//@return  allorders of user
+
+router.get("/getUserProducts/:userId", userController.findAllUserProducts);
+
+
+
+
 module.exports = router;  

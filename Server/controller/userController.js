@@ -223,6 +223,23 @@ module.exports = {
   }),
 
 
+  findAllUserProducts: asyncHandler(async (req, res, next) => {
+    try {
+      const userId = req.params.userId;
+
+      const products = await Order.find({ userId: userId });
+
+      console.log(products);
+
+      res.status(200).json(products);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  }),
+
+
   locationSort: asyncHandler(async (req, res, next) => {
     try {
 

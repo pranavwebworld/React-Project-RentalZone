@@ -6,7 +6,8 @@ import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
 import UserHero from "./UserHero/UserHero";
-import UserSlider from "./UserSlider/UserSlider";
+import UserSlider from "./UserSlider/UserSlider"
+import UserSlider2 from './UserSlider2/UserSlider2'
 import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
@@ -78,6 +79,8 @@ const LandingPage = () => {
 
             <UserSlider
                 title={"Camera"}/>
+
+            <UserSlider2></UserSlider2>
     
             <Footerpic></Footerpic>
         </div>

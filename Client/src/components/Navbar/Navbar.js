@@ -10,7 +10,7 @@ import VendorContext from "../../context/VendorContext";
 const Navbar = () => {
   const { getLoggedIn, currentUser } = useContext(AuthContext);
   const { getVLoggedIn, currentVendor } = useContext(VendorContext);
-  const [NavBarLinks, setNavbarLinks] = useState([])
+  
   const [cookies, setCookie, removeCookie] = useCookies(["userAccessToken"]);
   const navigate = useNavigate();
 
@@ -25,36 +25,11 @@ const Navbar = () => {
   }
 
 
-
-
-  if (currentUser || currentVendor){
-
-    var navbarlinks = [
-
-      { url: "/", title: "Home" },
-   
-      { url: "/chat", title: "Messages" }
-    ];
-
-
-  }else{
-
-    var navbarlinks = [
-
-      { url: "/", title: "Home" },
-      { url: "/user", title: "User" },
-      { url: "/vendor", title: "Vendor" }
-    ];
-
-
-  }
-
   
-
-
-  
-
-
+  const navbarlinks = [
+    { url: "/", title: "Home" },
+    { url: "", title: "About  " },
+  ];
 
   const [menuClicked, setMenuClicked] = useState(false);
 
@@ -64,7 +39,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <span className="navbar__logo" style={{ color: "#5D5D5D" }}>
-  
+        {" "}
         Rental <span style={{ color: "#ab1941" }}> Zone </span>{" "}
       </span>
 
@@ -82,7 +57,6 @@ const Navbar = () => {
           menuClicked ? "navbar__list navbar__list--active" : "navbar__list"
         }
       >
-
         {navbarlinks.map((item, index) => {
           return (
             <li className="navbar__item" key={index}>
@@ -93,8 +67,18 @@ const Navbar = () => {
           );
         })}
         {
-          (currentUser || currentVendor   &&  < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>)
-           
+        
+          (currentUser?  < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>
+            : currentVendor ? < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>
+            :""
+          
+          )
+
+
+         
+         
+        
+        
         }
        
       </ul>
