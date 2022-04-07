@@ -5,12 +5,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, Divider, IconButton, Link, Stack } from '@mui/material';
+import { Button, CardActionArea, Divider, IconButton, Stack } from '@mui/material';
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import axios from "../../../axios/axios"
 import EditIcon from '@mui/icons-material/Edit';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Flex } from '@chakra-ui/layout';
 const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
         const navigate = useNavigate();
@@ -77,9 +79,10 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
                     
 
                         {vendorProducts?.map((product, index) => (
-                            <Card  onClick={() => { navigate("/productDetails/" + product?._id) }} key={product._id} sx={{ width: "15rem",  border: "solid 1px #ab1941" }}>
+                            <Card  key={product._id} sx={{ width: "15rem",  border: "solid 1px #ab1941" }}>
                                 <CardActionArea>
                                     <CardMedia
+                                        onClick={() => { navigate("/productDetails/" + product?._id) }}
                                         className="Zoomi-In"
                                         component="img"
                                         height="10rem"
@@ -94,18 +97,31 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
                                             <span> {product?.productName}  </span>         <span style={{marginLeft:"15px"}} > {product?.inStock ? <h2 style={{ color: "green", fontSize: "20px" }} >In Stock</h2> : <h3 style={{ color: "tomato", fontSize: "20px" }} > In Service </h3>}  </span>
 
                                         </Typography>
-                                        <Typography variant="body2" color="secondary">
+                                        <Typography  variant="body2" color="secondary">
+                                                
 
-                                            <IconButton aria-label="Edit"  color="primary">
-                                                < EditIcon />
-                                            </IconButton>  
-                                            
-                                            
-                                            <IconButton style={{ marginLeft: "6rem" }} color="error" aria-label="add an alarm">
-                                                <DeleteIcon />
-                                            </IconButton>
+
+                                    <div style={{display:Flex,flexDirection:"row"}} >
+
+
+
+                                                <Link to="/ProductRegister" state={{ PRODUCT: product }}  >
+
+                                                    <IconButton  color="error" aria-label="add an alarm">
+                                                        <EditIcon />
+                                                    </IconButton>
+
+                                                </Link>
+
+
+
+                                                    <IconButton style={{ marginLeft: "6rem" }} color="error" aria-label="add an alarm">
+                                                        <DeleteIcon />
+                                                    </IconButton>
+
+                                    </div>
+
                                            
-
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

@@ -97,7 +97,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                       {product?.product?.productName}
                     </Typography>
                     <Typography variant="body2" fontSize="18px" color="red">
-                      Return Date {moment(product.endingDate).format("MMM DD,YYYY")}
+                      <span style={{ color: "grey", fontWeight: "200" }} > Return Date   </span>   <span style={{ fontWeight:"500" }}  >  {moment(product.endingDate).format("MMM DD,YYYY")}  </span>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -105,12 +105,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
 
             ))}
 
-
           </Stack>
-
-
-
-      
         </>
       );
     } else {

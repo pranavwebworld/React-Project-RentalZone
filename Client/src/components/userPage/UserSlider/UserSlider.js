@@ -45,7 +45,8 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Camera
+                    <span style={{fontWeight:"500"}} >  Camera </span>
+                   
                   </Typography>
                   <Typography
                     variant="body2"
@@ -71,7 +72,8 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Gymbals
+                    <span style={{ fontWeight: "500" }} > Gymbals</span>
+                
                   </Typography>
                   <Typography
                     variant="body2"
@@ -98,7 +100,9 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lens
+
+                    <span style={{ fontWeight: "500" }} >Lens</span>
+               
                   </Typography>
                   <Typography
                     variant="body2"
@@ -125,7 +129,8 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Other
+           
+                    <span style={{ fontWeight: "500" }} >Others</span>
                   </Typography>
                   <Typography
                     variant="body2"

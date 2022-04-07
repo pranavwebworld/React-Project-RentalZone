@@ -193,9 +193,8 @@ const PSlider = ({ user, product }) => {
     return (
       <>
         <Stack
-          style={{ width: "82rem" }}
-          direction="column"
-          justifyContent="center"
+          style={{width:"40rem"}}
+          direction={{ xs: 'column', sm: 'column' }}
           spacing={6}
           padding={1}
         >
@@ -207,10 +206,13 @@ const PSlider = ({ user, product }) => {
           <h3 style={{ color: "white", marginBottom: "-30px" }}>
             Product Name
           </h3>
-          <FormControl id="first-name">
-            <InputLabel style={{ color: "white" }} htmlFor="add">
+          <FormControl
+          
+        
+          id="first-name">
+            {/* <InputLabel style={{ color: "white" }} htmlFor="add">
               {product?.productName}
-            </InputLabel>
+            </InputLabel> */}
 
             <TextField
               InputLabelProps={{
@@ -221,16 +223,20 @@ const PSlider = ({ user, product }) => {
               variant="standard"
               size="large"
               focused
+              value={product?.productName}
             />
           </FormControl>
 
           <h3 style={{ color: "white", marginBottom: "-30px" }}>
             Product Address
           </h3>
-          <FormControl id="email">
-            <InputLabel style={{ color: "white" }} htmlFor="add">
-              {product?.address}
-            </InputLabel>
+            <FormControl id="email"
+
+
+          >
+            {/* <InputLabel style={{ color: "white" }} htmlFor="add">
+             
+            </InputLabel> */}
             <TextField
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
@@ -238,17 +244,18 @@ const PSlider = ({ user, product }) => {
               sx={{ input: { color: "white", fontSize: "20px" } }}
               variant="standard"
               focused
+              value={product?.address}
             />
           </FormControl>
 
           <h3 style={{ color: "white", marginBottom: "-30px" }}>City Name</h3>
           <FormControl id="email">
-            <InputLabel
+            {/* <InputLabel
               style={{ color: "white", fontSize: "15px" }}
               htmlFor="add"
             >
-              {product?.cityName}
-            </InputLabel>
+            
+            </InputLabel> */}
 
             <TextField
               InputLabelProps={{
@@ -257,6 +264,7 @@ const PSlider = ({ user, product }) => {
               sx={{ input: { color: "white", fontSize: "20px" } }}
               variant="standard"
               focused
+               value={product?.cityName}
             
             />
           </FormControl>
@@ -320,12 +328,21 @@ const PSlider = ({ user, product }) => {
             </Box>
           </Modal>
         </Stack>
-        <Box>
+
+        <Stack direction={{ xs: 'column', sm: 'row' }}
+          spacing={{ xs: 1, sm: 2, md: 4 }} 
+          
+          lg={{ width: "82rem" }}
+          sm={{ width: "42rem" }}
+          xs={{ width: "42rem" }}
+        >
+          <Box>
+            <GlassCard user={user} product={product}></GlassCard>
+          </Box>
 
 
-          <GlassCard user={user}     product={product}></GlassCard>
-        </Box>
-
+          </Stack>
+      
       </>
     );
   };

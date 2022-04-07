@@ -6,7 +6,8 @@ import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
 import ProductHero from "./ProductHero/ProductHero";
 import ProductSlider from "./ProductSlider/ProductSlider";
-
+import { Link , useLocation } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 
 import Navbar from "../Navbar/Navbar";
@@ -31,6 +32,11 @@ const navbarlinks = [
 const ProductRegisterPage= () => {
   const { currentVendor } = useContext(VendorContext);
   const [cvendor, setCvendor] = useState(null);
+  const location = useLocation()
+  const pro = location
+
+  console.log(pro);
+
 
   useEffect(() => {
     const getVendor = async () => {

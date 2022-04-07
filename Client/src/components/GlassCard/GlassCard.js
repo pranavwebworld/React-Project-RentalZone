@@ -2,7 +2,7 @@ import React from 'react';
 import Campic from '../../assets/CategoryCamera.jpeg';
 import styled from 'styled-components';
 import { useSpring, animated, config } from 'react-spring';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import { useNavigate, useParams } from "react-router";
 
@@ -55,6 +55,8 @@ const GlassCard = ({product,user}) => {
     const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: config.default }))
     return (
         <Container
+
+              
             onMouseMove={({ clientX: x, clientY: y }) => (set({ xys: calc(x, y) }))}
             onMouseLeave={() => set({ xys: [0, 0, 1] })}
             style={{
@@ -62,10 +64,21 @@ const GlassCard = ({product,user}) => {
                 width: "41rem" 
             
             }}
-        >
-            <StyledImg src={product?.Product_pic1} />
-            <StyledImg src={product?.Product_pic2} />
-            <StyledImg src={product?.Product_pic3} />
+        >   
+            <Stack
+            
+                direction={{ xs: 'column', sm: 'row' }}
+              >
+
+                <StyledImg src={product?.Product_pic1} />
+                <StyledImg src={product?.Product_pic2} />
+                <StyledImg src={product?.Product_pic3} />
+
+            </Stack>
+          
+
+
+
             <StyledH1  >{product?.productName} <br /> <br /> <span style={{ fontWeight: "3800", color: "lightgray" }} >₹ {product?.rent}/Day   </span>  </StyledH1> 
 
             {user && <Button
