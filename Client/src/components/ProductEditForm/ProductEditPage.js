@@ -4,36 +4,39 @@ import "../Illustartions/RadialRed";
 import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
-import VendorHero from "./VendorHero/VendorHero";
-import VendorSlider from "./VendorSlider/vendorSlider";
-import VendorSlider2 from "./VendorSlider2/vendorSlider2"
-import moment from "moment"
+import ProductEditHero from "./ProductEditHero/ProductEditHero";
+import ProductEditSlider from "./ProductEditSlider/ProductEditSlider";
+import { Link , useLocation } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-import VendorNavbar from "../VendorNavbar /VendorNavbar";
+import Navbar from "../Navbar/Navbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
 import VendorContext from "../../context/VendorContext";
-import coverpic from "../../assets/userPage3.jpg";
+import coverpic from "../../assets/product_page.jpeg";
 import axios from "../../axios/axios";
-import "./vendorPage.css";
+import "./productEditPage.css";
 
 
 
+const navbarlinks = [
+  { url: "", title: "Home" },
+  { url: "", title: "Contact" },
+  { url: "", title: "About  " },
+];
 
-
-
-const VendorLandingPage = () => {
-
-  const [orders, setOrder] = useState(null)
-  const [Change, setChanged] = useState(true)
-
+const ProductRegisterPage= () => {
   const { currentVendor } = useContext(VendorContext);
   const [cvendor, setCvendor] = useState(null);
+  const location = useLocation()
+  const product = location.state
+
+  console.log(product);
+
 
   useEffect(() => {
-
     const getVendor = async () => {
       try {
         console.log("get vendor called in Landing page");
@@ -50,67 +53,31 @@ const VendorLandingPage = () => {
         console.log(error);
       }
     };
-
-
     getVendor();
-
-    const getVendorOrders = async () => {
-
-
-      try {
-
-        const resp = await axios.get('/vendors/getAllVendorOrders/' + currentVendor?.aud);
-
-        console.log(resp.data, "   All Vendor Order");
-
-        let VendorOrders = resp.data
-
-        setOrder(VendorOrders)
-
-        console.log(VendorOrders);
-
-      } catch (error) {
-
-        console.log(error);
-      }
-    };
-
-    getVendorOrders()
-
   }, []);
-
-
-
-  const change = ()=>{
-
-    setChanged(!Change)
-
-  console.log("Changed called");
-
-  }
 
 
   return (
     <div className="landing__page">
 
-      <VendorNavbar />
+      <Navbar navbarLinks={navbarlinks} />
 
-      <VendorHero vendor={cvendor} imgSrc={coverpic} />
+      <ProductEditHero vendor={cvendor} imgSrc={coverpic} />
 
       <Parallax speed={-5}>
+
         <CameraSvg></CameraSvg>
+
       </Parallax>
 
       <RadialRed></RadialRed>
-      
-      <VendorSlider change={change}  orders={orders} />
 
-      <VendorSlider2  Change={Change}  vendor={currentVendor}>  </VendorSlider2>
-   
+      <ProductEditSlider productDetails={product} vendor={cvendor} title={"Camera"} />
+
       <Footerpic></Footerpic>
 
     </div>
   );
 };
 
-export default VendorLandingPage;
+export default ProductRegisterPage;

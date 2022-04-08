@@ -168,7 +168,7 @@ CustomSelect.propTypes = {
 
 
 
-export default function UnstyledSelectsMultiple({ getSelect }) {
+export default function UnstyledSelectsMultiple({ category, getSelect }) {
 
 
   const [value, setValue] = useState(null);
@@ -180,14 +180,13 @@ export default function UnstyledSelectsMultiple({ getSelect }) {
    
     getSelect(e)
   }
-
   console.log(value);
 
-  return (
 
+  return (
     <div>
         <FormControl>
-        {value ? value:  < InputLabel > Select Category</InputLabel>}
+        {value ? value : < InputLabel >{category ? category:"Select Category"}</InputLabel>}
 
 
       <CustomSelect  label="Age"  value={value} onChange={handleSelect}>

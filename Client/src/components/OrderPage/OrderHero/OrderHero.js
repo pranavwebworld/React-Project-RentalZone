@@ -9,8 +9,7 @@ import AuthContext from "../../../context/AuthContext";
 
 
 const CategoryHero= ({ user, imgSrc,title}) => {
-
-
+  
   const { CurrentUser } = useContext(AuthContext);
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState("");
@@ -18,14 +17,9 @@ const CategoryHero= ({ user, imgSrc,title}) => {
 
 
 
-
-
-  
-
   return (
     <div className="hero">
 
-      
       <img src={imgSrc} alt="Title" className="hero__image" />
 
       <div className="gradDiv"></div>
@@ -34,14 +28,9 @@ const CategoryHero= ({ user, imgSrc,title}) => {
                 <VideoSVG  ></VideoSVG> */}
       </div>
 
-    
-
-
-
       <h1 className="hero__title animate">
-        {" "}
- 
-        <span style={{ color: "lightgrey" ,fontSize:"4rem" }}> {title} </span>{" "}
+
+        <span style={{ color: "lightgrey", fontSize: "4rem" }}> {title} Orders</span>
       </h1>
     </div>
   );

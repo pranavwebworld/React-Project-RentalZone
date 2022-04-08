@@ -21,11 +21,9 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
   const [products, setProducts] = useState()
 
 
-
   useEffect(() => {
     
-   
-
+  
     const Products = async () => {
 
       try {
@@ -56,14 +54,6 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
 
 
 
-
-
-
-
-
-
-  
-
   const renderContent = () => {
     if (!flipped) {
       return (
@@ -81,28 +71,29 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
 
             {products?.map((product, index) => (
 
-              <Card onClick={() => { navigate("/productDetails/" + product?._id) }} key={index} sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
+              !product.product.inStock ?  <Card onClick = {() => {navigate("/productDetails/" + product?.product?._id)}} key={index} sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
                 <CardActionArea>
-                  <CardMedia
-                    className="Zoomi-In"
-                    component="img"
-                    height="240rem"
-                    width="18rem"
-                    image={product?.product?.Product_pic1}
-                    alt="green iguana"
+              <CardMedia
+                className="Zoomi-In"
+                component="img"
+                height="240rem"
+                width="18rem"
+                image={product?.product?.Product_pic1}
+                alt="green iguana"
 
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {product?.product?.productName}
-                    </Typography>
-                    <Typography variant="body2" fontSize="18px" color="red">
-                      <span style={{ color: "grey", fontWeight: "200" }} > Return Date   </span>   <span style={{ fontWeight:"500" }}  >  {moment(product.endingDate).format("MMM DD,YYYY")}  </span>
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {product?.product?.productName}
+                </Typography>
+                <Typography variant="body2" fontSize="18px" color="red">
+                  <span style={{ color: "grey", fontWeight: "200" }} > Return Date   </span>   <span style={{ fontWeight: "500" }}  >  {moment(product.endingDate).format("MMM DD,YYYY")}  </span>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
               </Card>
-
+           :"" 
+             
             ))}
 
           </Stack>
@@ -122,9 +113,17 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
   };
 
   return (
-    <div className={inView ? "slider slider--zoom" : "slider"} ref={ref}>
+
+    <div style={{ position: "relative" }} >
+
+      <h1 style={{ color: "white", position: "absolute", top: "-2rem", left: "15rem", fontWeight: "900" }} > Rented Gears   </h1>
+
+    <div  className={inView ? "slider slider--zoom" : "slider"} ref={ref}>
       {renderContent()}
     </div>
+
+     </div >
+
   );
 };
 

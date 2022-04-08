@@ -56,6 +56,20 @@ router.post("/proPicUpload", vendorController.proPicUpload)
 router.get("/getbyId", vendorController.getById);
 
 
+
+//@put update product
+//@body product details
+// @return upload response
+router.put("/productEdit", vendorController.productUpdate)
+
+
+//@post Product Details 
+//@body vendoId
+// @return upload response
+router.post("/productRegister", vendorController.productRegister)
+
+
+
 // @post Product picture 
 //@body vendoId
 // @return upload response
@@ -92,12 +106,16 @@ router.patch("/Orderstatus/Accepted/:orderId", vendorController.AcceptOrder)
 router.patch("/Orderstatus/Rejected/:orderId", vendorController.RejectOrder)
 
 
-
-
 //@patch order Returned
 //@params  order status and orderId
 //@return register  response
 router.patch("/Orderstatus/Returned/:orderId", vendorController.ReturnOrder)
+
+
+//@delete 
+//@params  productId
+//@return delte  response
+router.delete("/deleteProduct/:productId", vendorController.DeleteProduct)
 
 
 

@@ -7,18 +7,14 @@ import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
 import Hero from "../Hero/Hero";
 import Slider from "../Slider/Slider";
-import Navbar from "../Navbar/Navbar";
+import HomeNavbar from "../HomeNavbar/HomeNavbar";
 import Button from "../Buttons/Button";
 import RadialRed from "../Illustartions/RadialRed";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Footerpic from "../Footerpic/Footerpic";
 import Parallax from "react-rellax";
 
-const navbarlinks = [
-    { url: "", title: "Home" },
-    { url: "", title: "Contact" },
-    { url: "", title: "About  " },
-];
+
 
 
 const LandingPage = () => {
@@ -27,7 +23,7 @@ const LandingPage = () => {
     
     <div className="landing__page">
 
-      <Navbar navbarLinks={navbarlinks} />
+      <HomeNavbar  />
       <Hero imgSrc={coverpic} />
 
       {/* 

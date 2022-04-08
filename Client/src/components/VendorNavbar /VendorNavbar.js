@@ -23,16 +23,16 @@ const Navbar = () => {
 
     navigate("/");
   }
-  
+
+
   const navbarlinks = [
     { url: "/", title: "Home" },
-    { url: "/user", title: "My account" },
+    { url: "/ProductRegister", title: "Register New Gear" },
+    { url: "/vendor", title: "My account" },
     { url: "/chat", title: "Messages " },
-    { url: "/orders", title: " Your Orders " },
-   
+
   ];
   
-
 
   const [menuClicked, setMenuClicked] = useState(false);
 

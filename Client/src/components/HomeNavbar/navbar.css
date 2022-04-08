@@ -1,0 +1,133 @@
+.navbar {
+  position: sticky;
+  top: 0px;
+  height: 70px;
+  background-color: black;
+  opacity: 0.75;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30px 0px 30px;
+  margin-bottom: -70px;
+  z-index: 5;
+}
+
+
+
+.logoutB{
+  background-color: black;
+ --green: #ab1941;
+ font-size: 10px;
+ font-weight: 1000;
+ padding: 0.4em 2.7em;
+ letter-spacing: 0.06em;
+ position: relative;
+ font-family: inherit;
+ border-radius: 0.6em;
+ overflow: hidden;
+ transition: all 0.3s;
+ line-height: 1.2em;
+ border: 2px solid var(--green);
+ background: linear-gradient(to right, rgba(27, 253, 156, 0.1) 1%, transparent 40%,transparent 60% , rgba(253, 27, 200, 0.1) 100%);
+color: white;
+ box-shadow: inset 10 10 10px #ab1941(27, 253, 156, 0.4);
+  box-shadow:  10 10 10px #ab1941(27, 253, 156, 0.9);
+cursor: pointer;
+}
+
+
+
+
+
+
+.navbar__logo {
+  color: white;
+font-family: 'League Gothic', sans-serif;
+  font-size: 2rem;
+  text-decoration-line: underline;
+}
+
+
+.navbar__list{
+    display: flex;
+    list-style: none;
+}
+
+.navbar__item{
+
+white-space: nowrap;
+
+}
+
+.navbar__link {
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 10px;
+  margin: 0px 5px;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  border-color: transparent;
+  transition: 250ms;
+}
+
+.navbar__link:hover {
+  border-color: #ab1941;
+  transition: 250ms;
+}
+.navbar__menu {
+  color: white;
+  display: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .navbar__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    top: 70px;
+    left: -100%;
+    width: 85%;
+    height: 300px;
+    position: absolute;
+    transition: all 0.5s ease;
+  }
+
+  .navbar__list--active {
+    left: 0;
+  }
+
+  .navbar__menu {
+    display: block;
+
+  }
+
+  .navbar__item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    flex: 1;
+  }
+
+  .navbar__link {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    border-width: 0px;
+    background-color: black;
+    opacity: 0.75;
+  }
+
+  .navbar__link:hover {
+    border-width: 0px;
+    opacity: 1;
+  }
+}

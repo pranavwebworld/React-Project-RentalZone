@@ -222,6 +222,118 @@ module.exports = {
     }
   }),
 
+
+
+
+  productUpdate: asyncHandler(async (req, res, next) => {
+    try {
+      const {
+        porductId,
+        address,
+        productName,
+        productDesc,
+        rent,
+        category,
+        pincode,
+        latitude,
+        longitude,
+        vendorId,
+        cityName,
+        image1,
+        image2,
+        image3,
+
+      } = req.body;
+
+
+      console.log({ porductId});
+      console.log({ productDesc });
+      console.log({ rent });
+      console.log({ category });
+      console.log({ address });
+      console.log({ pincode });
+      console.log({ latitude });
+      console.log({ longitude });
+      console.log({ vendorId });
+      console.log({ cityName });
+
+
+      // const result = await ProductSchema.validateAsync(req.body);
+
+      // console.log(result);
+
+
+      const uploadResponse = await cloudinary.uploader.upload(image1, {
+        upload_preset: "Product_Pics",
+
+        allowedFormats: ["jpg", "png", "jpeg"],
+      });
+
+
+      console.log({ uploadResponse });
+
+      const Product_pic1 = uploadResponse.url;
+
+      const uploadResponse2 = await cloudinary.uploader.upload(image2, {
+        upload_preset: "Product_Pics",
+
+        allowedFormats: ["jpg", "png", "jpeg"],
+      });
+
+      console.log({ uploadResponse2 });
+
+      const Product_pic2 = uploadResponse2.url;
+
+      const uploadResponse3 = await cloudinary.uploader.upload(image3, {
+        upload_preset: "Product_Pics",
+
+        allowedFormats: ["jpg", "png", "jpeg"],
+      });
+
+      console.log({ uploadResponse3 });
+      const Product_pic3 = uploadResponse3.url;
+
+      const product = {
+        address: address,
+        productName: productName,
+        productDesc: productDesc,
+        rent: rent,
+        category: category,
+        pincode: pincode,
+        latitude: latitude,
+        longitude: longitude,
+        vendorId: vendorId,
+        cityName: cityName,
+        Product_pic1: Product_pic1,
+        Product_pic2: Product_pic2,
+        Product_pic3: Product_pic3,
+      };
+
+
+
+      const updatedProduct = await Product.findOneAndUpdate({_id:porductId}, {
+        address: address,
+        productName: productName,
+        productDesc: productDesc,
+        rent: rent,
+        category: category,
+        pincode: pincode,
+        latitude: latitude,
+        longitude: longitude,
+        vendorId: vendorId,
+        cityName: cityName,
+        Product_pic1: Product_pic1,
+        Product_pic2: Product_pic2,
+        Product_pic3: Product_pic3,});
+
+      console.log({ updatedProduct });
+
+      res.status(200).json(updatedProduct);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }),
   
   getById: asyncHandler(async (req, res, next) => {
     const vendorId = req.query.vendorId;
@@ -308,7 +420,7 @@ module.exports = {
 
       const orderId = req.params.orderId;
 
-      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Rejected: true, Accepted: false});
+      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Rejected: true, Accepted: false, Returned: false,Pending:false});
 
       console.log(updateResp);
 
@@ -332,12 +444,40 @@ module.exports = {
       console.log(updateResp);
 
       const stockUpdateResp = await Product.findOneAndUpdate({ _id: updateResp.product._id }, {inStock:true });
+
+      const DeleteManyUpdateResp = await Order.findByIdAndDelete  ({ _id: orderId });
+
       console.log(stockUpdateResp );
-      res.status(200).json(updateResp);
+      console.log({DeleteUpdateResp});
+
+      res.status(200).json(DeleteManyUpdateResp);
 
     } catch (error) {
 
       console.log(error);
+    }
+
+  }),
+
+
+
+
+  DeleteProduct: asyncHandler(async (req, res, next) => {
+
+    try {
+
+      const productId = req.params.productId;
+
+      const DeleteResp = await Product.findOneAndDelete({ _id:productId});
+
+      console.log(DeleteResp);
+
+
+      res.status(200).json(DeleteResp);
+
+    } catch (error) {
+
+      res.status(404).json(error);
     }
 
   })

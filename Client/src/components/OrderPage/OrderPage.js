@@ -18,11 +18,7 @@ import { useNavigate,useParams } from "react-router-dom"
 import { set } from "react-hook-form";
 
  
-const navbarlinks = [
-    { url: "", title: "Home" },
-    { url: "", title: "Contact" },
-    { url: "", title: "About  " },
-];
+
 
 const OrderPage = ({route}) => {
 
@@ -69,7 +65,7 @@ const OrderPage = ({route}) => {
 
         <div className="landing__page">
 
-            <Navbar navbarLinks={navbarlinks} />
+            <Navbar  />
             
             <OrderHero  imgSrc={coverpic} />
 

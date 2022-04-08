@@ -23,7 +23,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
                         <h1 className="slider__title">{}</h1>
                         <p style={{ color: 'white' }} >{}</p>
                     </div> */}
-
+    
           <Stack direction={{ xs: 'column', sm: 'row' }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
 
@@ -156,8 +156,16 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
   };
 
   return (
+    
+    <div style={{position:"relative"}} >
+
+    <h1 style={{color:"white",position:"absolute",top:"0rem",left:"15rem",fontWeight:"900"}} > Rent a New Gear   </h1>
+
     <div className={inView ? "slider slider--zoom" : "slider"} ref={ref}>
+      
       {renderContent()}
+    </div>
+ 
     </div>
   );
 };

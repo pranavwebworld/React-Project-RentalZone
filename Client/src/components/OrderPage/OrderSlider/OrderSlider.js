@@ -74,7 +74,8 @@ const Slider = ({orders}) => {
                                             <Td>{order?.total}</Td>
                                             <Td>{order?.Pending ? <button style={{ border: "1px solid #ab1941", padding: "5px", borderRadius: '10px' }} >Pending
                                             </button> : order?.Accepted ? <button  style={{ border: "1px solid green", padding: "5px", borderRadius: '10px' }} >Accepted
-                                            </button> : <button  >Returned</button>  }</Td>
+                                            </button> : order?.Rejected ? <button style={{color:"red"}} >Rejected</button>
+                                                      : <button  >Returned</button> }</Td>
                                         </Tr>
                                     ))      
                               

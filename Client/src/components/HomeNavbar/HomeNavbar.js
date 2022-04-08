@@ -26,9 +26,9 @@ const Navbar = () => {
   
   const navbarlinks = [
     { url: "/", title: "Home" },
-    { url: "/user", title: "My account" },
-    { url: "/chat", title: "Messages " },
-    { url: "/orders", title: " Your Orders " },
+    { url: "/user", title: "User " },
+    { url: "/vendor", title: "Vendor" }
+   
    
   ];
   
@@ -71,11 +71,11 @@ const Navbar = () => {
         })}
         {
         
-          (currentUser?  < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>
-            : currentVendor ? < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>
-            :""
+          // (currentUser?  < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>
+          //   : currentVendor ? < button onClick={handleRemoveCookie} className="logoutB">    Logout    </button>
+          //   :""
           
-          )
+          // )
 
 
          

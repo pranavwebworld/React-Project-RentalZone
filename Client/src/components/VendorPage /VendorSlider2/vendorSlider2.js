@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Flex } from '@chakra-ui/layout';
 const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
+
         const navigate = useNavigate();
 
         const { ref, inView, entry } = useInView({
@@ -24,15 +25,15 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
     const [vendorProducts, setVendorProducts] = useState()
 
+    const [Deleted, setDeleted] = useState(false)
+
+
 
     useEffect(() => {
 
-
-   
         const VendorProducts = async () => {
 
             try {
-
                 const resp = await axios.get('/vendors/getAllVendorProducts/'+vendor?.aud);
 
                 console.log(resp.data, " All Vendor Products");
@@ -51,21 +52,44 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
         VendorProducts()
 
-    }, [Change,vendor])
+    }, [Change, vendor, Deleted])
 
 
 
+
+    const  deleteProdcut=  async (id)=>{
+
+        console.log(id);
+
+        try {
+            const resp = await axios.delete('/vendors/deleteProduct/'+ id);
+
+            console.log(resp, " Product Deleted");
+
+            setDeleted(true)
+
+         
+
+        } catch (error) {
+
+            console.log(error);
+        }
+
+     }
+
+
+    
     const renderContent = () => {
         if (!flipped) {
             return (
                 <>
                   
-                    {/* <div>
+                  {/* <div>
 
                         <button onClick={() => { navigate("/ProductRegister") }} className="VendorButtons" > Register a product  </button>
 
 
-                    </div> */}             
+                    </div>              */}
 
 
                     <Stack
@@ -90,7 +114,6 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
                                         image={product?.Product_pic1}
                                         alt="green iguana"
                                     />
-
                                     <CardContent>
                                         <Typography  style={{display:"flex"}} gutterBottom variant="h5" component="div">
 
@@ -99,23 +122,16 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
                                         </Typography>
                                         <Typography  variant="body2" color="secondary">
                                                 
-
-
                                     <div style={{display:Flex,flexDirection:"row"}} >
 
-
-
-                                                <Link to="/ProductRegister" state={{ PRODUCT: product }}  >
-
-                                                    <IconButton  color="error" aria-label="add an alarm">
+                                                <Link to="/ProductEditRegister" state={{ PRODUCT: product }}  >
+                                                    <IconButton  color="primary" aria-label="add an alarm">
                                                         <EditIcon />
                                                     </IconButton>
 
                                                 </Link>
 
-
-
-                                                    <IconButton style={{ marginLeft: "6rem" }} color="error" aria-label="add an alarm">
+                                                <IconButton onClick={() => { deleteProdcut(product?._id)}} style={{ marginLeft: "6rem" }} color="error" aria-label="add an alarm">
                                                         <DeleteIcon />
                                                     </IconButton>
 

@@ -1,5 +1,5 @@
 import { React, useState, useEffect, useCallback } from "react";
-import "./productSlider.css";
+import "./productEditSlider.css";
 import marker from "../../../assets/iconMarker.png";
 import { useInView } from "react-intersection-observer";
 import {
@@ -36,9 +36,10 @@ const useStyles = makeStyles({
   },
 });
 
-const PSlider = ({ vendor }) => {
-  const [latitude, setlatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+const PSlider = ({productDetails, vendor }) => {
+
+  const [latitude, setlatitude] = useState(productDetails.PRODUCT.latitude);
+  const [longitude, setLongitude] = useState(productDetails.PRODUCT.longitude);
   const [map, setmap] = useState(false);
   const ariaLabel = { "aria-label": "description" };
 
@@ -49,6 +50,10 @@ const PSlider = ({ vendor }) => {
     width: "100vw",
     height: "100vh",
   });
+
+
+  console.log( productDetails.PRODUCT);
+  
 
   const { ref, inView, entry } = useInView({
     threshold: 0.2,
@@ -143,6 +148,7 @@ const PSlider = ({ vendor }) => {
     previewFile(file);
   };
 
+
   //image 2
 
   const previewFile2 = async (file2) => {
@@ -181,6 +187,7 @@ const PSlider = ({ vendor }) => {
   };
 
   //image 3
+
 
   const previewFile3 = async (file3) => {
     console.log("called previewfile3");
@@ -227,16 +234,17 @@ const PSlider = ({ vendor }) => {
     [map]
   );
 
-  const [productName, setProductName] = useState(null);
-  const [productDesc, setProductDesc] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [rent, setRent] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [pincode, setPincode] = useState(null);
-  const [cityName, setCityName] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [image3, setImage3] = useState(null);
+  const [productName, setProductName] = useState(productDetails.PRODUCT.productName );
+  const [productDesc, setProductDesc] = useState(productDetails.PRODUCT.productDesc);
+  const [category, setCategory] = useState(productDetails.PRODUCT.category);
+  const [rent, setRent] = useState(productDetails.PRODUCT.rent);
+  const [address, setAddress] = useState(productDetails.PRODUCT.address);
+  const [porductId, setProductId] = useState(productDetails.PRODUCT._id)
+
+  const [cityName, setCityName] = useState(productDetails.PRODUCT.cityName);
+  const [image1, setImage1] = useState(productDetails.PRODUCT.Product_pic1);
+  const [image2, setImage2] = useState(productDetails.PRODUCT.Product_pic2);
+  const [image3, setImage3] = useState(productDetails.PRODUCT.Product_pic3);
   const [loading, setLoading] = useState(false)
 
   console.log({ productName });
@@ -244,7 +252,7 @@ const PSlider = ({ vendor }) => {
   console.log({ rent });
   console.log({ category });
   console.log({ address });
-  console.log({ pincode });
+
   console.log({ latitude });
   console.log({ longitude });
 
@@ -258,14 +266,14 @@ const PSlider = ({ vendor }) => {
 
     try {
 
-      axios.post("/vendors/productRegister", {
+      axios.put("/vendors/productEdit", {
 
+        porductId,
         productName,
         productDesc,
         rent,
         category,
         address,
-   
         latitude,
         longitude,
         vendorId,
@@ -276,25 +284,11 @@ const PSlider = ({ vendor }) => {
 
       }).then((resp) => {
 
+
         if (resp) {
 
           setLoading(false)
-
-          alert(resp)
-
-
-
-          setProductName('')
-          setProductDesc('')
-          setCategory('')
-          setRent('')
-          setAddress('')
-          setPincode('')
-          setCityName('')
-          setImage1('')
-          setImage2('')
-          setImage3('')
-          setLoading('')
+       alert("Updated")
         }
       })
 
@@ -306,9 +300,9 @@ const PSlider = ({ vendor }) => {
     }
 
 
-
   };
 
+  
   const getSelect = (value) => {
     console.log("select in child", value);
 
@@ -325,9 +319,9 @@ const PSlider = ({ vendor }) => {
           spacing={4}
           padding={5}
         >
-          <h1 style={{ color: "lightgrey" }}> Register Product </h1>
+          <h1 style={{ color: "lightgrey" }}> Edit Product Details </h1>
 
-          <SelectComponent getSelect={getSelect}></SelectComponent>
+          <SelectComponent category={category} getSelect={getSelect}></SelectComponent>
 
           <FormControl id="first-name" required>
             <TextField
@@ -339,6 +333,7 @@ const PSlider = ({ vendor }) => {
               label="Product Name"
               variant="standard"
               size="large"
+              value={productName}
               focused
               onChange={(e) => {
                 setProductName(e.target.value);
@@ -355,6 +350,7 @@ const PSlider = ({ vendor }) => {
               label="Product details"
               variant="standard"
               focused
+              value={productDesc}
               onChange={(e) => {
                 setProductDesc(e.target.value);
               }}
@@ -370,6 +366,7 @@ const PSlider = ({ vendor }) => {
               label=" Location Address"
               variant="standard"
               focused
+              value={address}
               onChange={(e) => {
                 setAddress(e.target.value);
               }}
@@ -385,13 +382,14 @@ const PSlider = ({ vendor }) => {
               label=" City Name"
               variant="standard"
               focused
+              value={cityName}
               onChange={(e) => {
                 setCityName(e.target.value);
               }}
             />
           </FormControl>
 
-       
+   
 
           <FormControl id="email" required>
             <h4 style={{ color: "white", fontSize: "22px" }}>
@@ -403,7 +401,7 @@ const PSlider = ({ vendor }) => {
               InputLabelProps={{
                 style: { color: "#fff", fontSize: "25px" },
               }}
-              defaultValue={0}
+             value={rent}
               getAriaValueText={valuetext}
               step={100}
               marks
@@ -451,7 +449,7 @@ const PSlider = ({ vendor }) => {
               />
               <img
                 src={
-                  "https://image.shutterstock.com/image-vector/add-image-vector-icon-260nw-1042853482.jpg"
+                  image1
                 }
                 id="output"
                 width="00"
@@ -474,7 +472,7 @@ const PSlider = ({ vendor }) => {
               />
               <img
                 src={
-                  "https://image.shutterstock.com/image-vector/add-image-vector-icon-260nw-1042853482.jpg"
+                  image2
                 }
                 id="output2"
                 width="00"
@@ -497,7 +495,7 @@ const PSlider = ({ vendor }) => {
               />
               <img
                 src={
-                  "https://image.shutterstock.com/image-vector/add-image-vector-icon-260nw-1042853482.jpg"
+                  image3
                 }
                 id="output3"
                 width="00"

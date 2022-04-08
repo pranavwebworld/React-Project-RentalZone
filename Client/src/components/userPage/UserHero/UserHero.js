@@ -34,7 +34,6 @@ const Hero = ({ user, imgSrc }) => {
       setPreviewSource(reader.result);
 
       setTimeout(uploadImage(previewSource),6000)
-     
     };
   };
 
@@ -93,7 +92,7 @@ const Hero = ({ user, imgSrc }) => {
       <h1 className="hero__title animate">
         {" "}
         <span style={{ color: "#5D5D5D" }}> Welcome </span>{" "}
-        <span style={{ color: "#ab1941" }}> {user?.name} </span>{" "}
+        <span style={{ color: "#ab1941",fontWeight:"80px",fontSize:"35px" }}> {user?.name} </span>{" "}
       </h1>
     </div>
   );

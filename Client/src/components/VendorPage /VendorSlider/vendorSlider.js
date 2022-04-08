@@ -76,7 +76,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
                 size="lg"
               >
                 <TableCaption>
-                  Imperial to metric conversion factors
+                Order Details
                 </TableCaption>
                 <Thead>
                   <Tr>
@@ -140,7 +140,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
                           </Select>
                         ) : order?.Returned ? (
                           <button>Returned</button>
-                        ) : (
+                        ) :  (
                           <button
                             style={{
                               color: "red",
@@ -148,7 +148,9 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
                               borderRadius: "10px",
                             }}
                           >
+
                             Rejected
+                            
                           </button>
                         )}
                       </Td>

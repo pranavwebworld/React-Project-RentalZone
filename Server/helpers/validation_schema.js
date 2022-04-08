@@ -31,7 +31,7 @@ const ProductSchema = joi.object({
     category: joi.string().min(2).required(),
 
 
-    pincode: joi.number().min(6).required(),
+
 
     latitude: joi.required(),
 
