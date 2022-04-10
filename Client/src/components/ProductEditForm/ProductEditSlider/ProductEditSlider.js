@@ -256,13 +256,13 @@ const PSlider = ({productDetails, vendor }) => {
   console.log({ latitude });
   console.log({ longitude });
 
+
   const submitHandler = () => {
 
     setLoading(true)
     console.log(image1, image2, image3);
     const vendorId = vendor._id;
     console.log("submit handler called");
-
 
     try {
 
@@ -296,22 +296,20 @@ const PSlider = ({productDetails, vendor }) => {
     } catch (error) {
 
       console.log(error);
-
     }
-
-
   };
 
   
   const getSelect = (value) => {
     console.log("select in child", value);
-
     setCategory(value);
   };
+
 
   const renderContent = () => {
     return (
       <>
+
         <Stack
           style={{ width: "30rem" }}
           direction="column"
@@ -389,8 +387,7 @@ const PSlider = ({productDetails, vendor }) => {
             />
           </FormControl>
 
-   
-
+  
           <FormControl id="email" required>
             <h4 style={{ color: "white", fontSize: "22px" }}>
               {" "}
@@ -429,14 +426,13 @@ const PSlider = ({productDetails, vendor }) => {
 
           {loading && <div class="spinner"> <span>  Please Wait </span>  </div>}
 
-          {!loading && <Button onClick={submitHandler} variant={"contained"} color="success">
+          {!loading && <Button  onClick={submitHandler} variant={"contained"} color="success">
             Submit
           </Button>}
 
           
-          <div className="productImage">
-     
-            <div class="product-pic1">
+          <div className="vendorproductImage">
+            <div class="vendorproduct-pic1">
               <label class="-label" for="file">
                 <span class="glyphicon glyphicon-camera"></span>
                 <span>Change Image</span>
@@ -458,7 +454,7 @@ const PSlider = ({productDetails, vendor }) => {
           </div>
 
 
-          <div className="productImage2">
+          <div className="vendorproductImage2">
             <div class="product-pic1">
               <label class="-label" for="file2">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -481,7 +477,7 @@ const PSlider = ({productDetails, vendor }) => {
           </div>
 
 
-          <div className="productImage3">
+          <div className="vendorproductImage3">
             <div class="product-pic1">
               <label class="-label" for="file3">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -508,10 +504,11 @@ const PSlider = ({productDetails, vendor }) => {
   };
 
 
+
   return (
     <>
       <div
-        style={{ width: "70rem", height: "40rem" }}
+       
         className={inView ? "slider slider--zoom" : "slider"}
         ref={ref}
       >
@@ -519,13 +516,7 @@ const PSlider = ({productDetails, vendor }) => {
       </div>
 
       <div
-        style={{
-          width: "20rem",
-          height: "20rem",
-          position: "absolute",
-          top: "82rem",
-          left: "40rem",
-        }}
+       className="Map"
       >
         {map && (
           <ReactMapGL

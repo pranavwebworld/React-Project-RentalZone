@@ -41,7 +41,7 @@ const Slider = ({order}) => {
 
         <Container style={{ justifyItems: 'center', justifyContent: "center", alignContent: 'center', display: 'flex' }} >
 
-            <div style={{ justifyContent: "center", alignItems: 'centers', justifyItems: "center", alignSelf: 'center', alignContent: "center", width: '55rem' }} >
+            <div className="bookingtable"  >
 
 
 
@@ -50,7 +50,7 @@ const Slider = ({order}) => {
                 <ChakraProvider >
                     <TableContainer>
                         <Table borderRadius='10px' maxWidth="800" bgColor="transparent" color="white" variant='simple' colorScheme="facebook">
-                            <TableCaption>Imperial to metric conversion factors</TableCaption>
+                            <TableCaption>Order Details</TableCaption>
                             <Thead>
                                 <Tr>
                                     <Th>Gear Details</Th>

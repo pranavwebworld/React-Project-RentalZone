@@ -8,7 +8,7 @@ import s3 from "../../assets/s3.jpeg";
 import BookedHero from "./BookedHero/BookedHero";
 import BookedSlider from "./BookedSlider/BookedSlider";
 import Navbar from "../Navbar/Navbar";
-import RadialRed from "../Illustartions/RadialRed";
+import SmallRadialRed from "../Illustartions/SmallRadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
@@ -80,7 +80,7 @@ const BookedPage = ({route}) => {
                 <CameraSvg></CameraSvg>
             </Parallax>
       
-            <RadialRed></RadialRed>
+           
 
             <BookedSlider
             

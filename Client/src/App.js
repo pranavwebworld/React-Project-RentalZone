@@ -91,9 +91,9 @@ function App() {
 
           <Route exact path="/vendor" element={VloggedIn ? <VendorPage /> : <Navigate to="/vendorSignup" />} />
 
-          <Route exact path="/ProductRegister" element={VloggedIn ? <ProductRegister/> : <Navigate to="/vendorSignup" />} />
+          <Route exact path="/ProductRegister" element={ <ProductRegister/> } />
 
-          <Route exact path="/ProductEditRegister" element={VloggedIn ? <ProductEditForm /> : <Navigate to="/vendorSignup" />} />
+          <Route exact path="/ProductEditRegister" element={<ProductEditForm /> } />
 
 
         </Routes>

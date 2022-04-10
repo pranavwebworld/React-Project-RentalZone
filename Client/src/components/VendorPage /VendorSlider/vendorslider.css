@@ -87,15 +87,42 @@ color: aliceblue;
 
 
 
+  .tablewidthB{
+  
+     justify-content : center;
+      align-items: center;
+       justify-items: center;
+         align-self : center;
+         align-content:center;
+          width: 65rem ;
+  }
 
-
-
+    .tablewidth{
+  
+     justify-content : center;
+      align-items: center;
+       justify-items: center;
+         align-self : center;
+         align-content:center;
+          width: 85rem ;
+  }
 
 @media screen and (max-width: 800px) {
   .slider {
     flex-direction: column;
     background-color: rgb(0, 0, 0);
   }
+
+  .tablewidth{
+  
+     justify-content : center;
+      align-items: center;
+       justify-items: center;
+         align-self : center;
+         align-content:center;
+          width: 22rem ;
+  }
+
 
   .slider__image {
     width: 100%;

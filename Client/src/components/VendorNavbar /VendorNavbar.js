@@ -27,7 +27,6 @@ const Navbar = () => {
 
   const navbarlinks = [
     { url: "/", title: "Home" },
-    { url: "/ProductRegister", title: "Register New Gear" },
     { url: "/vendor", title: "My account" },
     { url: "/chat", title: "Messages " },
 

@@ -77,19 +77,25 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
      }
 
-
     
     const renderContent = () => {
         if (!flipped) {
             return (
-                <>
+                <div>
+
+                    <div style={{ position: "absolute", top: "-10rem", left: "1rem" }} >
+
+                      <h1 style={{color:"white",fontSize:"3rem",fontWeight:"400"}} >Your Gears</h1>
+
+               
+                    </div>
                   
-                  {/* <div>
+                  <div style={{position:"absolute",top:"-4rem",left:"1rem"}} >
+                    
+                        <button onClick={() => { navigate("/ProductRegister") }} className="VendorButtons" > Register a new gear  </button>
 
-                        <button onClick={() => { navigate("/ProductRegister") }} className="VendorButtons" > Register a product  </button>
 
-
-                    </div>              */}
+                    </div>             
 
 
                     <Stack
@@ -147,7 +153,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped,Change }) => {
 
                     </Stack>
 
-                </>
+                </div>
             );
         } else {
             return (

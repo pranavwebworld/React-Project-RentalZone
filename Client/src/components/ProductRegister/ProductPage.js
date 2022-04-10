@@ -10,7 +10,7 @@ import { Link , useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 
-import Navbar from "../Navbar/Navbar";
+import VendorNavbar from "../VendorNavbar /VendorNavbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
@@ -21,8 +21,6 @@ import axios from "../../axios/axios";
 import "./productPage.css";
 
 
-
-
 const navbarlinks = [
   { url: "", title: "Home" },
   { url: "", title: "Contact" },
@@ -30,6 +28,7 @@ const navbarlinks = [
 ];
 
 const ProductRegisterPage= () => {
+  
   const { currentVendor } = useContext(VendorContext);
   const [cvendor, setCvendor] = useState(null);
   const location = useLocation()
@@ -50,7 +49,10 @@ const ProductRegisterPage= () => {
 
         let vendor = resp.data;
 
+        console.log({vendor});
+
         setCvendor(vendor);
+
       } catch (error) {
         console.log(error);
       }
@@ -64,7 +66,7 @@ const ProductRegisterPage= () => {
   return (
     <div className="landing__page">
 
-      <Navbar navbarLinks={navbarlinks} />
+      <VendorNavbar navbarLinks={navbarlinks} />
 
       <ProductHero vendor={cvendor} imgSrc={coverpic} />
 

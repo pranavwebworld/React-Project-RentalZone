@@ -127,8 +127,9 @@ const Slider = ({ flipped, category }) => {
                 
                     <Stack
 
-                        direction="row"
-                        justifyContent="right"
+                        direction={{ xs: 'column', sm: 'row' }}
+                        spacing={{ xs: 1, sm: 2, md: 4 }}
+
                         spacing={4}
                         padding={2}
                     >

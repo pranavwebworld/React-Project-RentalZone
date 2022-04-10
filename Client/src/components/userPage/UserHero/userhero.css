@@ -81,12 +81,5 @@
     left: 20px;
   }
 
-  .hero__title {
-  position: absolute;
-  bottom: 15%;
-  right: 6%;
-  color: white;
-  font-size: 2rem;
-  padding: 15px;
-}
+
 }

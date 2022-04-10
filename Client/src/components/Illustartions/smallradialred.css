@@ -1,4 +1,4 @@
-.Radialred{
+.smallRadialred{
 position: absolute;
 width: 70%;
 height: 80%;
@@ -13,14 +13,14 @@ filter: blur(650px);
 
 @media screen and (max-width: 800px) {
 
-.Radialred{
+.smallRadialred{
 
 top: 1645.87px;
     position: absolute;
     width: 70%;
-    height: 80%;
-    left: 5rem;
-    top: 110rem;
+    height: 20%;
+    left: 100px;
+    top: 1406.87px;
     background: rgba(197, 2, 72, 0.5);
     filter: blur(650px);
    

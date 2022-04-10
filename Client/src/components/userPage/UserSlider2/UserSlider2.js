@@ -58,8 +58,6 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
     if (!flipped) {
       return (
         <>
-
-
           <Stack
 
             direction={{ xs: 'column', sm: 'row' }}
@@ -71,7 +69,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
 
             {products?.map((product, index) => (
 
-              !product.product.inStock ?  <Card onClick = {() => {navigate("/productDetails/" + product?.product?._id)}} key={index} sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
+              !product.Pending && product.product.inStock &&  <Card onClick = {() => {navigate("/productDetails/" + product?.product?._id)}} key={index} sx={{ width: "15rem", border: "solid 1px #ab1941" }}>
                 <CardActionArea>
               <CardMedia
                 className="Zoomi-In"
@@ -92,7 +90,7 @@ const Slider = ({ imageSrc, title, subtitle, flipped }) => {
               </CardContent>
             </CardActionArea>
               </Card>
-           :"" 
+           
              
             ))}
 

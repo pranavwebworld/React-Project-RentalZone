@@ -34,11 +34,35 @@ transform:scale(75%)  ;
   color: white;
 }
 
+
+
+.bookingtable {
+  justify-content: center;
+  align-items:  center;
+   justify-items: center;
+    align-self: center;
+     align-content: center;
+      width: 55rem;
+
+
+}
+
 @media screen and (max-width: 800px) {
   .slider {
     flex-direction: column;
     background-color: rgb(0, 0, 0);
   }
+    .bookingtable {
+  justify-content: center;
+  align-items:  center;
+   justify-items: center;
+
+      width: 22rem;
+
+
+}
+  
+  
 
   .slider__image {
     width: 100%;

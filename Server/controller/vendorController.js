@@ -420,7 +420,7 @@ module.exports = {
 
       const orderId = req.params.orderId;
 
-      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Rejected: true, Accepted: false, Returned: false,Pending:false});
+      const updateResp = await Order.findOneAndUpdate({ _id: orderId }, { Rejected: true, Accepted: false, Returned: false,Pending:false,"product.inStock":false});
 
       console.log(updateResp);
 

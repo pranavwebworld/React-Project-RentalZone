@@ -265,7 +265,6 @@ const PSlider = ({ vendor }) => {
         rent,
         category,
         address,
-   
         latitude,
         longitude,
         vendorId,
@@ -305,8 +304,6 @@ const PSlider = ({ vendor }) => {
 
     }
 
-
-
   };
 
   const getSelect = (value) => {
@@ -314,6 +311,9 @@ const PSlider = ({ vendor }) => {
 
     setCategory(value);
   };
+
+
+  
 
   const renderContent = () => {
     return (
@@ -436,9 +436,9 @@ const PSlider = ({ vendor }) => {
           </Button>}
 
           
-          <div className="productImage">
+          <div className="vendorproductImage">
      
-            <div class="product-pic1">
+            <div class="vendorproduct-pic1">
               <label class="-label" for="file">
                 <span class="glyphicon glyphicon-camera"></span>
                 <span>Change Image</span>
@@ -460,7 +460,7 @@ const PSlider = ({ vendor }) => {
           </div>
 
 
-          <div className="productImage2">
+          <div className="vendorproductImage2">
             <div class="product-pic1">
               <label class="-label" for="file2">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -483,7 +483,7 @@ const PSlider = ({ vendor }) => {
           </div>
 
 
-          <div className="productImage3">
+          <div className="vendorproductImage3">
             <div class="product-pic1">
               <label class="-label" for="file3">
                 <span class="glyphicon glyphicon-camera"></span>
@@ -513,7 +513,9 @@ const PSlider = ({ vendor }) => {
   return (
     <>
       <div
-        style={{ width: "70rem", height: "40rem" }}
+
+    
+        style={{ height: "40rem" }}
         className={inView ? "slider slider--zoom" : "slider"}
         ref={ref}
       >
@@ -521,13 +523,8 @@ const PSlider = ({ vendor }) => {
       </div>
 
       <div
-        style={{
-          width: "20rem",
-          height: "20rem",
-          position: "absolute",
-          top: "82rem",
-          left: "40rem",
-        }}
+        
+        className="Map"
       >
         {map && (
           <ReactMapGL

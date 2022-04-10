@@ -99,7 +99,6 @@ router.patch("/Orderstatus/Accepted/:orderId", vendorController.AcceptOrder)
 
 
 
-
 //@patch order Rejected
 //@params  order status and orderId
 //@return register  response

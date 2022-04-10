@@ -41,9 +41,7 @@ const Slider = ({orders}) => {
 
         <Container style={{ justifyItems: 'center', justifyContent: "center", alignContent: 'center', display: 'flex' }} >
 
-            <div style={{ justifyContent: "center", alignItems: 'centers', justifyItems: "center", alignSelf: 'center', alignContent: "center", width: '55rem' }} >
-
-
+            <div className="tablewidthB"  >
 
                 <ChakraProvider >
                     <TableContainer>

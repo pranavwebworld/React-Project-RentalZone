@@ -62,17 +62,29 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
   const renderContent = () => {
     if (!flipped) {
       return (
-        <>
+
+        <div>
+
+          <div style={{ position: "absolute", top: "-7rem", left: "1rem" }} >
+
+            <h1 style={{ color: "white", fontSize: "3rem",fontWeight:"400" }} >Orders</h1>
+       
+
+          </div>
+      
+          <Container style={{ justifyItems: 'center', justifyContent: "center", alignContent: 'center', display: 'flex' }} >
+
+            <div className="tablewidth" >
+
           <ChakraProvider>
-            <TableContainer overflowX="scroll">
+            <TableContainer>
               <Table
-                borderRadius="10px"
-                width="85rem"
+               
                 bgColor="transparent"
                 color="white"
                 variant="simple"
                 colorScheme="facebook"
-                overflowX="scroll"
+  
                 size="lg"
               >
                 <TableCaption>
@@ -160,7 +172,11 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
               </Table>
             </TableContainer>
           </ChakraProvider>
-        </>
+            </div>
+     
+          </Container>
+       
+        </div>
       );
     } else {
       return (
@@ -176,7 +192,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
   };
 
   return (
-    <div className={inView ? "slider slider--zoom" : "slider"} ref={ref}>
+    <div  style={{marginBottom:"8rem"}}  className={inView ? "slider slider--zoom" : "slider"} ref={ref}>
       {renderContent()}
     </div>
   );

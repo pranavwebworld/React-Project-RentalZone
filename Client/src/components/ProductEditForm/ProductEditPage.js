@@ -9,7 +9,7 @@ import ProductEditSlider from "./ProductEditSlider/ProductEditSlider";
 import { Link , useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 
-import Navbar from "../Navbar/Navbar";
+import VendorNavbar from "../VendorNavbar /VendorNavbar";
 import RadialRed from "../Illustartions/RadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
@@ -60,7 +60,7 @@ const ProductRegisterPage= () => {
   return (
     <div className="landing__page">
 
-      <Navbar navbarLinks={navbarlinks} />
+      <VendorNavbar navbarLinks={navbarlinks} />
 
       <ProductEditHero vendor={cvendor} imgSrc={coverpic} />
 

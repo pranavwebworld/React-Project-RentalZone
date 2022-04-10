@@ -10,7 +10,7 @@ import VendorSlider2 from "./VendorSlider2/vendorSlider2"
 import moment from "moment"
 
 import VendorNavbar from "../VendorNavbar /VendorNavbar";
-import RadialRed from "../Illustartions/RadialRed";
+import VendorRadialRed from "../Illustartions/VendorRadialRed";
 import Footerpic from "../Footerpic/Footerpic";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Parallax from "react-rellax";
@@ -101,7 +101,7 @@ const VendorLandingPage = () => {
         <CameraSvg></CameraSvg>
       </Parallax>
 
-      <RadialRed></RadialRed>
+      <VendorRadialRed></VendorRadialRed>
       
       <VendorSlider change={change}  orders={orders} />
 
