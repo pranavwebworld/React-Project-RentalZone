@@ -13,6 +13,7 @@ import RadialRed from "../Illustartions/RadialRed";
 import CameraSvg from "../Camerasvg/CameraSvg";
 import Footerpic from "../Footerpic/Footerpic";
 import Parallax from "react-rellax";
+import Footer from "../Footer/Footer";
 
 
 
@@ -59,7 +60,9 @@ const LandingPage = () => {
           "You can book your product at any time,our service will be available for 24x7"
         }
       />
-      <Footerpic></Footerpic>
+      {/* <Footerpic></Footerpic> */}
+      <Footer></Footer>
+
     </div>
 
 

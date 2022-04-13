@@ -24,17 +24,13 @@ import {
     Container,
     Button
 } from '@chakra-ui/react'
+import Footer from '../../Footer/Footer';
 
 
 
 const Slider = ({orders}) => {
 
-
-
-    const navigate = useNavigate()
-
-
-
+const navigate = useNavigate()
 
 
     return (
@@ -83,11 +79,9 @@ const Slider = ({orders}) => {
                         </Table>
                     </TableContainer>
                 </ChakraProvider>
-
-               
-               
-
-            </div>
+           
+            </div>  
+         
         </Container>
     );
 };

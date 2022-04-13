@@ -16,6 +16,7 @@ import Parallax from "react-rellax";
 import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
 import Helmet from "react-helmet"
+import Footer from "../Footer/Footer";
 
 
 const navbarlinks = [
@@ -84,6 +85,7 @@ const LandingPage = () => {
             <UserSlider2></UserSlider2>
     
             {/* <Footerpic></Footerpic> */}
+            <Footer></Footer>
        
         </div>
 

@@ -18,6 +18,7 @@ import axios from "../../axios/axios";
 import "./productdetailspage.css";
 import Helmet from "react-helmet"
 import { useNavigate,useParams } from "react-router-dom"
+import Footer from "../Footer/Footer";
 
 
 const navbarlinks = [
@@ -98,10 +99,12 @@ const ProductDetailsPage= () => {
       </Parallax>
 
       <RadialRed></RadialRed>
-
+  
       < ProductDetailsSlider product={product} user={currentUser} title={"Camera"} />
-
-      <Footerpic></Footerpic>
+      {/* <Footerpic></Footerpic>
+      <Footer></Footer>
+  */}
+ 
     </div>
   );
 };

@@ -16,6 +16,7 @@ import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
 import { useNavigate,useParams } from "react-router-dom"
 import { set } from "react-hook-form";
+import Footer from "../Footer/Footer";
 
  
 
@@ -69,6 +70,7 @@ const OrderPage = ({route}) => {
             
             <OrderHero  imgSrc={coverpic} />
 
+            <Footer></Footer>
             <Parallax speed={-5}>
                 <CameraSvg></CameraSvg>
             </Parallax>
@@ -78,8 +80,7 @@ const OrderPage = ({route}) => {
             <OrderSlider
             
                orders={orders}   title={"Camera"}/>
-    
-            <Footerpic></Footerpic>
+            <Footer></Footer>
         </div>
     );
 };

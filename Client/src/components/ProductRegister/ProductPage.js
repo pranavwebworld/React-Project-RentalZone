@@ -19,6 +19,7 @@ import VendorContext from "../../context/VendorContext";
 import coverpic from "../../assets/product_page.jpeg";
 import axios from "../../axios/axios";
 import "./productPage.css";
+import Footer from "../Footer/Footer";
 
 
 const navbarlinks = [
@@ -81,6 +82,7 @@ const ProductRegisterPage= () => {
       <ProductSlider vendor={cvendor} title={"Camera"} />
 
       <Footerpic></Footerpic>
+    <Footer></Footer>
     </div>
   );
 };

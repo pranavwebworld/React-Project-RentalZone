@@ -16,6 +16,8 @@ import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
 import { useNavigate,useParams } from "react-router-dom"
 import { set } from "react-hook-form";
+import Footer from "../Footer/Footer";
+import Confetti from 'react-dom-confetti';
 
  
 
@@ -25,11 +27,41 @@ const navbarlinks = [
     { url: "", title: "About  " },
 ];
 
+const config = {
+    angle: "179",
+    spread: 360,
+    startVelocity: "55",
+    elementCount: 70,
+    dragFriction: "0.21",
+    duration: 3000,
+    stagger: "7",
+    width: "10px",
+    height: "10px",
+    perspective: "500px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+};
+
+const config2 = {
+    angle: "79",
+    spread: 160,
+    startVelocity: "55",
+    elementCount: 80,
+    dragFriction: "0.21",
+    duration: 6000,
+    stagger: "7",
+    width: "10px",
+    height: "10px",
+    perspective: "800px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]
+};
+
+
 
 const BookedPage = ({route}) => {
 
     const { currentUser } = useContext(AuthContext)
     const [order,setOrder]= useState(null)
+    const [celeb, setCeleb] = useState(false)
 
     const bookingId = useParams()
     const BookingId = bookingId.bookingId
@@ -64,13 +96,15 @@ const BookedPage = ({route}) => {
 
         getOrder()
 
+        setTimeout(()=>{setCeleb(true)})
+
     }, []);
 
 
     return (
 
 
-        <div className="landing__page">
+        <div className="bookedpage">
 
             <Navbar navbarLinks={navbarlinks} />
             
@@ -80,13 +114,14 @@ const BookedPage = ({route}) => {
                 <CameraSvg></CameraSvg>
             </Parallax>
       
-           
+            <Confetti active={celeb} config={config} />
+            <Confetti active={celeb} config={config2} />
 
             <BookedSlider
             
                order={order}   title={"Camera"}/>
-    
             <Footerpic></Footerpic>
+            <Footer></Footer>
         </div>
 
     );

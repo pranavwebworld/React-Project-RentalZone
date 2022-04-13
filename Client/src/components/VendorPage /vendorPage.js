@@ -18,6 +18,7 @@ import VendorContext from "../../context/VendorContext";
 import coverpic from "../../assets/userPage3.jpg";
 import axios from "../../axios/axios";
 import "./vendorPage.css";
+import Footer from "../Footer/Footer";
 
 
 
@@ -106,8 +107,10 @@ const VendorLandingPage = () => {
       <VendorSlider change={change}  orders={orders} />
 
       <VendorSlider2  Change={Change}  vendor={currentVendor}>  </VendorSlider2>
-   
-      <Footerpic></Footerpic>
+      {/* <Footerpic></Footerpic> */}
+      <Footer></Footer>
+  
+
 
     </div>
   );

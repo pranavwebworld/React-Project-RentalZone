@@ -17,6 +17,7 @@ import axios from "../../axios/axios";
 import { useNavigate,useParams } from "react-router-dom"
 import { set } from "react-hook-form";
 import Helmet from "react-helmet"
+import Footer from "../Footer/Footer";
  
 
 const navbarlinks = [
@@ -86,8 +87,10 @@ const CategoryPage = ({route}) => {
             <CategorySlider
             
                 category={cat}  title={"Camera"}/>
-    
+
+
             <Footerpic></Footerpic>
+            <Footer></Footer>
         </div>
 
     );
