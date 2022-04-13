@@ -6,7 +6,7 @@ import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
 import s3 from "../../assets/s3.jpeg";
 import Hero from "../Hero/Hero";
-import Slider from "../Slider/Slider";
+import Slider from "./Slider/LSlider";
 import HomeNavbar from "../HomeNavbar/HomeNavbar";
 import Button from "../Buttons/Button";
 import RadialRed from "../Illustartions/RadialRed";

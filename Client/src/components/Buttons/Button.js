@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./Button.css";
-import "../Slider/slider.css";
+
 import { useInView } from "react-intersection-observer";
 import VideoSVG from "../VideographerSvg/Videographer.jsx"
 import { useNavigate } from 'react-router';
@@ -41,7 +41,7 @@ const Button = () => {
   };
 
   return (
-    <div className={inView ? "slider slider--zoom" : "slider"} ref={ref}>
+    <div className={inView ? "Lslider Lslider--zoom" : "Lslider"} ref={ref}>
       {renderContent()}
     </div>
   );
