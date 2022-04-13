@@ -1,8 +1,9 @@
-.slider {
+.userslider {
   display: flex;
   align-items: center;
   margin: 20px;
-
+ width: 90rem;
+height: 40rem;
 opacity: 0;
   transform: scale(55%);
   transition: 2s;
@@ -12,8 +13,10 @@ opacity: 0;
   width: 35%;
 }
 
-.slider--zoom{
+.userslider--zoom{
 
+ width: 90rem;
+height: 40rem;
 opacity: 1;
 transform:scale(75%)  ;
 
@@ -99,6 +102,45 @@ transform:scale(75%)  ;
   .slider__image {
     width: 100%;
   }
+
+  .userslider{
+
+    width:23rem ;
+    height: -1;
+    top:105rem
+
+  }
+
+    .userslider--zoom {
+      position:absolute;
+    width:23rem ;
+    height: -1;
+    top: 100rem;
+   
+  }
+
+
+
+  .glassComponent{
+
+position: absolute;
+top:-95rem;
+left:-20rem;
+
+
+  }
+
+.glass{
+
+  width: 22rem;
+}
+
+#ChatButton{
+
+display: none;
+
+}
+
 }
 
 

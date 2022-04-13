@@ -17,6 +17,7 @@ import AuthContext from '../../context/AuthContext';
 import axios from "../../axios/axios";
 import Helmet from "react-helmet"
 
+
 const navbarlinks = [
     { url: "", title: "Home" },
     { url: "", title: "Contact" },
@@ -82,7 +83,8 @@ const LandingPage = () => {
 
             <UserSlider2></UserSlider2>
     
-            <Footerpic></Footerpic>
+            {/* <Footerpic></Footerpic> */}
+       
         </div>
 
 

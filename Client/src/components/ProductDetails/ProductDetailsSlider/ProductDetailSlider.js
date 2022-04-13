@@ -29,7 +29,7 @@ import ReactMapGL, {
   Marker,
 } from "react-map-gl";
 import axios from "../../../axios/axios";
-import { Input, makeStyles } from "@material-ui/core";
+import { Input} from "@material-ui/core";
 import { color } from "@chakra-ui/styled-system";
 import { ClassNames } from "@emotion/react";
 
@@ -40,14 +40,25 @@ import GlassCard from "../../GlassCard/GlassCard";
 
 
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: "fff",
-    color: "fff",
-  },
-});
+
+
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+  ChatButton: {
+    color: 'white',
+    [theme.breakpoints.only("sm")]: {
+      display: "none",
+    },
+  }
+}));
+
+
 
 const PSlider = ({ user, product }) => {
+
+  const classes = useStyles();
 
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -69,11 +80,13 @@ const PSlider = ({ user, product }) => {
 
   
   function getLocation() {
+    console.log("get geo called");
     navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
       enableHighAccuracy: true,
     });
 
     function successLocation(position) {
+
       setLatitude(product?.latitude);
       setLongitude(product.longitude);
 
@@ -193,7 +206,10 @@ const PSlider = ({ user, product }) => {
     return (
       <>
         <Stack
-          style={{width:"40rem"}}
+
+
+        width={{lg:"82rem", xs:"22rem",sm:"22rem"}}
+         
           direction={{ xs: 'column', sm: 'column' }}
           spacing={6}
           padding={1}
@@ -329,7 +345,10 @@ const PSlider = ({ user, product }) => {
           </Modal>
         </Stack>
 
-        <Stack direction={{ xs: 'column', sm: 'row' }}
+        <Stack 
+
+          className={"glassComponent"}
+        direction={{ xs: 'column', sm: 'row' }}
           spacing={{ xs: 1, sm: 2, md: 4 }} 
           
           lg={{ width: "82rem" }}
@@ -350,8 +369,8 @@ const PSlider = ({ user, product }) => {
   return (
     <>
       <div
-        style={{ width: "90rem", height: "40rem" }}
-        className={inView ? "slider slider--zoom" : "slider"}
+      
+        className={inView ? "userslider userslider--zoom" : "userslider"}
         ref={ref}
       >
         {renderContent()}
@@ -362,13 +381,16 @@ const PSlider = ({ user, product }) => {
           width: "20rem",
           height: "20rem",
           position: "absolute",
-          top: "82rem",
-          left: "40rem",
+          left: "2rem",
+           top: "90rem"
+        
         }}
       >
         {map && (
           <ReactMapGL
-            style={{ zIndex: "1000" }}
+            
+            style={{ zIndex:"1008",position:"absolute", }}
+            
             mapboxAccessToken={
               "pk.eyJ1IjoicHJhbmF2cmVudGFsem9uZSIsImEiOiJjbDE0eHY5aTQwMjRmM2ZvZ2Zla3M0dWIwIn0.cZo7ikRB-drAMy7YpnycKw"
             }

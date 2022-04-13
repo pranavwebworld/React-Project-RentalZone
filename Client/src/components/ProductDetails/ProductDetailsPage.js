@@ -77,7 +77,7 @@ const ProductDetailsPage= () => {
 
 
   return (
-    <div className="landing__page">
+    <div className="productDetails">
 
       <Navbar navbarLinks={navbarlinks} />
 

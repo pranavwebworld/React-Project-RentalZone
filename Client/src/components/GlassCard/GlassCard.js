@@ -5,8 +5,17 @@ import { useSpring, animated, config } from 'react-spring';
 import { Button, Stack } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import { useNavigate, useParams } from "react-router";
+import { makeStyles } from '@material-ui/core/styles';
 
 
+const useStyles = makeStyles((theme) => ({
+    ChatButton: {
+        color: 'white',
+        [theme.breakpoints.only("sm")]: {
+            display: "none",
+        },
+    }
+}));
 
 const Container = styled(animated.div)`
 display: inline-block;
@@ -50,7 +59,15 @@ const StyledH3 = styled.h3`
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1]
 const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
+
+
+
+
+
+
 const GlassCard = ({product,user}) => {
+
+    const classes = useStyles();
     const navigate = useNavigate();
     const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: config.default }))
     return (
@@ -61,9 +78,12 @@ const GlassCard = ({product,user}) => {
             onMouseLeave={() => set({ xys: [0, 0, 1] })}
             style={{
                 transform: props.xys.interpolate(trans),
-                width: "41rem" 
+
             
             }}
+
+                className={"glass"}
+        
         >   
             <Stack
             
@@ -82,11 +102,12 @@ const GlassCard = ({product,user}) => {
             <StyledH1  >{product?.productName} <br /> <br /> <span style={{ fontWeight: "3800", color: "lightgray" }} >₹ {product?.rent}/Day   </span>  </StyledH1> 
 
             {user && <Button
+                className={classes.ChatButton}
                 size={"large"}
                 startIcon={< MessageIcon />}
                 variant={"contained"}
                 color="success"
-
+                id="ChatButton"
                 onClick={() => {
 
                     navigate("/chat/" + product.vendorId)
@@ -100,5 +121,7 @@ const GlassCard = ({product,user}) => {
         </Container>
     );
 }
+
+
 
 export default GlassCard;
