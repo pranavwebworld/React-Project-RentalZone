@@ -28,6 +28,8 @@ import { ClassNames } from "@emotion/react";
 import "mapbox-gl/dist/mapbox-gl.css"
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles({
   root: {
@@ -250,6 +252,37 @@ const PSlider = ({ vendor }) => {
 
   const submitHandler = () => {
 
+
+    if (productName||
+      productDesc||
+      rent||
+      category||
+      address||
+      latitude||
+      longitude||
+      vendorId||
+      cityName||
+      image1||
+      image2||
+      image3 ==""||undefined||null){
+
+
+
+        toast.error("Please fill the form")
+
+        return
+
+      }
+
+
+
+
+
+
+
+
+
+
     setLoading(true)
     console.log(image1, image2, image3);
     const vendorId = vendor._id;
@@ -279,22 +312,27 @@ const PSlider = ({ vendor }) => {
 
           setLoading(false)
 
-          alert(resp)
+  
 
-
-
-          setProductName('')
-          setProductDesc('')
-          setCategory('')
-          setRent('')
-          setAddress('')
-          setPincode('')
-          setCityName('')
-          setImage1('')
-          setImage2('')
-          setImage3('')
-          setLoading('')
+          toast.success("Product Added")
+        
+          // setProductName('')
+          // setProductDesc('')
+          // setCategory('')
+          // setRent('')
+          // setAddress('')
+          // setPincode('')
+          // setCityName('')
+          // setImage1('')
+          // setImage2('')
+          // setImage3('')
+          // setLoading('')
         }
+      }).catch((error)=>{
+
+        toast.error("Please Fill the Form ")
+
+
       })
 
 
@@ -318,6 +356,7 @@ const PSlider = ({ vendor }) => {
   const renderContent = () => {
     return (
       <>
+        < ToastContainer className="toastMy"  theme='dark' position="top-left " />
         <Stack
           style={{ width: "30rem" }}
           direction="column"

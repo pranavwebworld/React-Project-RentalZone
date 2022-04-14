@@ -28,6 +28,8 @@ import { ClassNames } from "@emotion/react";
 import "mapbox-gl/dist/mapbox-gl.css"
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles({
   root: {
@@ -259,6 +261,10 @@ const PSlider = ({productDetails, vendor }) => {
 
   const submitHandler = () => {
 
+
+
+
+
     setLoading(true)
     console.log(image1, image2, image3);
     const vendorId = vendor._id;
@@ -287,8 +293,9 @@ const PSlider = ({productDetails, vendor }) => {
 
         if (resp) {
 
+          toast.success("Gear Details updated")
           setLoading(false)
-       alert("Updated")
+
         }
       })
 
@@ -310,6 +317,7 @@ const PSlider = ({productDetails, vendor }) => {
     return (
       <>
 
+        < ToastContainer className="toastMy" theme='dark' position="top-left " />
         <Stack
           style={{ width: "30rem" }}
           direction="column"

@@ -9,6 +9,15 @@ opacity: 0;
   transition: 2s;
 }
 
+
+.toastMy{
+
+position: absolute;
+top: 0px;
+left: 5rem;
+
+}
+
 .slider__image {
   width: 35%;
 }

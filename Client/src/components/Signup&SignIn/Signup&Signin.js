@@ -10,6 +10,7 @@ import TabUnstyled, { tabUnstyledClasses } from "@mui/base/TabUnstyled";
 import Login from "../Signup&SignIn/Login";
 import Signup from "../Signup&SignIn/Signup";
 import Helmet from "react-helmet"
+import './LoginSignup.css'
 <a href="https://icons8.com/icon/zA8CKq2IOOWF/camera">Camera icon by Icons8</a>;
 
 const blue = {
@@ -203,7 +204,7 @@ function HomePage() {
         </Box>
       </Grid>
 
-      <Grid item lg={3} xs={12}>
+      <Grid className={'LoginSignup'} item lg={3} xs={12}>
         <Box
           d="flex"
           justifyContent="flex-end"
@@ -211,9 +212,10 @@ function HomePage() {
           p={5}
           m="80px 0 15px 0"
           borderWidth="2px"
-          borderRadius="0px 20px 20px 0px "
+          // borderRadius="0px 20px 20px 0px "
+          borderRadius={{ lg: "0px 20px 20px 0px", xs:"20px 20px 20px 20px"}}
           style={{ width: "300px" }}
-          display={{ xs: "12", xs: "12", lg: "block" }}
+          display={{ xs: "12", sm: "12", lg: "block" }}
         >
           <TabsUnstyled defaultValue={0}>
             <TabsList>
