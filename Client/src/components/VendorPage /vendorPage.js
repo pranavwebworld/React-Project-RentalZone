@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from "react";
-import "../LandingPage/landingpage.css";
+import "./vendorPage.css";
 import "../Illustartions/RadialRed";
 import s1 from "../../assets/s11.jpeg";
 import s2 from "../../assets/s2.jpeg";
@@ -92,7 +92,7 @@ const VendorLandingPage = () => {
 
 
   return (
-    <div className="landing__page">
+    <div className="vendorPage">
 
       <VendorNavbar />
 
@@ -107,7 +107,7 @@ const VendorLandingPage = () => {
       <VendorSlider change={change}  orders={orders} />
 
       <VendorSlider2  Change={Change}  vendor={currentVendor}>  </VendorSlider2>
-      {/* <Footerpic></Footerpic> */}
+      <Footerpic></Footerpic>
       <Footer></Footer>
   
 

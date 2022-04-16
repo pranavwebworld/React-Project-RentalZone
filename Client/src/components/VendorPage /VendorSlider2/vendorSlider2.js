@@ -34,7 +34,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
         position: positions.MIDDLE
     };
 
- const { instock,currentVendor} = useContext(VendorContext);
+    const { statusChange,currentVendor} = useContext(VendorContext);
 
   const [vendorProducts, setVendorProducts] = useState();
 
@@ -60,7 +60,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
     };
 
     VendorProducts();
-  }, [Change, vendor, Deleted, instock]);
+  }, [Change, vendor, Deleted, statusChange]);
 
   const deleteProdcut = async (id) => {
     console.log(id);

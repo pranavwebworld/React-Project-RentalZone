@@ -10,17 +10,20 @@ function VendorContextProvider(props) {
 
     const [currentVendor, setCurrentVendor] = useState('');
 
+    const [statusChange, setstatusChange] = useState(true);
+
     useEffect(() => {
 
-        setVLoggedIn(false);
+        // setVLoggedIn(false);
 
         getVLoggedIn();
 
-        return ()=>{
 
-            setVLoggedIn(false);
+        // return ()=>{
 
-        }
+        //     setVLoggedIn(false);
+
+        // }
 
     }, []);
 
@@ -34,6 +37,10 @@ function VendorContextProvider(props) {
 
           console.log(resp.data.payload);
 
+
+        
+
+
           if (resp.data.payload===undefined)
           {
 
@@ -41,9 +48,14 @@ function VendorContextProvider(props) {
 
           }else{
 
+
+            localStorage.setItem('vendor',true)
+
               setVLoggedIn(true);
 
               setCurrentVendor(resp.data.payload)
+
+
           }
       })
 
@@ -54,7 +66,7 @@ function VendorContextProvider(props) {
        
         <VendorContext.Provider
 
-            value={{ VloggedIn , getVLoggedIn, currentVendor, setCurrentVendor}}
+            value={{ VloggedIn, statusChange, setstatusChange,getVLoggedIn, currentVendor, setCurrentVendor}}
             
             >
             {props.children}

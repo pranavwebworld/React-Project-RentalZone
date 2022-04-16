@@ -253,46 +253,88 @@ const PSlider = ({ vendor }) => {
   const submitHandler = () => {
 
 
-    if (productName||
-      productDesc||
-      rent||
-      category||
-      address||
-      latitude||
-      longitude||
-      vendorId||
-      cityName||
-      image1||
-      image2||
-      image3 ==""||undefined||null){
+    if (productName &&
+      productDesc&&
+      rent&&
+      category&&
+      address&&
+      latitude&&
+      longitude&&
+      cityName&&
+      image1&&
+      image2&&
+      image3 !== null){
+
+
+      setLoading(true)
+      console.log(image1, image2, image3);
+      const vendorId = vendor._id;
+      console.log("submit handler called");
+
+
+      try {
+
+        axios.post("/vendors/productRegister", {
+
+          productName,
+          productDesc,
+          rent,
+          category,
+          address,
+          latitude,
+          longitude,
+          vendorId,
+          cityName,
+          image1,
+          image2,
+          image3,
+
+        }).then((resp) => {
+
+          if (resp) {
+
+            setLoading(false)
 
 
 
-        toast.error("Please fill the form")
+            toast.success("Product Added")
 
-        return
+            // setProductName('')
+            // setProductDesc('')
+            // setCategory('')
+            // setRent('')
+            // setAddress('')
+            // setPincode('')
+            // setCityName('')
+            // setImage1('')
+            // setImage2('')
+            // setImage3('')
+            // setLoading('')
+          }
+        }).catch((error) => {
+
+          toast.error("Please Fill the Form ")
+
+
+        })
+
+
+      } catch (error) {
+
+        console.log(error);
 
       }
 
 
 
 
+      }else{
 
 
 
 
 
-
-    setLoading(true)
-    console.log(image1, image2, image3);
-    const vendorId = vendor._id;
-    console.log("submit handler called");
-
-
-    try {
-
-      axios.post("/vendors/productRegister", {
-
+      console.log(
         productName,
         productDesc,
         rent,
@@ -300,47 +342,25 @@ const PSlider = ({ vendor }) => {
         address,
         latitude,
         longitude,
-        vendorId,
         cityName,
-        image1,
-        image2,
-        image3,
+      );
 
-      }).then((resp) => {
+      toast.error("Please Fill The Form Completely ")
 
-        if (resp) {
-
-          setLoading(false)
-
-  
-
-          toast.success("Product Added")
-        
-          // setProductName('')
-          // setProductDesc('')
-          // setCategory('')
-          // setRent('')
-          // setAddress('')
-          // setPincode('')
-          // setCityName('')
-          // setImage1('')
-          // setImage2('')
-          // setImage3('')
-          // setLoading('')
-        }
-      }).catch((error)=>{
-
-        toast.error("Please Fill the Form ")
+      return
 
 
-      })
 
 
-    } catch (error) {
 
-      console.log(error);
 
-    }
+
+      }
+
+
+
+
+    
 
   };
 

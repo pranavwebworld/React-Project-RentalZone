@@ -13,15 +13,11 @@ function AuthContextProvider(props) {
     useEffect(() => {
 
      
-        setLoggedIn(false);
+  
 
         getLoggedIn();
 
-        return () => {
-
-            setLoggedIn(false);
-
-        }
+   
 
         
     
