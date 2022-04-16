@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import "./vendorslider.css";
 import { useInView } from "react-intersection-observer";
 import Card from "@mui/material/Card";
@@ -25,6 +25,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import Swal from "sweetalert2"
+import VendorContext from "../../../context/VendorContext";
 
 const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
 
@@ -34,6 +35,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
     threshold: 0.2,
   });
 
+  const { setstatusChange, statusChange, currentVendor } = useContext(VendorContext);
 
   const [vendorProducts, setVendorProducts] = useState();
 
@@ -44,8 +46,6 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
     console.log(e.target.value);
     const status = e.target.value;
     
-
-
 
     change()
 
@@ -75,7 +75,7 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
 
           console.log(resp, " status changed");
 
-
+          statusChange(!statusChange)
           Swal.fire(
             'Status changed!',
             'Your file has been deleted.',
@@ -83,19 +83,6 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
           )
         }
       })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

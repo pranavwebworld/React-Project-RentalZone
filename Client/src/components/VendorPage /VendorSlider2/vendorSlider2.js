@@ -34,7 +34,6 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
         position: positions.MIDDLE
     };
 
-
  const { instock,currentVendor} = useContext(VendorContext);
 
   const [vendorProducts, setVendorProducts] = useState();
@@ -66,14 +65,7 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
   const deleteProdcut = async (id) => {
     console.log(id);
 
-
-    
-
-
-
     try {
-
-
 
 
         Swal.fire({
@@ -87,15 +79,11 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
 
-
-
                 const resp = await axios.delete("/vendors/deleteProduct/" + id);
 
                 console.log(resp, " Product Deleted");
 
                 setDeleted(true);
-
-            
 
                 Swal.fire(
                     'Deleted!',
@@ -105,9 +93,6 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
             }
         })
 
-
-
-    
     } catch (error) {
       console.log(error);
     }
