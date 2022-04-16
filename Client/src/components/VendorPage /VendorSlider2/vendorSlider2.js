@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Flex } from "@chakra-ui/layout";
 import { positions, Provider } from "react-alert";
 import AlertMUITemplate from "react-alert-template-mui";
-
+import Swal from "sweetalert2"
 
 const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
   const navigate = useNavigate();
@@ -72,11 +72,42 @@ const Slider = ({ vendor, imageSrc, title, subtitle, flipped, Change }) => {
 
 
     try {
-      const resp = await axios.delete("/vendors/deleteProduct/" + id);
 
-      console.log(resp, " Product Deleted");
 
-      setDeleted(true);
+
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+
+
+
+                const resp = await axios.delete("/vendors/deleteProduct/" + id);
+
+                console.log(resp, " Product Deleted");
+
+                setDeleted(true);
+
+            
+
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+
+
+
+    
     } catch (error) {
       console.log(error);
     }

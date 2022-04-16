@@ -24,6 +24,7 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
+import Swal from "sweetalert2"
 
 const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
 
@@ -43,15 +44,62 @@ const Slider = ({ orders, imageSrc, title, subtitle, flipped,change }) => {
     console.log(e.target.value);
     const status = e.target.value;
     
+
+
+
     change()
 
 
     try {
-      const resp = await axios.patch(
-        "/vendors/Orderstatus/" + status + "/" + orderId
-      );
 
-      console.log(resp, " status changed");
+
+
+
+      Swal.fire({
+        title: `Change status to ${status}?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, !'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+
+          
+
+
+          const resp = await axios.patch(
+            "/vendors/Orderstatus/" + status + "/" + orderId
+          );
+
+          console.log(resp, " status changed");
+
+
+          Swal.fire(
+            'Status changed!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     } catch (error) {
       console.log(error);
     }
